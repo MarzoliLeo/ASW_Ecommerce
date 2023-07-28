@@ -12,6 +12,10 @@
 </template>
 
 <script>
+import axios from "axios"
+import { onMounted, ref } from "vue"
+
+const CategoryBox = ref({})
 export default{
   name: CategoryBox,
   props: ["category"],
