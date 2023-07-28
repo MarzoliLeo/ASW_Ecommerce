@@ -5,7 +5,7 @@
 
   <div class="container">
     <div class="row">
-        <div class = "text-center">
+        <div class="col-12 text-center">
           <h3 class="pt-3">Add Category</h3>
         </div>
     </div>
@@ -20,13 +20,16 @@
           </div>
           <div class="form-group">
             <label>Category Description</label>
-            <input type="text" class="form-control">
+            <textarea type="text" class="form-control"></textarea>
           </div>
           <div class="form-group">
             <label>Category Image</label>
             <input type="text" class="form-control">
           </div>
-          <button type="submit">Submit</button>
+          <br>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
         </form>
       </div>
       <div class="col-3"></div>
