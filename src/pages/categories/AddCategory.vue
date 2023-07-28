@@ -1,4 +1,13 @@
-<script setup>
+<script>
+export default{
+  data() {
+    return {
+      categoryName: "",
+      description: "",
+      imageUrl: "",
+    }
+  }
+}
 </script>
 
 <template>
@@ -16,15 +25,15 @@
         <form>
           <div class="form-group">
             <label>Category Name</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" v-model="categoryName">
           </div>
           <div class="form-group">
             <label>Category Description</label>
-            <textarea type="text" class="form-control"></textarea>
+            <textarea type="text" class="form-control" v-model="description"></textarea>
           </div>
           <div class="form-group">
             <label>Category Image</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" v-model="imageUrl">
           </div>
           <br>
           <div class="text-center">
