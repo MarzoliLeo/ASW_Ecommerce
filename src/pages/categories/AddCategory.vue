@@ -1,5 +1,6 @@
 <script>
-const axios = require("axios");
+import axios from "axios"
+import sweetalert from "sweetalert"
 //Queste variabili verranno utilizzate nel backend tramite Axios.
 export default{
   data() {
@@ -22,12 +23,19 @@ export default{
         axios({
           method: 'post',
           //Utilizzo POSTMAN per verificare che le mie API siano corrette.
+          //TODO momentaneamente danno errore perché non so usare bene POSTMAN,
+            //ma dovrebbero funzionare.
           url: `postman-echo.com/get?foo=bar`,
           data: JSON.stringify(newCategory),
           hearders: {
             'Content-Type': 'application/json'
           }
-        }).then(() => {})
+        }).then(() => {
+          sweetalert({
+            text: "Category added successfully",
+            icon: "Success"
+          })
+        })
         .catch(err => console.log(err));
     }
   }
