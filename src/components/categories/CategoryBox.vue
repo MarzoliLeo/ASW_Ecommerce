@@ -1,6 +1,6 @@
 <template>
-  <div class="card">
-    <div>
+  <div class="card w-100 h-100" style="margin-top: 10px;">
+    <div class="embed-responsive embed-responsive-16by9">
     <img class="card-img-top" :src="category.imageUrl" alt="Card image here">
     </div>
     <div class="card-body">
@@ -23,3 +23,9 @@ export default{
 };
 
 </script>
+
+<style scoped>
+.card-img-top{
+  object-fit: cover;
+}
+</style>
