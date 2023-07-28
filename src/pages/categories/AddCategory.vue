@@ -20,6 +20,9 @@ export default{
           imageUrl: this.imageUrl,
         };
 
+        //TODO questo oggetto andrà messo dentro al database, ma intanto è opportuno
+        //vedere se fa con POSTMAN.
+
         axios({
           method: 'post',
           //Utilizzo POSTMAN per verificare che le mie API siano corrette.
@@ -33,7 +36,7 @@ export default{
         }).then(() => {
           sweetalert({
             text: "Category added successfully",
-            icon: "Success"
+            icon: "success"
           })
         })
         .catch(err => console.log(err));
