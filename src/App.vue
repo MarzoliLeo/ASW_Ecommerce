@@ -5,4 +5,5 @@ import NavBar from "@/components/NavBar.vue"
 <template>
   <NavBar></NavBar>
   <RouterView></RouterView>
+  <div>Ciao Lorenzino Federico</div>
 </template>

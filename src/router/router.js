@@ -13,10 +13,13 @@ const routes = [
   { path: "/404", name: "NotFound", component: NotFound },
   { path: "/:catchAll(.*)", redirect: "/404" }
 ]
-
+    
 const router = createRouter({
   history: createWebHistory(),
   routes: routes,
 })
 
 export default router
+
+
+
