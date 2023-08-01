@@ -1,6 +1,7 @@
 /* qua definisco i metodi che ho scelto di invocare nelle route per il backend */
 
-var mongoose = require('mongoose'),
+var mongoose = require('mongoose');
+const User = require('../models/userListModels.js');
 user = mongoose.model('users'); //Nome della collection in MongoDB.
 
 exports.list_all_users = async (req, res)=> {
@@ -12,7 +13,7 @@ exports.list_all_users = async (req, res)=> {
 };
 
 exports.create_an_user = async (req, res)=> {
-    const newUser = new user(req.body);
+    const newUser = new User(req.body); //TODO HAI MODIFICATO QUESTO, dovrebbe essere user con la u piccola.
     try{
         res.json(await newUser.save());
     }catch (e) {

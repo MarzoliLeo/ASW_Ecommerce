@@ -36,7 +36,7 @@ export default{
   <div class="container">
     <div class="row">
         <div class="col-12 text-center">
-          <h3 class="pt-3">Login Form</h3>
+          <h3 class="pt-3">Register Form</h3>
         </div>
     </div>
     <div class ="row">
