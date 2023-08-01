@@ -8,9 +8,9 @@ routerBackend.route('/')
 .get(userController.list_all_users)
 .post(userController.create_an_user);
 
-/*routerBackend.route('/users/:userId')
-.get(userController.read_an_user);
-*/
+/* Route per il login */
+routerBackend.route('/login')
+.post(userController.checkIfRegisterForLogin);
 
 
 module.exports = routerBackend;

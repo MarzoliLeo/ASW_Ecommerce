@@ -58,7 +58,7 @@ export default{
           </div>
           <br>
           <div class="text-center">
-            <button type="button" class="btn btn-primary" @click="addUserToDB">Submit</button>
+            <button type="button" class="btn btn-primary" @click="addUserToDB">Register</button>
           </div>
         </form>
       </div>

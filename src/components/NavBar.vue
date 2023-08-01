@@ -23,6 +23,7 @@ import NavButton from "@/components/NavButton.vue"
           <NavButton route-name="About" @counter-clicked="onChildClicked" />
           <NavButton route-name="Category" @counter-clicked="onChildClicked" />
           <NavButton route-name="Register" @counter-clicked="onChildClicked" />
+          <NavButton route-name="Login" @counter-clicked="onChildClicked" />
         </ul>
       </div>
     </div>

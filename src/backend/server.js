@@ -19,6 +19,7 @@ app.use(cors());
 
 var route = require('../backend/routerBackend/routerBackend')
 app.use('/',route);
+app.use('/login',route);
 
 app.listen(port);
 

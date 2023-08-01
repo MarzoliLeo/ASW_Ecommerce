@@ -21,20 +21,19 @@ exports.create_an_user = async (req, res)=> {
     }
 };
 
-/*exports.read_an_user = async (req, res)=> {
-	/*
-	TODO cast req.params.id to ObjectId
-	
-	try{
-
-		res.json(await movieModel.findById(req.params.id));
-	}catch (e) {
-		res.json(e);
-	}
-    /* questo usa callback che non sono più supportate.
-    user.findById(req.params.userId, function(err, user){
-        if(err)
-            res.send(err);
-        res.json(user);
-    });
-};*/
+exports.checkIfRegisterForLogin = async (req, res)=> {
+	try {
+        const { email , first_name } = req.body;
+        const user = await User.findOne({ email, first_name});
+    
+        if (!user) {
+          return res.status(404).json({ error: 'User not registered' });
+        }
+    
+        //TODO Puoi aggiungere altri controlli qui, ad esempio confrontare anche la password.
+    
+        return res.status(200).json({ message: 'Login successful' });
+      } catch (err) {
+        res.status(500).json({ error: 'Internal server error' });
+      }
+};
