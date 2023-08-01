@@ -50,30 +50,30 @@ A questo punto nel terminale dovrebbe partire il tool per l'esecuzione di Vue3, 
 
 e a questo punto premere il pulsante "o" della tastiera avendo selezionato il terminale per aprire il progetto Vue3 nel browser e visualizzare il frotend.
 
-## Setup corretto di MongoDB.
+## Configurazione di MongoDB.
 1. Accertarsi di aver correttamente installato la versione community di [MongoDB](https://www.mongodb.com/try/download/community).
-2. Attenzione: scaricare una versione che sia meno recente della 6.0.8+ , (consiglio la 5.0.19) poiché le versioni più recenti rimuovo il file "mongo".
-3. Installato l'msi proseguire con l'installazione senza passi particolari, quando chiederà di installare MongoDB Compass, accettare.
-4. A questo punto MongoDB farà partire i servizi in automatico e l'installazione sarà correttamente ultimata.
+   Attenzione: scaricare una versione che sia meno recente della 6.0.8+ , (consiglio la 5.0.19) poiché le versioni più recenti rimuovono il file "mongo".
+2. Installato l'msi proseguire con l'installazione senza passi particolari, quando chiederà di installare MongoDB Compass, accettare.
+3. A questo punto MongoDB farà partire i servizi in automatico e l'installazione sarà correttamente ultimata.
    Attenzione: nel caso in cui ci sia un problema di autorizzazione all'esecuzione dei servizi di MongoDB, bisogna accedere alle variabili d'ambiente;
    trovare sotto le variabili di sistema "Path" aggiungere una nuova variabile che contiene il path assoluto della cartella "bin" che contiene gli eseguibili
    di dove è stato installato il vostro MongoDB (tipicamente questo si trova sotto C:>Programmi>MongoDB) preceduta da "initialText;". Dunque, avrete una cosa del tipo:
    "initialText;C:\Program Files\MongoDB\Server\5.0\bin" all'interno di "Path". Premete OK e accertatevi che sia tutto salvato.
-5. A questo punto aprite il cmd e digitate per far partire il server MongoDB:
+4. A questo punto aprite il cmd e digitate per far partire il server MongoDB:
    ```
    "C:\Program Files\MongoDB\Server\5.0\bin\mongod.exe"
    ```
-6. Aprite un nuovo cmd (lasciando inalterato quello precedentemente aperto) come amministratore e digitate:
+5. Aprite un nuovo cmd (lasciando inalterato quello precedentemente aperto) come amministratore e digitate:
    ```
    "C:\Program Files\MongoDB\Server\5.0\bin\mongo.exe"
    ```
-7. A questo punto sarete collegati correttamente alla shell di MongoDB (da cui potrete manipolare database).
-8. Per poter vedere i database tramite GUI e quindi usando MongoDB Compass. Aprirlo, inserire nella connessione (mentre si hanno i terminali ancora aperti)
+6. A questo punto sarete collegati correttamente alla shell di MongoDB (da cui potrete manipolare database).
+7. Per poter vedere i database tramite GUI e quindi usando MongoDB Compass. Aprirlo, inserire nella connessione (mentre si hanno i terminali ancora aperti)
    ```
    mongodb://127.0.0.1:27017
    ```
    Attenzione: sostituire la parte in "localhost" con "127.0.0.1", altrimenti potrebbe non funzionare.
-9. Premete connect, e sarete connessi in localhost a MongoDB, congratulazioni.
+8. Premete connect, e sarete connessi in localhost a MongoDB, congratulazioni.
 
 ## Tecnologie utilizzate.
 
