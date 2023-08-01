@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended : true}))
 app.use(bodyParser.json());
 
 var route = require('../backend/routerBackend/routerBackend')
-app.use('/users',route);
+app.use('/',route);
 
 app.listen(port);
 

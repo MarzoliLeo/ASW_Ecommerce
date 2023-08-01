@@ -51,6 +51,17 @@ export default{
         email: this.User.email
       }
       console.log(newUser);
+      axios.post('http://127.0.0.1:3000/')
+      .then((res) => {
+        sweetalert({
+            text: "User added successfully",
+            icon: "success"
+          })
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log("Errore di tipo: "+ err)
+      });
     }
   }
 }

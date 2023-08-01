@@ -3,27 +3,37 @@
 var mongoose = require('mongoose'),
 user = mongoose.model('users'); //Nome della collection in MongoDB.
 
-exports.list_all_users = function (req, res) {
-    user.find({}, function(err, user){
-        if(err)
-            res.send("Error of type" + err);
-        res.json(user);
-    });
+exports.list_all_users = async (req, res)=> {
+	try{
+		res.json(await user.find({}));
+	}catch (err){
+		res.json(err);
+	}
 };
 
-exports.create_an_user = function (req, res) {
-    var new_user = new user(req.body);
-    new_user.save(function(err,user){
-        if(err)
-            res.send("Error of type" + err);
-        res.json(user);
-    });
+exports.create_an_user = async (req, res)=> {
+    const newUser = new user(req.body);
+    try{
+        res.json(await newUser.save());
+    }catch (e) {
+        res.json(e);
+    }
 };
 
-exports.read_an_user = function (req, res) {
+/*exports.read_an_user = async (req, res)=> {
+	/*
+	TODO cast req.params.id to ObjectId
+	
+	try{
+
+		res.json(await movieModel.findById(req.params.id));
+	}catch (e) {
+		res.json(e);
+	}
+    /* questo usa callback che non sono più supportate.
     user.findById(req.params.userId, function(err, user){
         if(err)
             res.send(err);
         res.json(user);
     });
-};
+};*/
