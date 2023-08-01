@@ -1,7 +1,7 @@
 /* qua definisco i metodi che ho scelto di invocare nelle route per il backend */
 
 var mongoose = require('mongoose'),
-user = mongoose.model('Users');
+user = mongoose.model('users'); //Nome della collection in MongoDB.
 
 exports.list_all_users = function (req, res) {
     user.find({}, function(err, user){

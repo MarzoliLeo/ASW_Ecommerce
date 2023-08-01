@@ -12,4 +12,5 @@ const usersSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Users',usersSchema);
+//"users" è il nome della collection in mongoDB.
+module.exports = mongoose.model('users',usersSchema);
