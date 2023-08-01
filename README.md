@@ -56,24 +56,24 @@ e a questo punto premere il pulsante "o" della tastiera avendo selezionato il te
 2. Installato l'msi proseguire con l'installazione senza passi particolari, quando chiederà di installare MongoDB Compass, accettare.
 3. A questo punto MongoDB farà partire i servizi in automatico e l'installazione sarà correttamente ultimata.
    Attenzione: nel caso in cui ci sia un problema di autorizzazione all'esecuzione dei servizi di MongoDB, bisogna accedere alle variabili d'ambiente;
-   trovare sotto le variabili di sistema "Path" aggiungere una nuova variabile che contiene il path assoluto della cartella "bin" che contiene gli eseguibili
-   di dove è stato installato il vostro MongoDB (tipicamente questo si trova sotto C:>Programmi>MongoDB) preceduta da "initialText;". Dunque, avrete una cosa del tipo:
+   sotto "Path" aggiungere il path assoluto della cartella "bin" la quale contiene gli eseguibili di MongoDB (tipicamente questa si trova sotto C:>Programmi>MongoDB>Server>bin) preceduta da "initialText;".
+   Dunque, avrete una cosa del tipo:
    "initialText;C:\Program Files\MongoDB\Server\5.0\bin" all'interno di "Path". Premete OK e accertatevi che sia tutto salvato.
-4. A questo punto aprite il cmd e digitate per far partire il server MongoDB:
+5. A questo punto aprite il cmd e digitate per far partire il server MongoDB:
    ```
    "C:\Program Files\MongoDB\Server\5.0\bin\mongod.exe"
    ```
-5. Aprite un nuovo cmd (lasciando inalterato quello precedentemente aperto) come amministratore e digitate:
+6. Aprite un nuovo cmd (lasciando inalterato quello precedentemente aperto) come amministratore e digitate:
    ```
    "C:\Program Files\MongoDB\Server\5.0\bin\mongo.exe"
    ```
-6. A questo punto sarete collegati correttamente alla shell di MongoDB (da cui potrete manipolare database).
-7. Per poter vedere i database tramite GUI e quindi usando MongoDB Compass. Aprirlo, inserire nella connessione (mentre si hanno i terminali ancora aperti)
+7. A questo punto sarete collegati correttamente alla shell di MongoDB (da cui potrete manipolare database).
+8. Per poter vedere i database tramite GUI e quindi usando MongoDB Compass. Aprirlo, inserire nella connessione (mentre si hanno i terminali ancora aperti)
    ```
    mongodb://127.0.0.1:27017
    ```
    Attenzione: sostituire la parte in "localhost" con "127.0.0.1", altrimenti potrebbe non funzionare.
-8. Premete connect, e sarete connessi in localhost a MongoDB, congratulazioni.
+9. Premete connect, e sarete connessi in localhost a MongoDB, congratulazioni.
 
 ## Tecnologie utilizzate.
 
