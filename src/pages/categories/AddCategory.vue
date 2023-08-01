@@ -8,6 +8,8 @@ export default{
       categoryName: "",
       description: "",
       imageUrl: "",
+
+      User: {first_name: '', last_name: '', email: ''},
     }
   },
   methods: {
@@ -40,6 +42,15 @@ export default{
           })
         })
         .catch(err => console.log(err));
+    },
+
+    addUserToDB(){
+      let newUser = {
+        first_name: this.User.first_name,
+        last_name: this.User.last_name,
+        email: this.User.email
+      }
+      console.log(newUser);
     }
   }
 }
@@ -73,6 +84,38 @@ export default{
           <br>
           <div class="text-center">
             <button type="button" class="btn btn-primary" @click="addCategory">Submit</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-3"></div>
+    </div>
+
+    <!--Form per gli utenti (momentaneamente messo qua per una prova, ma avrà una sua pagina dedicata)-->
+    <div class="row">
+        <div class="col-12 text-center">
+          <h3 class="pt-3">Login Form</h3>
+        </div>
+    </div>
+    <div class ="row">
+      <!--Utilizzo bootstrap per creare il form-->
+      <div class="col-3"></div>
+      <div class="col-6">
+        <form>
+          <div class="form-group">
+            <label>User First Name</label>
+            <input type="text" class="form-control" v-model="User.first_name">
+          </div>
+          <div class="form-group">
+            <label>User Last Name</label>
+            <textarea type="text" class="form-control" v-model="User.last_name"></textarea>
+          </div>
+          <div class="form-group">
+            <label>User email</label>
+            <input type="text" class="form-control" v-model="User.email">
+          </div>
+          <br>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary" @click="addUserToDB">Submit</button>
           </div>
         </form>
       </div>
