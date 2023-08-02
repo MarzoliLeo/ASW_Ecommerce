@@ -1,5 +1,10 @@
 <script setup>
 import NavBar from "@/components/NavBar.vue"
+
+/*Creazione di una sessione persistente per ogni client*/
+
+
+
 </script>
 
 <template>
