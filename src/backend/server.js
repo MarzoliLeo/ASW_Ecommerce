@@ -17,12 +17,13 @@ mongoose.connect('mongodb://127.0.0.1:27017/UserDB').then(()=> console.log("Conn
 app.use(cors());
 
 
-var route = require('../backend/routerBackend/routerBackend')
+var route = require('../backend/routerBackend/routerBackend.js')
 app.use('/',route);
 app.use('/login',route);
+app.use('/admin/addCategory',route);
 
 app.listen(port);
 
-console.log('User connected to port: '+port);
+console.log('User connected to port: '+ port);
 
 

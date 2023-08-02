@@ -5,18 +5,32 @@ import sweetalert from "sweetalert"
 export default{
   data() {
     return {
-      Category:{categoryName: '', description: '', imageUrl: ''}
+      Category:{categoryName: "", description: "", imageUrl: ""}
     }
   },
   methods: {
     addCategory() {
-      console.log(this.Category.categoryName, this.Category.description);
+      console.log(this.Category.categoryName, this.Category.description, this.Category.imageUrl);
         const newCategory = {
-          categoryName: this.categoryName,
-          description: this.description,
-          imageUrl: this.imageUrl,
+          categoryName: this.Category.categoryName,
+          description: this.Category.description,
+          imageUrl: this.Category.imageUrl,
         };
-      console.log(newCategory)
+      axios.post('http://127.0.0.1:3000/admin/addCategory', newCategory)
+      .then((res) => {
+        sweetalert({
+            text: "Category added successfully",
+            icon: "success"
+          })   
+          console.log(newCategory)
+      })
+      .catch((err) => {
+        sweetalert({
+            text: "Info error. Category not registered.",
+            icon: "error"
+          });
+        console.log("Errore di tipo: "+ err)
+      });
     }
   }
 }

@@ -2,7 +2,9 @@
 
 var mongoose = require('mongoose');
 const User = require('../models/userListModels.js');
-user = mongoose.model('users'); //Nome della collection in MongoDB.
+const Category = require('../models/categoriesModel.js');
+user = mongoose.model('users'); //Nome della collection in MongoDB per gli user.
+categories = mongoose.model('categories'); //Nome della collection in MongoDB per le categories.
 
 exports.list_all_users = async (req, res)=> {
 	try{
@@ -13,7 +15,7 @@ exports.list_all_users = async (req, res)=> {
 };
 
 exports.create_an_user = async (req, res)=> {
-    const newUser = new User(req.body); //TODO HAI MODIFICATO QUESTO, dovrebbe essere user con la u piccola.
+    const newUser = new User(req.body);
     try{
         res.json(await newUser.save());
     }catch (e) {
@@ -36,4 +38,13 @@ exports.checkIfRegisterForLogin = async (req, res)=> {
       } catch (err) {
         res.status(500).json({ error: 'Internal server error' });
       }
+};
+
+exports.create_a_category = async (req, res)=> {
+  const newCategory = new Category(req.body);
+  try{
+      res.json(await newCategory.save());
+  }catch (e) {
+      res.json(e);
+  }
 };

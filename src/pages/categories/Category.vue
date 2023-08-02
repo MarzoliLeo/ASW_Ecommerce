@@ -10,18 +10,17 @@ export default{
   components: {CategoryBox},
   data() {
     return {
-      //TODO questo si dovrà connettere al database o all'API.
-      url: `postman-echo.com/get?foo=bar`,
       categories: []
     };
   },
   methods: {
     async getCategories() {
-      await axios.get(`${this.url}/category`) //TODO questo sarà il link al database o all'API.
+      await axios.get("http://127.0.0.1:3000/categories") //la route della get è il nome della collection (a differenza del post).
       .then(res => this.categories = res.data)
       .catch(err => console.log(err))
     }
   },
+  //Questo metodo viene invocato non appena la classe viene istanziata.
   mounted() {
     this.getCategories();
   }
@@ -35,7 +34,7 @@ export default{
     <div class="row">
         <div class="col-12 text-center">
           <h3 class="pt-3">Our Categories</h3>
-          <router-link :to="{name : 'addCategory'}">
+          <router-link :to="{name : 'CategoryAdd'}">
             <button class="btn" style="float:right">Add Category</button>
           </router-link>
         </div>

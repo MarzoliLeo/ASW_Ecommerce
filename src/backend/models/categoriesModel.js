@@ -3,9 +3,9 @@
 var mongoose = require('mongoose');
 
 const categorySchema = new mongoose.Schema({
-	category_name:  String, // String is shorthand for {type: String}
+	categoryName:  String, // String is shorthand for {type: String}
 	description: String,
-	image: String,
+	imageUrl: String,
     created_date:{
         type: Date,
         default: Date.now

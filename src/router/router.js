@@ -10,7 +10,7 @@ import NotFound from "@/pages/NotFound.vue"
 const routes = [
   { path: "/", name: "Home", component: HomePage },
   { path: "/about", name: "About", component: AboutPage },
-  { path: "/admin/category/add", name: "addCategory", component: AddCategory},
+  { path: "/admin/category/add", name: "CategoryAdd", component: AddCategory},
   { path: "/admin/category", name: "Category", component: Category},
   { path: "/user/register", name: "Register", component: Register},
   { path: "/user/login", name: "Login", component: Login},
