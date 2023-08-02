@@ -25,14 +25,12 @@ exports.create_an_user = async (req, res)=> {
 
 exports.checkIfRegisterForLogin = async (req, res)=> {
 	try {
-        const { email , first_name } = req.body;
-        const user = await User.findOne({ email, first_name});
+        const { email , password } = req.body;
+        const user = await User.findOne({ email, password});
     
         if (!user) {
           return res.status(404).json({ error: 'User not registered' });
         }
-    
-        //TODO Puoi aggiungere altri controlli qui, ad esempio confrontare anche la password.
     
         return res.status(200).json({ message: 'Login successful' });
       } catch (err) {

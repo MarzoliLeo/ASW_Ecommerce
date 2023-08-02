@@ -5,7 +5,7 @@ import sweetalert from "sweetalert"
 export default{
   data() {
     return {
-      User: {first_name: '', last_name: '', email: ''}
+      User: {first_name: '', last_name: '',permission: '', email: '', password: ''}
     }
   },
   methods: {
@@ -13,7 +13,9 @@ export default{
       let newUser = {
         first_name: this.User.first_name,
         last_name: this.User.last_name,
-        email: this.User.email
+        permission: this.User.permission,
+        email: this.User.email,
+        password:this.User.password
       }
       console.log(newUser);
       axios.post('http://127.0.0.1:3000/', newUser)
@@ -56,9 +58,21 @@ export default{
             <label>User Last Name</label>
             <input type="text" class="form-control" v-model="User.last_name">
           </div>
+          <br>
+          <div>Would you like to be a: </div>
+            <input class="form-check-input" type="radio" id="one" value="Staff" v-model="User.permission" />
+            <label class="form-check-label" for="one">Content creator</label>
+            <br>
+            <input class="form-check-input" type="radio" id="two" value="User" v-model="User.permission" />
+            <label class="form-check-label" for="two">User</label>
+          <br>
           <div class="form-group">
             <label>User email</label>
             <input type="text" class="form-control" v-model="User.email">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="text" class="form-control" v-model="User.password">
           </div>
           <br>
           <div class="text-center">

@@ -6,14 +6,14 @@ export default{
   data() {
     return {
       email: '',
-      first_name: '',
+      password: '',
     }
   },
   methods: {
     checkIfRegistered(){
       const user = {
         email: this.email,
-        first_name: this.first_name,
+        password: this.password,
       };
 
       axios.post('http://127.0.0.1:3000/login', user)
@@ -52,8 +52,8 @@ export default{
             <input type="text" class="form-control" v-model="email">
           </div>
           <div class="form-group">
-            <label>User First Name</label>
-            <input type="text" class="form-control" v-model="first_name">
+            <label>User Password</label>
+            <input type="text" class="form-control" v-model="password">
           </div>
           <br>
           <div class="text-center">
