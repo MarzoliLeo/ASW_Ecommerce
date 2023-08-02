@@ -21,7 +21,10 @@ export default{
         sweetalert({
             text: "User added successfully",
             icon: "success"
-          })   
+          })
+          
+          //Creo la sessione.
+          this.$store.commit('login',this.form.email)
       })
       .catch((err) => {
         sweetalert({
