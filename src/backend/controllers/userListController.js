@@ -48,3 +48,11 @@ exports.create_a_category = async (req, res)=> {
       res.json(e);
   }
 };
+
+exports.list_all_categories = async (req, res)=> {
+	try{
+		res.json(await categories.find({}));
+	}catch (err){
+		res.json(err);
+	}
+};

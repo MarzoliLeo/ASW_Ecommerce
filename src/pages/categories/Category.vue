@@ -15,9 +15,13 @@ export default{
   },
   methods: {
     async getCategories() {
-      await axios.get("http://127.0.0.1:3000/categories") //la route della get è il nome della collection (a differenza del post).
-      .then(res => this.categories = res.data)
-      .catch(err => console.log(err))
+      await axios.get("http://localhost:3000/showCategories") 
+      .then(res => 
+          this.categories = res.data
+      )
+      .catch(err => 
+        console.log(err)
+      )
     }
   },
   //Questo metodo viene invocato non appena la classe viene istanziata.

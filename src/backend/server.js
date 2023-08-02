@@ -21,6 +21,7 @@ var route = require('../backend/routerBackend/routerBackend.js')
 app.use('/',route);
 app.use('/login',route);
 app.use('/admin/addCategory',route);
+app.use('/showCategories',route);
 
 app.listen(port);
 
