@@ -25,6 +25,10 @@ export default{
         console.log(res);
       })
       .catch((err) => {
+        sweetalert({
+            text: "Login failed. User not registered.",
+            icon: "error"
+          });
         console.log("Errore di tipo: "+ err)
       });
     }
