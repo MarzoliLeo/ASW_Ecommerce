@@ -34,7 +34,7 @@ import userStore from "../store/SessionStore";
           <NavButton route-name="About" @counter-clicked="onChildClicked" />
           <NavButton route-name="Category" @counter-clicked="onChildClicked" />
           <NavButton route-name="Account" @counter-clicked="onChildClicked" />
-          <NavButton route-name="Logout" @counter-clicked="onChildClicked" />
+          <NavButton route-name="Logout" @click="userStore.commit('logout')" @counter-clicked="onChildClicked" />
         </ul>
       </div>
     </div>
