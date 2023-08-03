@@ -1,6 +1,7 @@
 <script>
 import axios from "axios"
 import sweetalert from "sweetalert"
+import userStore from "../../store/SessionStore";
 
 export default{
   data() {
@@ -19,12 +20,11 @@ export default{
       axios.post('http://127.0.0.1:3000/login', user)
       .then((res) => {
         sweetalert({
-            text: "User added successfully",
+            text: "User logged in succesfully",
             icon: "success"
           })
-          
-          //Creo la sessione.
-          this.$store.commit('login',this.form.email)
+        userStore.commit("login", this.email)
+        console.log(userStore.state.email)
       })
       .catch((err) => {
         sweetalert({

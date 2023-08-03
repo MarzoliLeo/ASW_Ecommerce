@@ -4,9 +4,12 @@ const userController = require('../controllers/userListController');
 const routerBackend = express.Router();
 
 /* Route per mostrare e creare gli utenti (default) */
-routerBackend.route('/')
+routerBackend.route('/register/createUser')
 .get(userController.list_all_users)
 .post(userController.create_an_user);
+
+routerBackend.route('/register/checkExistingUser')
+.post(userController.checkIfUserExists)
 
 /* Route per il login */
 routerBackend.route('/login')
