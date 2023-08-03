@@ -16,6 +16,7 @@ const userStore = createStore({
     login (state,email) {
       state.email = email;
       localStorage.setItem('email', email); //localStorage viene dall'import.
+      
       // Commented the alert cause we already have sweetalerts on the login page
       // alert('Logged in');
     },
@@ -23,6 +24,7 @@ const userStore = createStore({
     logout(state){
       state.email ="";
       localStorage.removeItem('email');
+
       // Commented the alert cause we already have sweetalerts on the logout button
       // alert('Logged out');
     },

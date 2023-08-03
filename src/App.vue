@@ -11,5 +11,6 @@ import userStore from "./store/SessionStore";
   <NavBar></NavBar>
   <RouterView></RouterView>
   <div>Ciao Lorenzino Federico</div>
+  <p>Hello {{ userStore.state.email }} </p>
   
 </template>

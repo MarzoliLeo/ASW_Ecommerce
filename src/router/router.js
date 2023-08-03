@@ -14,6 +14,8 @@ const routes = [
   { path: "/admin/category", name: "Category", component: Category},
   { path: "/user/register", name: "Register", component: Register},
   { path: "/user/login", name: "Login", component: Login},
+  { path: "/user/login", name: "Account", component: Login},
+  { path: "/", name: "Logout", component: HomePage },
   { path: "/404", name: "NotFound", component: NotFound },
   { path: "/:catchAll(.*)", redirect: "/404" }
 ]
