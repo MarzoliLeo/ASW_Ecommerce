@@ -4,7 +4,6 @@ import userStore from "./store/SessionStore";
 
 /*Creazione di una sessione persistente per ogni client*/
 
-console.log(userStore.state.email)
 
 </script>
 
