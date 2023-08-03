@@ -59,21 +59,22 @@ e a questo punto premere il pulsante "o" della tastiera avendo selezionato il te
    sotto "Path" aggiungere il path assoluto della cartella "bin" la quale contiene gli eseguibili di MongoDB (tipicamente questa si trova sotto C:>Programmi>MongoDB>Server>bin) preceduta da "initialText;".
    Dunque, avrete una cosa del tipo:
    "initialText;C:\Program Files\MongoDB\Server\5.0\bin" all'interno di "Path". Premete OK e accertatevi che sia tutto salvato.
-5. A questo punto aprite il cmd e digitate per far partire il server MongoDB:
+4. A questo punto aprite il cmd e digitate per far partire il server MongoDB:
    ```
    "C:\Program Files\MongoDB\Server\5.0\bin\mongod.exe"
    ```
-6. Aprite un nuovo cmd (lasciando inalterato quello precedentemente aperto) come amministratore e digitate:
+5. Aprite un nuovo cmd (lasciando inalterato quello precedentemente aperto) come amministratore e digitate:
    ```
    "C:\Program Files\MongoDB\Server\5.0\bin\mongo.exe"
    ```
-7. A questo punto sarete collegati correttamente alla shell di MongoDB (da cui potrete manipolare database).
-8. Per poter vedere i database tramite GUI e quindi usando MongoDB Compass. Aprirlo, inserire nella connessione (mentre si hanno i terminali ancora aperti)
+6. A questo punto sarete collegati correttamente alla shell di MongoDB (da cui potrete manipolare database).
+7. Per poter vedere i database tramite GUI e quindi usando MongoDB Compass. Aprirlo, inserire nella connessione (mentre si hanno i terminali ancora aperti)
    ```
    mongodb://127.0.0.1:27017
    ```
    Attenzione: sostituire la parte in "localhost" con "127.0.0.1", altrimenti potrebbe non funzionare.
-9. Premete connect, e sarete connessi in localhost a MongoDB, congratulazioni.
+8. Premete connect, e sarete connessi in localhost a MongoDB, congratulazioni.
+10. Una volta connessi tramite l'utilizzo di MongoDB Compass, è necessario creare un nuovo database, il cui campo "Database Name" sarà "UserDB", e come "Collection Name" aggiungere una collection "users"; Dopodichè una volta che il DB è stato creato, con la collection users, è necessario aggiungerne un'altra, il cui nome sarà "categories".
 
 ## Tecnologie utilizzate.
 
