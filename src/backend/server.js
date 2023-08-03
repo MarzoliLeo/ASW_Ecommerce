@@ -2,6 +2,7 @@ var express = require('express');
 app = express();
 port = process.env.PORT || 3000;
 mongoose = require('mongoose');
+socketio = require('socket.io');
 user = require('../backend/models/userListModels');
 cors = require('cors')
 
@@ -23,8 +24,20 @@ app.use('/login',route);
 app.use('/admin/addCategory',route);
 app.use('/showCategories',route);
 
-app.listen(port);
-
+// Faccio partire il server...
+const server = app.listen(port);
 console.log('User connected to port: '+ port);
+
+//... ogni volta che un utente si connette lato client verrà chiamato la funzione io().
+const io = socketio(server);
+
+// Gestione della connessione e disconnessione di un client.
+io.on('connection', (socket)=>{
+    console.log('a user connected');
+    socket.on('disconnect', ()=>{
+      console.log('user disconnected');
+    });
+});
+
 
 

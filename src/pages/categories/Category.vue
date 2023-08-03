@@ -1,8 +1,11 @@
 <script>
 import axios from "axios"
 import sweetalert from "sweetalert"
+import io from "socket.io-client";
 
 import CategoryBox from "../../components/categories/CategoryBox.vue"
+
+const socket = io(); // Initialize socket.io-client with the server URL.
 
 //Queste variabili verranno utilizzate nel backend tramite Axios.
 export default{
