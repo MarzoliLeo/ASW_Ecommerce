@@ -1,6 +1,7 @@
 <script>
 import axios from "axios"
 import sweetalert from "sweetalert"
+import userStore from "../../store/SessionStore"
 
 export default{
   data() {
@@ -18,17 +19,28 @@ export default{
         password:this.User.password
       }
       console.log(newUser);
-      axios.post('http://127.0.0.1:3000/', newUser)
+      axios.post('http://127.0.0.1:3000/register/checkExistingUser', newUser)
       .then((res) => {
-        sweetalert({
-            text: "User added successfully",
-            icon: "success"
-          })
+        axios.post('http://127.0.0.1:3000/register/createUser', newUser)
+        .then((res) => {
+          sweetalert({
+              text: "User added successfully",
+              icon: "success"
+            })
+          console.log(res);
+        })
+        .catch((err) => {
+          sweetalert({
+              text: "Registration failed.",
+              icon: "error"
+            });
+          console.log("Errore di tipo: "+ err)
+        });
         console.log(res);
       })
       .catch((err) => {
         sweetalert({
-            text: "Registration failed.",
+            text: "User already exists.",
             icon: "error"
           });
         console.log("Errore di tipo: "+ err)

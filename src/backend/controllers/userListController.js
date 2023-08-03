@@ -54,3 +54,20 @@ exports.list_all_categories = async (req, res)=> {
 		res.json(err);
 	}
 };
+
+exports.checkIfUserExists = async (req, res)=> {
+  console.log(req.body["email"])
+  try {
+        const email = req.body["email"];
+        
+        const user = await User.findOne({ email });
+        
+        if (user) {
+          return res.status(404).json({ error: 'Email already registered!' });
+        }
+    
+        return res.status(200).json({ message: 'Registration successful' });
+      } catch (err) {
+        res.status(500).json({ error: 'Internal server error' });
+      }
+};
