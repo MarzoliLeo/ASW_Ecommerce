@@ -19,7 +19,7 @@ export default{
       axios.post('http://127.0.0.1:3000/login', user)
       .then((res) => {
         sweetalert({
-            text: "User added successfully",
+            text: "User logged in succesfully",
             icon: "success"
           })   
       })

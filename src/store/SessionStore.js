@@ -3,7 +3,7 @@
 
 import { createStore } from 'vuex'
 
-export default createStore({
+const userStore = createStore({
   state: {
     email:""
   },
@@ -36,3 +36,5 @@ export default createStore({
   modules: {
   }
 })
+
+export default userStore
