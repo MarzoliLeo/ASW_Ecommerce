@@ -1,53 +1,52 @@
 <script>
-import axios from "axios"
-import sweetalert from "sweetalert"
+import axios from "axios";
+import sweetalert from "sweetalert";
 import io from "socket.io-client";
 
-import CategoryBox from "../../components/categories/CategoryBox.vue"
+import CategoryBox from "../../components/categories/CategoryBox.vue";
 
 const socket = io(); // Initialize socket.io-client with the server URL.
 
 //Queste variabili verranno utilizzate nel backend tramite Axios.
-export default{
-  name:"Category",
-  components: {CategoryBox},
+export default {
+  name: "Category",
+  components: { CategoryBox },
   data() {
     return {
-      categories: []
+      categories: [],
     };
   },
   methods: {
     async getCategories() {
-      await axios.get("http://localhost:3000/showCategories") 
-      .then(res => 
-          this.categories = res.data
-      )
-      .catch(err => 
-        console.log(err)
-      )
-    }
+      await axios
+        .get("http://localhost:3000/showCategories")
+        .then((res) => (this.categories = res.data))
+        .catch((err) => console.log(err));
+    },
   },
   //Questo metodo viene invocato non appena la classe viene istanziata.
   mounted() {
     this.getCategories();
-  }
+  },
 };
-
 </script>
 
 <template>
-
   <div class="container">
     <div class="row">
-        <div class="col-12 text-center">
-          <h3 class="pt-3">Our Categories</h3>
-          <router-link :to="{name : 'CategoryAdd'}">
-            <button class="btn" style="float:right">Add Category</button>
-          </router-link>
-        </div>
+      <div class="col-12 text-center">
+        <h3 class="pt-3">Our Categories</h3>
+        <router-link :to="{ name: 'CategoryAdd' }">
+          <button class="btn" style="float: right">Add Category</button>
+        </router-link>
+      </div>
     </div>
-    <div class ="row">
-      <div v-for="category of categories" :key="category.id" class="col-xl-4 col-md-6 pt-3 d-flex" >
+    <div class="row">
+      <div
+        v-for="category of categories"
+        :key="category.id"
+        class="col-xl-4 col-md-6 pt-3 d-flex"
+      >
         <CategoryBox :category="category"></CategoryBox>
       </div>
     </div>

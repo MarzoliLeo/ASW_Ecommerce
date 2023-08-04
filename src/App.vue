@@ -1,5 +1,5 @@
-<script setup>
-import NavBar from "@/components/NavBar.vue"
+<script>
+import NavBar from "@/components/NavBar.vue";
 import userStore from "./store/SessionStore";
 </script>
 
@@ -7,6 +7,5 @@ import userStore from "./store/SessionStore";
   <NavBar></NavBar>
   <RouterView></RouterView>
   <div>Ciao Lorenzino Federico</div>
-  <p>Hello {{ userStore.state.email }} </p>
-  
+  <p>Hello {{ userStore.state.email }}</p>
 </template>

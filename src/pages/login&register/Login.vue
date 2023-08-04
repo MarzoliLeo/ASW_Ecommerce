@@ -1,66 +1,73 @@
 <script>
-import axios from "axios"
-import sweetalert from "sweetalert"
+import axios from "axios";
+import sweetalert from "sweetalert";
 import userStore from "../../store/SessionStore";
 
-export default{
+export default {
   data() {
     return {
-      email: '',
-      password: '',
-    }
+      email: "",
+      password: "",
+    };
   },
   methods: {
-    checkIfRegistered(){
+    checkIfRegistered() {
       const user = {
         email: this.email,
         password: this.password,
       };
 
-      axios.post('http://127.0.0.1:3000/login', user)
-      .then((res) => {
-        sweetalert({
+      axios
+        .post("http://127.0.0.1:3000/login", user)
+        .then((res) => {
+          sweetalert({
             text: "User logged in succesfully",
-            icon: "success"
-          })
-        userStore.commit("login", this.email)
-        console.log(userStore.state.email)
-      })
-      .catch((err) => {
-        sweetalert({
-            text: "Login failed. User not registered.",
-            icon: "error"
+            icon: "success",
           });
-        console.log("Errore di tipo: "+ err)
-      });
-    }
-  }
-}
+          userStore.commit("login", this.email);
+          console.log(userStore.state.email);
+        })
+        .catch((err) => {
+          sweetalert({
+            text: "Login failed. User not registered.",
+            icon: "error",
+          });
+          console.log("Errore di tipo: " + err);
+        });
+    },
+  },
+};
 </script>
 
 <template>
   <div class="container">
     <div class="row">
-        <div class="col-12 text-center">
-          <h3 class="pt-3">Login Form</h3>
-        </div>
+      <div class="col-12 text-center">
+        <h3 class="pt-3">Login Form</h3>
+      </div>
     </div>
-    <div class ="row">
+    <div class="row">
       <!--Utilizzo bootstrap per creare il form-->
       <div class="col-3"></div>
       <div class="col-6">
         <form>
           <div class="form-group">
             <label>User email</label>
-            <input type="text" class="form-control" v-model="email">
+            <input type="text" class="form-control" v-model="email" />
           </div>
           <div class="form-group">
             <label>User Password</label>
-            <input type="text" class="form-control" v-model="password">
+            <input type="text" class="form-control" v-model="password" />
           </div>
-          <br>
+          <br />
           <div class="text-center">
-            <button type="button" class="btn btn-primary" @click="checkIfRegistered">Login</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="checkIfRegistered"
+            >
+              Login
+            </button>
           </div>
         </form>
       </div>

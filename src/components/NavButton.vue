@@ -1,7 +1,7 @@
 <script setup>
-import { ref } from "vue"
+import { ref } from "vue";
 
-const props = defineProps(["routeName"])
+const props = defineProps(["routeName"]);
 </script>
 
 <template>
