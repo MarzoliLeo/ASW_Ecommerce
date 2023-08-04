@@ -1,11 +1,10 @@
 <script>
 import axios from "axios"
 import sweetalert from "sweetalert"
-import io from "socket.io-client";
-
+import { state } from "@/socket/socket"
 import CategoryBox from "../../components/categories/CategoryBox.vue"
 
-const socket = io(); // Initialize socket.io-client with the server URL.
+import { io } from 'socket.io-client'
 
 //Queste variabili verranno utilizzate nel backend tramite Axios.
 export default{
@@ -25,6 +24,12 @@ export default{
       .catch(err => 
         console.log(err)
       )
+    }
+  },
+  //This part is used to use the socket.io functions
+  computed: {
+    connected() {
+      console.log(state.connected);
     }
   },
   //Questo metodo viene invocato non appena la classe viene istanziata.

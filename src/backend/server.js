@@ -2,7 +2,17 @@ var express = require('express');
 app = express();
 port = process.env.PORT || 3000;
 mongoose = require('mongoose');
-socketio = require('socket.io');
+
+// This is the setup required to ensure that socket.io works
+const http = require('http');
+const serverSocket = http.createServer(app);
+const { Server } = require('socket.io');
+const io = new Server(serverSocket, {
+  cors: {
+    origin: "http://localhost:5173"
+  }
+});
+
 user = require('../backend/models/userListModels');
 cors = require('cors')
 
@@ -17,19 +27,11 @@ mongoose.connect('mongodb://127.0.0.1:27017/UserDB').then(()=> console.log("Conn
 // è essenziale per impostare correttamente l'header fra scambio di messaggi in axios.
 app.use(cors());
 
-
 var route = require('../backend/routerBackend/routerBackend.js')
 app.use('/',route);
 app.use('/login',route);
 app.use('/admin/addCategory',route);
 app.use('/showCategories',route);
-
-// Faccio partire il server...
-const server = app.listen(port);
-console.log('User connected to port: '+ port);
-
-//... ogni volta che un utente si connette lato client verrà chiamato la funzione io().
-const io = socketio(server);
 
 // Gestione della connessione e disconnessione di un client.
 io.on('connection', (socket)=>{
@@ -39,5 +41,12 @@ io.on('connection', (socket)=>{
     });
 });
 
+// Faccio partire il server...
+// Old commands used to start the server
+// const server = app.listen(port);
+// console.log('User connected to port: '+ port);
 
-
+//Now with socket.io, the socket listens on the port 3000 that we've chosen
+serverSocket.listen(3000, () => {
+  console.log('listening on *:3000');
+});
