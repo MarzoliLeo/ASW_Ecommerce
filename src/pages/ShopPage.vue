@@ -1,20 +1,22 @@
 <template>
   <div>
-    <h1>Shop Page</h1>
-    <ShopContainer />
+    <h1 class="text-center">Shop Page</h1>
+    <Shop/>
   </div>
 </template>
 
 <script>
-import ShopContainer from "@/components/ShopContainer.vue";
+import Shop from "@/components/shop/Shop.vue";
 
 export default {
   components: {
-    ShopContainer,
+    Shop,
   },
 };
 </script>
 
 <style>
-/* Add your styles here */
+.text-center {
+  text-align: center;
+}
 </style>

@@ -17,6 +17,7 @@ const routes = [
   { path: "/user/register", name: "Register", component: Register },
   { path: "/user/login", name: "Login", component: Login },
   { path: "/user/account", name: "Account", component: Account },
+  // set the route for the shop page
   { path: "/shop", name: "Shop", component: ShopPage },
   { path: "/", name: "Logout", component: HomePage },
   { path: "/404", name: "NotFound", component: NotFound },
