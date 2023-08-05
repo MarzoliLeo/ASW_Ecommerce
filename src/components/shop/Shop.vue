@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6" align="center">
         <h2 class="text-center my-4">Products</h2>
         <div class="row">
           <div class="col-md-12">
@@ -23,9 +23,13 @@
               v-for="item in cart"
               :key="item.id"
               :item="item"
+              @remove-from-cart="removeFromCart"
               class="mb-3"
             />
           </div>
+        </div>
+        <div class="text-end h4 mt-3">
+          Total: {{ totalPrice.toFixed(2) }} €
         </div>
       </div>
     </div>
@@ -66,22 +70,39 @@ export default {
       cart: [],
     };
   },
+  computed: {
+    totalPrice() {
+      return this.cart.reduce((total, item) => {
+        return total + item.price * item.quantity;
+      }, 0);
+    },
+  },
   methods: {
-    addToCart(product) {
-      const item = this.cart.find((item) => item.id === product.id);
+    addToCart({ id, name, price }) {
+      const item = this.cart.find((item) => item.id === id);
       if (item) {
         item.quantity++;
       } else {
         this.cart.push({
-          id: product.id,
-          name: product.name,
+          id,
+          name,
+          price,
           quantity: 1,
         });
+      }
+    },
+    removeFromCart(item, quantityToRemove) {
+      const index = this.cart.findIndex((i) => i.id === item.id);
+      if (index !== -1) {
+        if (this.cart[index].quantity <= quantityToRemove) {
+          this.cart.splice(index, 1);
+        } else {
+          this.cart[index].quantity -= quantityToRemove;
+        }
       }
     },
   },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

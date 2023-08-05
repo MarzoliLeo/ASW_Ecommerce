@@ -1,5 +1,5 @@
 <template>
-  <div :key="product.id" class="card">
+  <div :key="product.id" class="card text-center shadow-sm">
     <div class="card-body">
       <h2 class="card-title">{{ product.name }}</h2>
       <p class="card-text">{{ product.description }}</p>

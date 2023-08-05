@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="text-center">Shop Page</h1>
-    <Shop/>
+    <Shop />
   </div>
 </template>
 
