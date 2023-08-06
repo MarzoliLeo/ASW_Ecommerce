@@ -39,6 +39,6 @@ const userStore = createStore({
   },
   modules: {
   }
-})
+});
 
 export default userStore

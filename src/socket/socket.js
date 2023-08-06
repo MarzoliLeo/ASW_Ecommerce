@@ -24,10 +24,7 @@ socket.on("disconnect", () => {
   state.connected = false;
 });
 
-socket.on("refreshCategories", () => {
-  console.log("Refreshing categories")
-  categories.methods.getCategories();
-});
+
 
 
 

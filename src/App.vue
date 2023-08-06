@@ -1,6 +1,6 @@
 <script setup>
 import NavBar from "@/components/NavBar.vue"
-import userStore from "./store/SessionStore";
+import userStore from "./store/UserStore";
 </script>
 
 <template>
@@ -10,3 +10,4 @@ import userStore from "./store/SessionStore";
   <p>Hello {{ userStore.state.email }} </p>
   
 </template>
+./store/UserStore

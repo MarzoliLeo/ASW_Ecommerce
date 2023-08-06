@@ -1,5 +1,5 @@
 <script setup>
-import userStore from '../store/SessionStore';
+import userStore from '@/store/UserStore';
 </script>
 
 <template>

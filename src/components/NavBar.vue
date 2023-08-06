@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue"
 import NavButton from "@/components/NavButton.vue"
-import userStore from "../store/SessionStore";
+import userStore from "@/store/UserStore";
 </script>
 
 <template>

@@ -52,7 +52,7 @@ io.on('connection', (socket)=>{
 // const server = app.listen(port);
 // console.log('User connected to port: '+ port);
 
-//Now with socket.io, the socket listens on the port 3000 that we've chosen
+//Now with socket.io, the socket listens on the port that we've chosen, which is the port 3000 
 serverSocket.listen(3000, () => {
   console.log('listening on *:3000');
 });

@@ -1,7 +1,7 @@
 <script>
 import axios from "axios"
 import sweetalert from "sweetalert"
-import userStore from "../../store/SessionStore";
+import userStore from "@/store/UserStore";
 
 export default{
   data() {
