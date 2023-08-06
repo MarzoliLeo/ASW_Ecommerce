@@ -3,6 +3,7 @@ import axios from "axios"
 import sweetalert from "sweetalert"
 import { state } from "@/socket/socket"
 import CategoryBox from "../../components/categories/CategoryBox.vue"
+import { ref } from 'vue';
 
 import { io } from 'socket.io-client'
 
@@ -11,25 +12,33 @@ export default{
   name:"Category",
   components: {CategoryBox},
   data() {
-    return {
-      categories: []
-    };
+    return{
+      categories: [],
+    }
+  },
+  computed: {
+      categoriesGet() {
+        return this.categories;
+      }
   },
   methods: {
     async getCategories() {
+      console.log("Getting categories")
       await axios.get("http://localhost:3000/showCategories") 
-      .then(res => 
-          this.categories = res.data
-      )
+      .then(res => {
+          console.log(this.categoriesGet)
+          // var diff = res.data.filter(e => !this.categories.some(o => o.id == e))
+          // this.categories.push(diff)
+          
+          res.data.forEach(element => {
+            this.categoriesGet.push(element)
+          });
+          // categoriesUpdated.value = res.data
+          console.log(this.categoriesGet)
+      })
       .catch(err => 
         console.log(err)
       )
-    }
-  },
-  //This part is used to use the socket.io functions
-  computed: {
-    connected() {
-      console.log(state.connected);
     }
   },
   //Questo metodo viene invocato non appena la classe viene istanziata.
@@ -52,7 +61,7 @@ export default{
         </div>
     </div>
     <div class ="row">
-      <div v-for="category of categories" :key="category.id" class="col-xl-4 col-md-6 pt-3 d-flex" >
+      <div v-for="(category, index) in categories" :key="index" class="col-xl-4 col-md-6 pt-3 d-flex" >
         <CategoryBox :category="category"></CategoryBox>
       </div>
     </div>

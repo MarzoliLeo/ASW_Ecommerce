@@ -35,11 +35,17 @@ app.use('/showCategories',route);
 
 // Gestione della connessione e disconnessione di un client.
 io.on('connection', (socket)=>{
-    console.log('a user connected');
-    socket.on('disconnect', ()=>{
-      console.log('user disconnected');
-    });
+  socket.on("requestRefreshCategories", () => {
+    console.log("Request for refreshing categories")
+    io.emit("refreshCategories", "")
+  });
+    // console.log('a user connected');
+    // socket.on('disconnect', ()=>{
+    //   console.log('user disconnected');
+    // });
 });
+
+
 
 // Faccio partire il server...
 // Old commands used to start the server

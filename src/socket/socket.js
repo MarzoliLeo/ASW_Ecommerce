@@ -3,6 +3,7 @@
 
 import { reactive } from "vue";
 import { io } from "socket.io-client";
+import categories from "@/pages/categories/Category.vue"
 
 export const state = reactive({
   connected: false,
@@ -22,6 +23,14 @@ socket.on("connect", () => {
 socket.on("disconnect", () => {
   state.connected = false;
 });
+
+socket.on("refreshCategories", () => {
+  console.log("Refreshing categories")
+  categories.methods.getCategories();
+});
+
+
+
 
 socket.on("foo", (...args) => {
   state.fooEvents.push(args);
