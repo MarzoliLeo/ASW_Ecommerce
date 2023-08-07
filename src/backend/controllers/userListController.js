@@ -3,8 +3,10 @@
 var mongoose = require('mongoose');
 const User = require('../models/userListModels.js');
 const Category = require('../models/categoriesModel.js');
+const Coruse = require('../models/coursesModel.js');
 user = mongoose.model('users'); //Nome della collection in MongoDB per gli user.
 categories = mongoose.model('categories'); //Nome della collection in MongoDB per le categories.
+courses = mongoose.model('courses') // Name of the collection in MongoDB that refers to courses 
 
 exports.list_all_users = async (req, res)=> {
 	try{
@@ -70,4 +72,13 @@ exports.checkIfUserExists = async (req, res)=> {
       } catch (err) {
         res.status(500).json({ error: 'Internal server error' });
       }
+};
+
+exports.create_a_course = async (req, res)=> {
+  const newCourse = new Category(req.body);
+  try{
+      res.json(await newCourse.save());
+  }catch (e) {
+      res.json(e);
+  }
 };

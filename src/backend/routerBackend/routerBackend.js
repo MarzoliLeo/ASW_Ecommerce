@@ -22,5 +22,8 @@ routerBackend.route('/admin/addCategory')
 routerBackend.route('/showCategories')
 .get(userController.list_all_categories);
 
+routerBackend.route('/admin/addCourse')
+.get(userController.create_a_course);
+
 
 module.exports = routerBackend;
