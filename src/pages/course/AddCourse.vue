@@ -29,7 +29,7 @@ export default{
       };
       axios.post('http://127.0.0.1:3000/admin/addCourse', newCourse)
       .then((res) => {
-        // socket.emit("requestRefreshCategories", "")
+        socket.emit("requestRefreshCourses", "")
         sweetalert({
             text: "Course added successfully",
             icon: "success"

@@ -21,13 +21,9 @@ export default{
       await axios.get("http://localhost:3000/showCategories") 
       .then(res => {
           console.log(this.categories)
-          // var diff = res.data.filter(e => !this.categories.some(o => o.id == e))
-          // this.categories.push(diff)
-          
+
           this.categories = res.data
-          // res.data.forEach(element => {
-          //   this.categories.push(element)
-          // });
+
           console.log(this.categories)
       })
       .catch(err => 

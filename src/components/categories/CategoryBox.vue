@@ -15,9 +15,7 @@
 </template>
 
 <script>
-import axios from "axios"
-import { onMounted, ref } from "vue"
-import userStore from "@/store/UserStore";
+import { ref } from "vue"
 
 const CategoryBox = ref({})
 export default {

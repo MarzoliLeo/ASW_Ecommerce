@@ -34,15 +34,20 @@ app.use('/admin/addCategory',route);
 app.use('/showCategories',route);
 
 // Gestione della connessione e disconnessione di un client.
+// Also socket set up for the server to tell clients to refresh their page
+// once a new category and/or course has been added
 io.on('connection', (socket)=>{
+  // This is the category refresh request
   socket.on("requestRefreshCategories", () => {
     console.log("Request for refreshing categories")
     io.emit("refreshCategories", "")
   });
-    // console.log('a user connected');
-    // socket.on('disconnect', ()=>{
-    //   console.log('user disconnected');
-    // });
+
+  // This is the course refresh request
+  socket.on("requestRefreshCourses", () => {
+    console.log("Request for refreshing courses")
+    io.emit("refreshCourses", "")
+  });  
 });
 
 

@@ -25,13 +25,8 @@ export default{
       })
       .then(res => {
           console.log(this.courses)
-          // var diff = res.data.filter(e => !this.categories.some(o => o.id == e))
-          // this.categories.push(diff)
-          
           this.courses = res.data
-          // res.data.forEach(element => {
-          //   this.categories.push(element)
-          // });
+
           console.log(this.courses)
       })
       .catch(err => 
@@ -41,6 +36,11 @@ export default{
   },
   mounted() {
     this.getCourses();
+
+    socket.on("refreshCourses", () => {
+      console.log("Refreshing courses")
+      this.getCourses();
+    });
   }
 };
 
