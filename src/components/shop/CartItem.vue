@@ -1,16 +1,17 @@
 <template>
-  <div :key="item.id" class="card shadow-sm">
-    <div class="card-body">
-      <h5 class="card-title">{{ item.name }}</h5>
-      <p class="card-text">Quantity: {{ item.quantity }}</p>
-      <div>
-        <p class="card-text">
-          Quantity to remove: {{ quantityToRemove }}
-        </p>
-      </div>
-      <div class="d-flex align-items-center">
-        <input type="range" min="1" :max="item.quantity" v-model="quantityToRemove" class="form-range me-3">
-        <button @click="removeFromCart" class="btn btn-danger">Remove</button>
+  <div class="card p-3">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex flex-column">
+        <h3>{{ item.name }}</h3>
+        <p>Price: {{ item.price }} €</p>
+        <p>Quantity: {{ item.quantity }}</p>
+        <template v-if="item.quantity > 1">
+          <input type="range" :min="1" :max="item.quantity" v-model="quantityToRemove" class="form-range me-3" />
+          <p>{{ quantityToRemove }}</p>
+        </template>
+        <button @click="removeFromCart(item, quantityToRemove)" class="btn btn-danger btn-sm">
+          Remove
+        </button>
       </div>
     </div>
   </div>
@@ -27,18 +28,14 @@ export default {
   data() {
     return {
       quantityToRemove: 1,
-    }
+    };
   },
   methods: {
-    removeFromCart() {
-      this.$emit("remove-from-cart", this.item, this.quantityToRemove);
+    removeFromCart(item, quantityToRemove) {
+      this.$emit("remove-from-cart", item, quantityToRemove);
     },
   },
 };
 </script>
 
-<style>
-.card {
-  margin-bottom: 20px;
-}
-</style>
+<style scoped></style>
