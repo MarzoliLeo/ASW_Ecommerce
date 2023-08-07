@@ -16,7 +16,7 @@ const routes = [
   { path: "/admin/category", name: "Category", component: Category},
   { path: "/admin/category/add", name: "CategoryAdd", component: AddCategory},
   { path: "/admin/courses", name: "Courses", component: Course},
-  { path: "/admin/courses/add", name: "CoursesAdd", component: AddCourse},
+  { path: "/admin/courses/add", name: "CourseAdd", component: AddCourse},
   { path: "/user/register", name: "Register", component: Register},
   { path: "/user/login", name: "Login", component: Login},
   { path: "/user/account", name: "Account", component: Account},

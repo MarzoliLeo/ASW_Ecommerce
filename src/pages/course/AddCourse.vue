@@ -7,27 +7,42 @@ export default{
   data() {
     return {
       Course:{
-        courseName: "", 
+        coursesName: "", 
         description: "", 
-        coursePrice: "",
-        courseCategory: ""}
+        price: 0.0,
+        courseCategory: this.$store.state.lastVisitedCategory }
     }
   },
   methods: {
     addCourse() {
       console.log(
-        this.Course.courseName, 
+        this.Course.coursesName, 
         this.Course.description, 
-        this.Course.coursePrice,
+        parseFloat(this.Course.price),
         this.Course.courseCategory
       );
       const newCourse = {
-        courseName: this.Course.courseName,
+        coursesName: this.Course.coursesName,
         description: this.Course.description,
-        coursePrice: this.Course.coursePrice,
+        price: parseFloat(this.Course.price),
         courseCategory: this.Course.courseCategory
       };
-
+      axios.post('http://127.0.0.1:3000/admin/addCourse', newCourse)
+      .then((res) => {
+        // socket.emit("requestRefreshCategories", "")
+        sweetalert({
+            text: "Course added successfully",
+            icon: "success"
+          })   
+          console.log(newCourse)
+      })
+      .catch((err) => {
+        sweetalert({
+            text: "Info error. Course not registered.",
+            icon: "error"
+          });
+        console.log("Errore di tipo: "+ err)
+      });
     }
   }
 }
@@ -37,7 +52,7 @@ export default{
   <div class="container">
     <div class="row">
         <div class="col-12 text-center">
-          <h3 class="pt-3">Add Category</h3>
+          <h3 class="pt-3">Add Course</h3>
         </div>
     </div>
     <div class ="row">
@@ -47,15 +62,15 @@ export default{
         <form>
           <div class="form-group">
             <label>Course Name</label>
-            <input type="text" class="form-control" v-model="Category.categoryName">
+            <input type="text" class="form-control" v-model="Course.coursesName">
           </div>
           <div class="form-group">
             <label>Course Description</label>
-            <textarea type="text" class="form-control" v-model="Category.description"></textarea>
+            <textarea type="text" class="form-control" v-model="Course.description"></textarea>
           </div>
           <div class="form-group">
             <label>Course Price</label>
-            <input type="text" class="form-control" v-model="Category.imageUrl">
+            <input type="text" class="form-control" v-model="Course.price">
           </div>
           <br>
           <div class="text-center">

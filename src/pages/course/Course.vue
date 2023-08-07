@@ -27,7 +27,7 @@ export default{
     <div class="row">
         <div class="col-12 text-center">
           <h3 class="pt-3">Our Courses - {{ this.$store.state.lastVisitedCategory }}</h3>
-          <router-link :to="{name : 'CategoryAdd'}">
+          <router-link :to="{name : 'CourseAdd'}">
             <button class="btn" style="float:right">Add Course</button>
           </router-link>
         </div>

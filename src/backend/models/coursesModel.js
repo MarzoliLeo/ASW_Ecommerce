@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 
 const coursesSchema = new mongoose.Schema({
-	coursesName:  String, // String is shorthand for {type: String}
+	coursesName: String,
 	description: String,
 	price: Number,
     courseCategory: String,
