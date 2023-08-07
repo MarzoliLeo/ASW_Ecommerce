@@ -1,12 +1,11 @@
 <template>
   <div class="card w-100 h-100" style="margin-top: 10px;">
     <div class="embed-responsive embed-responsive-16by9">
-    <img class="card-img-top" :src="courses.imageUrl" alt="Card image here">
     </div>
     <div class="card-body">
-      <h5 class="card-title"></h5>
-      <p class="card-text"></p>
-      <a href="#" class="btn-primary">Premimi</a>
+      <h5 class="card-title">{{ course.coursesName }}</h5>
+      <p class="card-text">{{ course.description }}</p>
+      <p class="card-text">{{ course.price }} Tokens</p>
     </div>
   </div>
 </template>
@@ -18,7 +17,7 @@ import { onMounted, ref } from "vue"
 const CourseBox = ref({})
 export default{
   name: CourseBox,
-  props: ["courses"],
+  props: ["course"],
   methods:{},
 };
 

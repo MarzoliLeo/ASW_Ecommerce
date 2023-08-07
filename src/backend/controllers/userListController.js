@@ -84,8 +84,8 @@ exports.create_a_course = async (req, res)=> {
 };
 
 exports.list_all_courses = async (req, res)=> {
-  const { category } = req.body;
-	try{
+  const category = req.query["category"];
+  try{
 		res.json(await courses.find({ courseCategory: category }));
 	}catch (err){
 		res.json(err);

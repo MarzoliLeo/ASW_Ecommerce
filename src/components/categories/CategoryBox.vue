@@ -25,8 +25,7 @@ export default {
   props: ["category"],
   methods: {
     submitSelectedCategory() {
-      userStore.commit("commitCategory", this.category.categoryName)
-      console.log(userStore.state.lastVisitedCategory)
+      this.$store.commit("commitCategory", this.category.categoryName)
     }
   }
 };
