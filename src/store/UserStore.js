@@ -4,16 +4,23 @@
 import { createStore } from 'vuex'
 
 const userStore = createStore({
-  state: {
-    email:""
+  state() {
+    return {
+      email: "",
+      lastVisitedCategory: "", 
+    }
   },
   getters: {
+    email: state => state.email,
+    lastVisitedCategory: state => state.lastVisitedCategory
   },
   //Le mutations sono pensabili come degli eventi nel sistema. Cambiando lo stato di VUE (e lo si cambia facendo qualsiasi cosa)
   //allora si attiva un evento.
   mutations: {
+    // --- Login Store Below ---
+
     //Funzione di login.
-    login (state,email) {
+    login (state, email) {
       state.email = email;
       localStorage.setItem('email', email); //localStorage viene dall'import.
       
@@ -33,6 +40,13 @@ const userStore = createStore({
       if(localStorage.getItem('email')){
         state.email = localStorage.getItem('email');
        }
+    },
+
+    // --- Category Store Below ---
+    commitCategory(state, selectedCategory) {
+      state.lastVisitedCategory = selectedCategory;
+      localStorage.setItem('lastVisitedCategory', selectedCategory);
+      console.log(state.lastVisitedCategory);
     }
   },
   actions: {

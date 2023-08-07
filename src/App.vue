@@ -1,13 +1,11 @@
 <script setup>
 import NavBar from "@/components/NavBar.vue"
-import userStore from "./store/UserStore";
 </script>
 
 <template>
   <NavBar></NavBar>
   <RouterView></RouterView>
   <div>Ciao Lorenzino Federico</div>
-  <p>Hello {{ userStore.state.email }} </p>
+  <p>Hello {{ this.$store.state.email }} </p>
   
 </template>
-./store/UserStore

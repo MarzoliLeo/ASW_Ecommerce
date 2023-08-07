@@ -1,6 +1,6 @@
 <script>
 import axios from "axios"
-import CategoryBox from "../../components/categories/CategoryBox.vue"
+import CategoryBox from "@/components/categories/CategoryBox.vue"
 import categoryStore from "@/store/CategoryStore"
 import { socket } from "@/socket/socket"
 
