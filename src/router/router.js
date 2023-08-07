@@ -7,15 +7,16 @@ import Register from "@/pages/login&register/Register.vue"
 import Login from "@/pages/login&register/Login.vue"
 import NotFound from "@/pages/NotFound.vue"
 import Account from "@/pages/UserPage.vue"
-import Courses from "@/pages/course/Course.vue"
+import Course from "@/pages/course/Course.vue"
+import AddCourse from "@/pages/course/AddCourse.vue"
 
 const routes = [
   { path: "/", name: "Home", component: HomePage },
   { path: "/about", name: "About", component: AboutPage },
   { path: "/admin/category", name: "Category", component: Category},
   { path: "/admin/category/add", name: "CategoryAdd", component: AddCategory},
-  { path: "/admin/courses", name: "Courses", component: Courses},
-  { path: "/admin/courses/add", name: "CoursesAdd", component: AddCategory},
+  { path: "/admin/courses", name: "Courses", component: Course},
+  { path: "/admin/courses/add", name: "CoursesAdd", component: AddCourse},
   { path: "/user/register", name: "Register", component: Register},
   { path: "/user/login", name: "Login", component: Login},
   { path: "/user/account", name: "Account", component: Account},

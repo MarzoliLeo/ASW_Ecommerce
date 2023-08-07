@@ -6,33 +6,28 @@ import { socket } from "@/socket/socket"
 export default{
   data() {
     return {
-      Category:{categoryName: "", description: "", imageUrl: ""}
+      Course:{
+        courseName: "", 
+        description: "", 
+        coursePrice: "",
+        courseCategory: ""}
     }
   },
   methods: {
-    addCategory() {
-      console.log(this.Category.categoryName, this.Category.description, this.Category.imageUrl);
-        const newCategory = {
-          categoryName: this.Category.categoryName,
-          description: this.Category.description,
-          imageUrl: this.Category.imageUrl,
-        };
-      axios.post('http://127.0.0.1:3000/admin/addCourse', newCategory)
-      .then((res) => {
-        socket.emit("requestRefreshCategories", "")
-        sweetalert({
-            text: "Category added successfully",
-            icon: "success"
-          })   
-          console.log(newCategory)
-      })
-      .catch((err) => {
-        sweetalert({
-            text: "Info error. Category not registered.",
-            icon: "error"
-          });
-        console.log("Errore di tipo: "+ err)
-      });
+    addCourse() {
+      console.log(
+        this.Course.courseName, 
+        this.Course.description, 
+        this.Course.coursePrice,
+        this.Course.courseCategory
+      );
+      const newCourse = {
+        courseName: this.Course.courseName,
+        description: this.Course.description,
+        coursePrice: this.Course.coursePrice,
+        courseCategory: this.Course.courseCategory
+      };
+
     }
   }
 }
@@ -59,12 +54,12 @@ export default{
             <textarea type="text" class="form-control" v-model="Category.description"></textarea>
           </div>
           <div class="form-group">
-            <label>Category Image</label>
+            <label>Course Price</label>
             <input type="text" class="form-control" v-model="Category.imageUrl">
           </div>
           <br>
           <div class="text-center">
-            <button type="button" class="btn btn-primary" @click="addCategory">Submit</button>
+            <button type="button" class="btn btn-primary" @click="addCourse">Submit</button>
           </div>
         </form>
       </div>
