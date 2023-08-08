@@ -34,6 +34,9 @@ routerBackend.route('/usersPermission')
 routerBackend.route('/deleteCourse')
 .post(userController.delete_course);
 
+routerBackend.route('/deleteCategory')
+.post(userController.delete_category);
+
 
 
 module.exports = routerBackend;

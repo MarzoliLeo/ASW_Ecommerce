@@ -9,18 +9,18 @@ categories = mongoose.model('categories'); //Nome della collection in MongoDB pe
 courses = mongoose.model('courses') // Name of the collection in MongoDB that refers to courses 
 
 exports.list_all_users = async (req, res)=> {
-	try{
+	try {
 		res.json(await user.find({}));
-	}catch (err){
+	} catch (err) {
 		res.json(err);
 	}
 };
 
 exports.create_an_user = async (req, res)=> {
     const newUser = new User(req.body);
-    try{
+    try {
         res.json(await newUser.save());
-    }catch (e) {
+    } catch (e) {
         res.json(e);
     }
 };
@@ -42,17 +42,17 @@ exports.checkIfRegisterForLogin = async (req, res)=> {
 
 exports.create_a_category = async (req, res)=> {
   const newCategory = new Category(req.body);
-  try{
+  try {
       res.json(await newCategory.save());
-  }catch (e) {
+  } catch (e) {
       res.json(e);
   }
 };
 
 exports.list_all_categories = async (req, res)=> {
-	try{
+	try {
 		res.json(await categories.find({}));
-	}catch (err){
+	} catch (err) {
 		res.json(err);
 	}
 };
@@ -76,27 +76,27 @@ exports.checkIfUserExists = async (req, res)=> {
 
 exports.create_a_course = async (req, res)=> {
   const newCourse = new Course(req.body);
-  try{
+  try {
       res.json(await newCourse.save());
-  }catch (e) {
+  } catch (e) {
       res.json(e);
   }
 };
 
 exports.list_all_courses = async (req, res)=> {
   const category = req.query["category"];
-  try{
+  try {
 		res.json(await courses.find({ courseCategory: category }));
-	}catch (err){
+	} catch (err) {
 		res.json(err);
 	}
 };
 
 exports.get_users_permission = async (req, res)=> {
   const email = req.query["email"];
-  try{
+  try {
 		res.json(await user.find({ email: email }));
-	}catch (err){
+	} catch (err) {
 		res.json(err);
 	}
 };
@@ -104,10 +104,22 @@ exports.get_users_permission = async (req, res)=> {
 exports.delete_course = async (req, res)=> {
   console.log(req.body)
   const courseName = req.body["courseName"];
-  console.log(courseName)
-  try{
-		res.json(await courses.deleteMany({ coursesName: courseName }));
-	}catch (err){
+  try {
+		res.json(await courses.deleteOne({ coursesName: courseName }));
+	} catch (err) {
+		res.json(err);
+	}
+};
+
+exports.delete_category = async (req, res)=> {
+  console.log(req.body)
+  const categoryName = req.body["categoryName"];
+  console.log(categoryName)
+  try {
+		await courses.deleteMany({ courseCategory: categoryName });
+  	res.json(await categories.deleteOne({ categoryName: categoryName }));
+	  
+	} catch (err) {
 		res.json(err);
 	}
 };

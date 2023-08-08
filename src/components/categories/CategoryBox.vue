@@ -8,6 +8,7 @@
         <div class="card-body">
           <h5 class="card-title">{{ category.categoryName }}</h5>
           <p class="card-text">{{ category.description }}</p>
+          <button @click.stop.prevent="removeCategory(category.categoryName)">Remove</button>
         </div>
       </div>
     </a>
@@ -16,6 +17,9 @@
 
 <script>
 import { ref } from "vue"
+import sweetalert from "sweetalert"
+import { socket } from "@/socket/socket"
+import axios from "axios"
 
 const CategoryBox = ref({})
 export default {
@@ -24,6 +28,27 @@ export default {
   methods: {
     submitSelectedCategory() {
       this.$store.commit("commitCategory", this.category.categoryName)
+    },
+    removeCategory(categoryName) {
+      const categoryToDelete = {
+        categoryName: categoryName
+      }
+      console.log(categoryToDelete)
+      axios.post('http://127.0.0.1:3000/deleteCategory', categoryToDelete)
+      .then((res) => {
+        socket.emit("requestRefreshCategories", "")
+        sweetalert({
+            text: "Course deleted succesfully",
+            icon: "success"
+          })
+      })
+      .catch((err) => {
+        sweetalert({
+            text: "Deletion failed. Course not deleted.",
+            icon: "error"
+          });
+        console.log("Errore di tipo: "+ err)
+      });
     }
   }
 };

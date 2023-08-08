@@ -23,11 +23,10 @@ export default{
   props: ["course"],
   methods: {
     removeCourse(courseName) {
-      console.log(courseName)
       const courseToDelete = {
         courseName: courseName
       }
-      console.log(courseName)
+      console.log(courseToDelete)
       axios.post('http://127.0.0.1:3000/deleteCourse', courseToDelete)
       .then((res) => {
         socket.emit("requestRefreshCourses", "")
