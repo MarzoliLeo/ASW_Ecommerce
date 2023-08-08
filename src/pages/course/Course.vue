@@ -8,7 +8,8 @@ export default{
   components: {CourseBox},
   data() {
     return{
-      courses: []
+      courses: [],
+      userPermission: false,
     }
   },
   methods: {
@@ -33,9 +34,26 @@ export default{
         console.log(err)
       )
     },
+    isNotUserLogged(email) {
+      if(this.$store.state.email != '') {
+        axios.get("http://localhost:3000/usersPermission", {
+          params: {
+            email: email,
+          }
+        })
+        .then(res => {
+          this.userPermission = res.data[0].permission != "User" ? true : false
+        })
+        .catch(err => 
+          console.log(err)
+        )
+      }
+    },
   },
   mounted() {
     this.getCourses();
+    this.isNotUserLogged(this.$store.state.email);
+
 
     socket.on("refreshCourses", () => {
       console.log("Refreshing courses")
@@ -54,7 +72,7 @@ export default{
     <div class="row">
         <div class="col-12 text-center">
           <h3 class="pt-3">Our Courses - {{ this.$store.state.lastVisitedCategory }}</h3>
-          <router-link :to="{name : 'CourseAdd'}">
+          <router-link v-if="userPermission" :to="{name : 'CourseAdd'}">
             <button class="btn" style="float:right">Add Course</button>
           </router-link>
         </div>
