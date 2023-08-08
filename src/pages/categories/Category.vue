@@ -12,7 +12,8 @@ export default{
   components: {CategoryBox},
   data() {
     return{
-      categories: []
+      categories: [],
+      adminLogged: false,
     }
   },
   methods: {
@@ -21,20 +22,36 @@ export default{
       await axios.get("http://localhost:3000/showCategories") 
       .then(res => {
           console.log(this.categories)
-
           this.categories = res.data
-
           console.log(this.categories)
       })
       .catch(err => 
         console.log(err)
       )
     },
+    isAdminLogged(email) {
+      if(this.$store.state.email != '') {
+        axios.get("http://localhost:3000/usersPermission", {
+          params: {
+            email: email,
+          }
+        })
+        .then(res => {
+          this.adminLogged = res.data[0].permission == "Admin" ? true : false
+        })
+        .catch(err => 
+          console.log(err)
+        )
+      }
+    }
+  },
+  computed: {
     
   },
   //Questo metodo viene invocato non appena la classe viene istanziata.
   mounted() {
     this.getCategories();
+    this.isAdminLogged(this.$store.state.email);
 
     socket.on("refreshCategories", () => {
       console.log("Refreshing categories")
@@ -53,12 +70,12 @@ export default{
     <div class="row">
         <div class="col-12 text-center">
           <h3 class="pt-3">Our Categories</h3>
-          <router-link :to="{name : 'CategoryAdd'}">
+          <router-link v-if="adminLogged" :to="{name : 'CategoryAdd'}">
             <button class="btn" style="float:right">Add Category</button>
           </router-link>
         </div>
     </div>
-    <div class ="row" v-if="categories && categories.length">
+    <div class ="row">
       <div v-for="(category, index) in categories" :key="index" class="col-xl-4 col-md-6 pt-3 d-flex" >
         <CategoryBox :category="category"></CategoryBox>
       </div>

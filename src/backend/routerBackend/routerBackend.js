@@ -28,6 +28,9 @@ routerBackend.route('/admin/addCourse')
 routerBackend.route('/showCourses')
 .get(userController.list_all_courses);
 
+routerBackend.route('/usersPermission')
+.get(userController.get_users_permission);
+
 
 
 module.exports = routerBackend;

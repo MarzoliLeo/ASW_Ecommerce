@@ -91,3 +91,12 @@ exports.list_all_courses = async (req, res)=> {
 		res.json(err);
 	}
 };
+
+exports.get_users_permission = async (req, res)=> {
+  const email = req.query["email"];
+  try{
+		res.json(await user.find({ email: email }));
+	}catch (err){
+		res.json(err);
+	}
+};
