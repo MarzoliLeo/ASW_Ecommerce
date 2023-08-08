@@ -100,3 +100,14 @@ exports.get_users_permission = async (req, res)=> {
 		res.json(err);
 	}
 };
+
+exports.delete_course = async (req, res)=> {
+  console.log(req.body)
+  const courseName = req.body["courseName"];
+  console.log(courseName)
+  try{
+		res.json(await courses.deleteMany({ coursesName: courseName }));
+	}catch (err){
+		res.json(err);
+	}
+};
