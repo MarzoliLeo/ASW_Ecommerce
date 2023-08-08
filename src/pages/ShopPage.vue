@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-center">Shop Page</h1>
+    <h1 class="text-center mb-4">Shop Page</h1>
     <Shop />
   </div>
 </template>
@@ -18,5 +18,6 @@ export default {
 <style>
 .text-center {
   text-align: center;
+  margin-bottom: 1rem;
 }
 </style>

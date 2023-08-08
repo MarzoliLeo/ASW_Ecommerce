@@ -1,17 +1,10 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 justify-content-center align-items-center">
-        <h2 class="text-center my-4">Products</h2>
-        <div class="row">
-          <div class="col-md-12">
-            <Product v-for="product in products" :key="product.id" :product="product" @add-to-cart="addToCart"
-              class="mb-4" />
-          </div>
+  <div class="row">
+    <div class="col-md-12 justify-content-center align-items-center">
+      <div class="row">
+        <div v-for="product in products" :key="product.id" class="col-md-4 mb-4">
+          <Product :product="product" @add-to-cart="addToCart" />
         </div>
-      </div>
-      <div class="col-md-6">
-        <Cart :cart="cart" @remove-from-cart="removeFromCart" />
       </div>
     </div>
   </div>
@@ -19,12 +12,10 @@
 
 <script>
 import Product from "@/components/shop/Product.vue";
-import Cart from "@/components/shop/Cart.vue";
 
 export default {
   components: {
     Product,
-    Cart,
   },
   data() {
     return {
@@ -47,6 +38,24 @@ export default {
           description: "This is product 3",
           price: 5.99,
         },
+        {
+          id: 4,
+          name: "Product 4",
+          description: "This is product 4",
+          price: 15.99,
+        },
+        {
+          id: 5,
+          name: "Product 5",
+          description: "This is product 5",
+          price: 8.99,
+        },
+        {
+          id: 6,
+          name: "Product 6",
+          description: "This is product 6",
+          price: 12.99,
+        }
       ],
       cart: [],
     };
@@ -79,4 +88,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.col-md-4 {
+  margin-bottom: 2rem;
+}
+</style>
