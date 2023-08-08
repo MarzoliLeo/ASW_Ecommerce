@@ -50,6 +50,9 @@ A questo punto nel terminale dovrebbe partire il tool per l'esecuzione di Vue3, 
 
 e a questo punto premere il pulsante "o" della tastiera avendo selezionato il terminale per aprire il progetto Vue3 nel browser e visualizzare il frotend.
 
+6. Un altro step da seguire per permettere la comunicazione tra il l'applicazione e il DB di MongoDB, è l'utilizzo del comando "node .\src\backend\server.js", che
+andrà sempre eseguita dentro una shell all'interno della cartella (nel nostro caso utilizziamo direttamente il terminale di Visual Studio Code)
+
 ## Configurazione di MongoDB.
 1. Accertarsi di aver correttamente installato la versione community di [MongoDB](https://www.mongodb.com/try/download/community).
    Attenzione: scaricare una versione che sia meno recente della 6.0.8+ , (consiglio la 5.0.19) poiché le versioni più recenti rimuovono il file "mongo".
@@ -74,7 +77,7 @@ e a questo punto premere il pulsante "o" della tastiera avendo selezionato il te
    ```
    Attenzione: sostituire la parte in "localhost" con "127.0.0.1", altrimenti potrebbe non funzionare.
 8. Premete connect, e sarete connessi in localhost a MongoDB, congratulazioni.
-10. Una volta connessi tramite l'utilizzo di MongoDB Compass, è necessario creare un nuovo database, il cui campo "Database Name" sarà "UserDB", e come "Collection Name" aggiungere una collection "users"; Dopodichè una volta che il DB è stato creato, con la collection users, è necessario aggiungerne un'altra, il cui nome sarà "categories".
+9. Una volta connessi tramite l'utilizzo di MongoDB Compass, è necessario creare un nuovo database, il cui campo "Database Name" sarà "UserDB", e come "Collection Name" aggiungere una collection "users"; Dopodichè una volta che il DB è stato creato, con la collection users, è necessario aggiungerne un'altra, il cui nome sarà "categories".
 
 ## Tecnologie utilizzate.
 

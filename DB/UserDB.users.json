@@ -1,0 +1,28 @@
+[{
+  "_id": {
+    "$oid": "64cb8f09d08ed8ec6fb72e5e"
+  },
+  "first_name": "Federico",
+  "last_name": "Pirazzoli",
+  "permission": "Staff",
+  "email": "test@test.it",
+  "password": "123",
+  "created_date": {
+    "$date": "2023-08-03T11:27:05.621Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64d22ace522754fa6abc448a"
+  },
+  "first_name": "Admin",
+  "last_name": "Admin",
+  "permission": "Admin",
+  "email": "root@self.com",
+  "password": "root",
+  "created_date": {
+    "$date": "2023-08-03T11:27:05.621Z"
+  },
+  "__v": 0
+}]
