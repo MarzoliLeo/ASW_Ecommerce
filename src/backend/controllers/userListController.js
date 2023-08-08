@@ -102,7 +102,6 @@ exports.get_users_permission = async (req, res)=> {
 };
 
 exports.delete_course = async (req, res)=> {
-  console.log(req.body)
   const courseName = req.body["courseName"];
   try {
 		res.json(await courses.deleteOne({ coursesName: courseName }));

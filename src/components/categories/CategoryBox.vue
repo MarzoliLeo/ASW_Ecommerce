@@ -8,7 +8,7 @@
         <div class="card-body">
           <h5 class="card-title">{{ category.categoryName }}</h5>
           <p class="card-text">{{ category.description }}</p>
-          <button @click.stop.prevent="removeCategory(category.categoryName)">Remove</button>
+          <button v-if="adminLogged" @click.stop.prevent="removeCategory(category.categoryName)">Remove</button>
         </div>
       </div>
     </a>
@@ -25,6 +25,11 @@ const CategoryBox = ref({})
 export default {
   name: CategoryBox,
   props: ["category"],
+  data() {
+    return{
+      adminLogged: false,
+    }
+  },
   methods: {
     submitSelectedCategory() {
       this.$store.commit("commitCategory", this.category.categoryName)
@@ -49,7 +54,25 @@ export default {
           });
         console.log("Errore di tipo: "+ err)
       });
+    },
+    isAdminLogged(email) {
+      if(this.$store.state.email != '') {
+        axios.get("http://localhost:3000/usersPermission", {
+          params: {
+            email: email,
+          }
+        })
+        .then(res => {
+          this.adminLogged = res.data[0].permission == "Admin" ? true : false
+        })
+        .catch(err => 
+          console.log(err)
+        )
+      }
     }
+  },
+  mounted() {
+    this.isAdminLogged(this.$store.state.email);
   }
 };
 
