@@ -10,7 +10,9 @@ export default{
         coursesName: "", 
         description: "", 
         price: 0.0,
-        courseCategory: this.$store.state.lastVisitedCategory }
+        courseCategory: this.$store.state.lastVisitedCategory,
+        courseCreator: this.$store.state.email,
+      }
     }
   },
   methods: {
@@ -19,13 +21,15 @@ export default{
         this.Course.coursesName, 
         this.Course.description, 
         parseFloat(this.Course.price),
-        this.Course.courseCategory
+        this.Course.courseCategory,
+        this.Course.courseCreator
       );
       const newCourse = {
         coursesName: this.Course.coursesName,
         description: this.Course.description,
         price: parseFloat(this.Course.price),
-        courseCategory: this.Course.courseCategory
+        courseCategory: this.Course.courseCategory,
+        courseCreator: this.Course.courseCreator
       };
       axios.post('http://127.0.0.1:3000/admin/addCourse', newCourse)
       .then((res) => {

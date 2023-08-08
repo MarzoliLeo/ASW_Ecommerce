@@ -112,9 +112,7 @@ exports.delete_course = async (req, res)=> {
 };
 
 exports.delete_category = async (req, res)=> {
-  console.log(req.body)
   const categoryName = req.body["categoryName"];
-  console.log(categoryName)
   try {
 		await courses.deleteMany({ courseCategory: categoryName });
   	res.json(await categories.deleteOne({ categoryName: categoryName }));

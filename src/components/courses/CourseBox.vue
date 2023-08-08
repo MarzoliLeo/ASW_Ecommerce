@@ -6,6 +6,7 @@
       <h5 class="card-title">{{ course.coursesName }}</h5>
       <p class="card-text">{{ course.description }}</p>
       <p class="card-text">{{ course.price }} Tokens</p>
+      <p class="card-text">Creator is: {{ course.courseCreator }}</p>
       <button @click="removeCourse(course.coursesName)">Remove</button>
     </div>
   </div>

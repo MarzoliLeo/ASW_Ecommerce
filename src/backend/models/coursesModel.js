@@ -7,7 +7,7 @@ const coursesSchema = new mongoose.Schema({
 	description: String,
 	price: Number,
     courseCategory: String,
-    // creatorOfCourse: String,
+    courseCreator: String,
     created_date:{
         type: Date,
         default: Date.now
