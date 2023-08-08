@@ -7,7 +7,7 @@
       <p class="card-text">{{ course.description }}</p>
       <p class="card-text">{{ course.price }} Tokens</p>
       <p class="card-text">Creator is: {{ course.courseCreator }}</p>
-      <button @click="removeCourse(course.coursesName)">Remove</button>
+      <button v-if="ownerLogged" @click="removeCourse(course.coursesName)">Remove</button>
     </div>
   </div>
 </template>
@@ -22,6 +22,11 @@ const CourseBox = ref({})
 export default{
   name: CourseBox,
   props: ["course"],
+  data() {
+    return{
+      ownerLogged: false,
+    }
+  },
   methods: {
     removeCourse(courseName) {
       const courseToDelete = {
@@ -43,8 +48,31 @@ export default{
           });
         console.log("Errore di tipo: "+ err)
       });
-    }
+    },
+    isOwnerLogged(email) {
+      if(this.$store.state.email != '') {
+        axios.get("http://localhost:3000/usersPermission", {
+          params: {
+            email: email,
+          }
+        })
+        .then(res => {
+          this.ownerLogged = 
+          (res.data[0].email == this.course.courseCreator && res.data[0].permission == "Staff") 
+          || res.data[0].permission == "Admin" 
+          ? true 
+          : false
+          console.log(this.ownerLogged)
+        })
+        .catch(err => 
+          console.log(err)
+        )
+      }
+    },
   },
+  mounted() {
+    this.isOwnerLogged(this.$store.state.email);
+  }
 };
 
 </script>
