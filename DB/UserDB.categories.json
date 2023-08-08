@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "64cf9b8c4aff8dd6dad56527"
+  },
+  "categoryName": "Test",
+  "description": "Test",
+  "imageUrl": "https://prod-ne-cdn-media.puregym.com/media/819394/gym-workout-plan-for-gaining-muscle_header.jpg?quality=80",
+  "created_date": {
+    "$date": "2023-08-06T13:09:32.768Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64cf9b9e4aff8dd6dad5652e"
+  },
+  "categoryName": "Test2",
+  "description": "Test2",
+  "imageUrl": "https://www.muscleandfitness.com/wp-content/uploads/2018/11/Group-Fitness-Class-Performing-A-Variety-Of-Exercises-1.jpg?quality=86&strip=all",
+  "created_date": {
+    "$date": "2023-08-06T13:09:50.294Z"
+  },
+  "__v": 0
+}]

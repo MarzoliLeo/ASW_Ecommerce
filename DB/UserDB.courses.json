@@ -1,0 +1,42 @@
+[{
+  "_id": {
+    "$oid": "64d2429b9e8e694d23b9e1b7"
+  },
+  "coursesName": "Course1 - Test",
+  "description": "Course1 - Test - Desc",
+  "price": 15,
+  "courseCategory": "Test",
+  "courseCreator": "test@test.it",
+  "created_date": {
+    "$date": "2023-08-08T13:26:51.511Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64d242a29e8e694d23b9e1ba"
+  },
+  "coursesName": "Course2 - Test",
+  "description": "Course2 - Test - Desc",
+  "price": 45,
+  "courseCategory": "Test",
+  "courseCreator": "test@test.it",
+  "created_date": {
+    "$date": "2023-08-08T13:26:58.171Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64d242c29e8e694d23b9e1cc"
+  },
+  "coursesName": "Course3 - Test",
+  "description": "Course3 - Test - Desc",
+  "price": 98,
+  "courseCategory": "Test",
+  "courseCreator": "root@self.com",
+  "created_date": {
+    "$date": "2023-08-08T13:27:30.910Z"
+  },
+  "__v": 0
+}]
