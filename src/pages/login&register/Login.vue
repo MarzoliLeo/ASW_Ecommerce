@@ -1,7 +1,7 @@
 <script>
 import axios from "axios"
 import sweetalert from "sweetalert"
-import userStore from "@/store/UserStore";
+import userModule from "@/store/UserModule";
 
 export default{
   data() {
@@ -23,8 +23,8 @@ export default{
             text: "User logged in succesfully",
             icon: "success"
           })
-        userStore.commit("login", this.email)
-        console.log(userStore.state.email)
+        userModule.commit("login", this.email)
+        console.log(userModule.state.email)
       })
       .catch((err) => {
         sweetalert({

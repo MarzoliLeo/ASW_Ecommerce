@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 
-const categoryStore = createStore({
+const categoryModule = createStore({
     state: {
       categories: []
     },
@@ -18,4 +18,4 @@ const categoryStore = createStore({
     }
   });
 
-export default categoryStore
+export default categoryModule

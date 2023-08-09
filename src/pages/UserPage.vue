@@ -1,7 +1,7 @@
 <script setup>
-import userStore from '@/store/UserStore';
+import userModule from '@/store/UserModule';
 </script>
 
 <template>
-    <p>Users email is: {{ userStore.state.email }}</p>
+    <p>Users email is: {{ userModule.state.email }}</p>
 </template>

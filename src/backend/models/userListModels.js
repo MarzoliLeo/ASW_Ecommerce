@@ -1,6 +1,6 @@
 /* Definisco uno schema da andare poi ad inserire all'interno del Database */
 
-var mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const usersSchema = new mongoose.Schema({
   first_name: String, // String is shorthand for {type: String}
@@ -15,4 +15,6 @@ const usersSchema = new mongoose.Schema({
 });
 
 //"users" è il nome della collection in mongoDB.
-module.exports = mongoose.model("users", usersSchema);
+const User = mongoose.model("users", usersSchema);
+
+export default User;

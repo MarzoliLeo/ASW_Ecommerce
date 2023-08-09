@@ -38,5 +38,8 @@ routerBackend.route('/deleteCategory')
 .post(userController.delete_category);
 
 
+/* Route per aggiungere prodotti al carrello */
+routerBackend.route('/user/addCourseToCart')
+.post(userController.add_course_to_cart);
 
 module.exports = routerBackend;

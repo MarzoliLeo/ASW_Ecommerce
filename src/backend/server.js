@@ -22,16 +22,18 @@ mongoose.Promise = global.Promise;
 app.use(express.json());
 
 // "UserDB" è il nome del database in MongoDB.
-mongoose.connect('mongodb://127.0.0.1:27017/UserDB').then(()=> console.log("Connected to localhost MongoDB.")).catch((e)=>console.log(e));
+mongoose.connect('mongodb://127.0.0.1:27017/EFit').then(()=> console.log("Connected to localhost MongoDB.")).catch((e)=>console.log(e));
 
 // è essenziale per impostare correttamente l'header fra scambio di messaggi in axios.
 app.use(cors());
 
 var route = require('../backend/routerBackend/routerBackend.js')
+
 app.use('/',route);
 app.use('/login',route);
 app.use('/admin/addCategory',route);
 app.use('/showCategories',route);
+app.use('/user/addCourseToCart', route)
 
 // Gestione della connessione e disconnessione di un client.
 // Also socket set up for the server to tell clients to refresh their page

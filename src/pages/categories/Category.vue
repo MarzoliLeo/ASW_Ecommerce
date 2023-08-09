@@ -1,7 +1,7 @@
 <script>
 import axios from "axios"
 import CategoryBox from "@/components/categories/CategoryBox.vue"
-import categoryStore from "@/store/CategoryStore"
+import categoryModule from "@/store/CategoryModule"
 import { socket } from "@/socket/socket"
 
 
@@ -30,7 +30,7 @@ export default{
       )
     },
     isAdminLogged(email) {
-      if(this.$store.state.email != '') {
+      if(this.$store.state.user.email != '') {
         axios.get("http://localhost:3000/usersPermission", {
           params: {
             email: email,
@@ -51,7 +51,7 @@ export default{
   //Questo metodo viene invocato non appena la classe viene istanziata.
   mounted() {
     this.getCategories();
-    this.isAdminLogged(this.$store.state.email);
+    this.isAdminLogged(this.$store.state.category.email);
 
     socket.on("refreshCategories", () => {
       console.log("Refreshing categories")
