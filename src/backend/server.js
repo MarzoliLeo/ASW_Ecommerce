@@ -1,65 +1,61 @@
-var express = require('express');
-app = express();
-port = process.env.PORT || 3000;
-mongoose = require('mongoose');
+// Import required modules
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const http = require("http");
+const { Server } = require("socket.io");
+const route = require("../backend/routerBackend/routerBackend.js");
 
-// This is the setup required to ensure that socket.io works
-const http = require('http');
-const serverSocket = http.createServer(app);
-const { Server } = require('socket.io');
-const io = new Server(serverSocket, {
+// Create an Express app instance
+const app = express();
+
+// Create an HTTP server instance using the Express app
+const server = http.createServer(app);
+
+// Create a new instance of the socket.io server and attach it to the HTTP server
+const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173"
-  }
+    origin: "http://localhost:5173",
+  },
 });
 
-user = require('../backend/models/userListModels');
-cors = require('cors')
+// Set the port number for the server
+const port = 3000;
 
-mongoose.Promise = global.Promise;
+// Set the MongoDB connection URI
+const mongoURI = "mongodb://127.0.0.1:27017/EFit";
 
-// Middleware per il parsing dei dati JSON
+// Connect to the MongoDB database using Mongoose
+mongoose
+  .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error(err));
+
+// Set up middleware for parsing JSON data and enabling CORS
 app.use(express.json());
-
-// "UserDB" è il nome del database in MongoDB.
-mongoose.connect('mongodb://127.0.0.1:27017/EFit').then(()=> console.log("Connected to localhost MongoDB.")).catch((e)=>console.log(e));
-
-// è essenziale per impostare correttamente l'header fra scambio di messaggi in axios.
 app.use(cors());
 
-var route = require('../backend/routerBackend/routerBackend.js')
+// Set up routes for the Express app
+app.use("/", route);
+app.use("/login", route);
+app.use("/admin/addCategory", route);
+app.use("/showCategories", route);
+app.use("/addCourseToCart", route);
 
-app.use('/',route);
-app.use('/login',route);
-app.use('/admin/addCategory',route);
-app.use('/showCategories',route);
-app.use('/user/addCourseToCart', route)
-
-// Gestione della connessione e disconnessione di un client.
-// Also socket set up for the server to tell clients to refresh their page
-// once a new category and/or course has been added
-io.on('connection', (socket)=>{
-  // This is the category refresh request
+// Set up socket.io event listeners
+io.on("connection", (socket) => {
   socket.on("requestRefreshCategories", () => {
-    console.log("Request for refreshing categories")
-    io.emit("refreshCategories", "")
+    console.log("Request for refreshing categories");
+    io.emit("refreshCategories", "");
   });
 
-  // This is the course refresh request
   socket.on("requestRefreshCourses", () => {
-    console.log("Request for refreshing courses")
-    io.emit("refreshCourses", "")
-  });  
+    console.log("Request for refreshing courses");
+    io.emit("refreshCourses", "");
+  });
 });
 
-
-
-// Faccio partire il server...
-// Old commands used to start the server
-// const server = app.listen(port);
-// console.log('User connected to port: '+ port);
-
-//Now with socket.io, the socket listens on the port that we've chosen, which is the port 3000 
-serverSocket.listen(3000, () => {
-  console.log('listening on *:3000');
+// Start the server and listen for incoming requests
+server.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });

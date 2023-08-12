@@ -4,11 +4,9 @@ var mongoose = require('mongoose');
 const User = require('../models/userListModels.js');
 const Category = require('../models/categoriesModel.js');
 const Course = require('../models/coursesModel.js');
-const Cart = require('../models/cartModel.js');
 user = mongoose.model('users'); //Nome della collection in MongoDB per gli user.
 categories = mongoose.model('categories'); //Nome della collection in MongoDB per le categories.
 courses = mongoose.model('courses') // Name of the collection in MongoDB that refers to courses 
-cart = mongoose.model('cart') // Name of the collection in MongoDB that refers to the cart
 
 exports.list_all_users = async (req, res) => {
   try {
@@ -122,22 +120,3 @@ exports.delete_category = async (req, res) => {
     res.json(err);
   }
 };
-
-exports.add_course_to_cart = async (req, res) => {
-  const { email, courseName } = req.body;
-  try {
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-    const course = await Course.findOne({ courseName });
-    if (!course) {
-      return res.status(404).json({ error: 'Course not found' });
-    }
-    const cartItem = new Cart({ course: course._id, user: user._id });
-    await cartItem.save();
-    return res.status(200).json({ message: 'Course added to cart' });
-  } catch (err) {
-    res.status(500).json({ error: 'Internal server error' });
-  }
-};;

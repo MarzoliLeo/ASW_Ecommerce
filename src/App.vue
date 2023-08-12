@@ -6,6 +6,6 @@ import NavBar from "@/components/NavBar.vue"
   <NavBar></NavBar>
   <RouterView></RouterView>
   <div>Ciao Lorenzino Federico</div>
-  <p>Hello {{ this.$store.state.email }} </p>
+  <p>Hello {{ this.$store.state.user.email }} </p>
   
 </template>
