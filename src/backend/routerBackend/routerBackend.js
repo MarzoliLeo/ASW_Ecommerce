@@ -40,6 +40,10 @@ routerBackend.route('/deleteCategory')
 routerBackend.route('/addCourseToCart')
   .post(cartController.add_course_to_cart);
 
+// Route for getting cart items
+routerBackend.route('/getCartItems')
+  .get(cartController.get_cart_items);
+
 // Route for getting users' permissions
 routerBackend.route('/usersPermission')
   .get(userController.get_users_permission);

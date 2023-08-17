@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     submitSelectedCategory() {
-      this.$store.commit("commitCategory", this.category.categoryName)
+      this.$store.commit("user/commitCategory", this.category.categoryName)
     },
     removeCategory(categoryName) {
       const categoryToDelete = {

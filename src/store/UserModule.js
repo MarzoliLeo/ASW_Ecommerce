@@ -1,4 +1,5 @@
 const userModule = {
+  namespaced: true,
   state: {
     email: "",
     lastVisitedCategory: "",
@@ -6,6 +7,7 @@ const userModule = {
   getters: {
     email: (state) => state.email,
     lastVisitedCategory: (state) => state.lastVisitedCategory,
+    isLoggedIn: (state) => !!state.email,
   },
   mutations: {
     login(state, email) {

@@ -23,7 +23,7 @@ export default {
             text: "User logged in succesfully",
             icon: "success"
           })
-          this.$store.commit("login", this.email)
+          this.$store.commit("user/login", this.email)
           console.log(this.$store.state.user.email)
         })
         .catch((err) => {

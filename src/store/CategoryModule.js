@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 
 const categoryModule = createStore({
+    namespaced: true,
     state: {
       categories: []
     },

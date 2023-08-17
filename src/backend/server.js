@@ -41,6 +41,7 @@ app.use("/login", route);
 app.use("/admin/addCategory", route);
 app.use("/showCategories", route);
 app.use("/addCourseToCart", route);
+app.use("/getCartItems", route);
 
 // Set up socket.io event listeners
 io.on("connection", (socket) => {

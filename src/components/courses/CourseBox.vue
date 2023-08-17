@@ -39,10 +39,10 @@ export default {
           this.$store.state.permission === "Staff") ||
         this.$store.state.permission === "Admin"
       );
-    },
+    }
   },
   methods: {
-    ...mapActions(["addToCart"]),
+    ...mapActions('cart', ["addToCart"]),
     async removeCourse(courseName) {
       const courseToDelete = {
         courseName: courseName,
