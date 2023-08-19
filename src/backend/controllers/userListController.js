@@ -120,3 +120,20 @@ exports.delete_category = async (req, res) => {
     res.json(err);
   }
 };
+
+exports.add_tokens = async function (req, res) {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    // print the email
+    console.log("This is the email: " + req.body.email);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    user.token_balance += parseInt(req.body.amount);
+    await user.save();
+    return res.status(200).json({ message: "Tokens added successfully" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};

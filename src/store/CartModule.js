@@ -1,5 +1,7 @@
-import sweetalert from "sweetalert";
 import axios from "axios";
+import sweetalert from "sweetalert";
+
+const baseURL = "http://127.0.0.1:3000";
 
 const cartModule = {
   namespaced: true,
@@ -7,41 +9,23 @@ const cartModule = {
     cart: [],
   },
   mutations: {
-    addToCart: async function (state, { course, email }) {
-      axios
-        .post("http://127.0.0.1:3000/addCourseToCart", {
-          userEmail: email,
-          courseName: course.coursesName,
-        })
-        .then(() => {
-          state.cart.push({
-            id: course.id,
-            name: course.name,
-            price: course.price,
-            quantity: 1,
-            email: email,
-          });
-          sweetalert({
-            icon: "success",
-            title: "Success!",
-            text: "Item added to cart.",
-          });
-        })
-        .catch((error) => {
-          sweetalert({
-            icon: "error",
-            title: "Oops...",
-            text: error.response.data.error,
-          });
-        });
+    addToCart(state, cartEntry) {
+      state.cart.push(cartEntry);
     },
-    removeFromCart: async function (state, product) {
-      const index = state.cart.findIndex((p) => p.id === product.id);
+    removeFromCart(state, cartEntry) {
+      const index = state.cart.findIndex(
+        (p) => p.courseName === cartEntry.courseName
+      );
       if (index !== -1) {
         state.cart.splice(index, 1);
+        sweetalert({
+          icon: "success",
+          title: "Success!",
+          text: "Item removed from cart.",
+        });
       }
     },
-    setCart: function (state, cart) {
+    setCart(state, cart) {
       state.cart = cart;
     },
     clearCart(state) {
@@ -60,8 +44,8 @@ const cartModule = {
     },
   },
   actions: {
-    addToCart({ commit }, course) {
-      const email = this.state.user.email;
+    async addToCart({ commit, rootState }, course) {
+      const email = rootState.user.email;
       if (!email) {
         sweetalert({
           icon: "error",
@@ -70,11 +54,49 @@ const cartModule = {
         });
         return;
       }
-      commit("addToCart", { course, email });
+      try {
+        const response = await axios.post(`${baseURL}/addCourseToCart`, {
+          userEmail: email,
+          course: course,
+        });
+        commit("addToCart", {
+          id: course.id,
+          name: course.name,
+          price: course.price,
+          quantity: 1,
+          email: email,
+        });
+        sweetalert({
+          icon: "success",
+          title: "Success!",
+          text: "Item added to cart.",
+        });
+      } catch (error) {
+        sweetalert({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.error,
+        });
+      }
+    },
+    async removeFromCart({ commit }, cartEntry) {
+      try {
+        await axios.post(`${baseURL}/removeCartItem`, {
+          userEmail: cartEntry.userEmail,
+          courseName: cartEntry.courseName,
+        });
+        commit("removeFromCart", cartEntry);
+      } catch (error) {
+        sweetalert({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.error,
+        });
+      }
     },
     async fetchCart({ commit }, email) {
       try {
-        const response = await axios.get("http://127.0.0.1:3000/getCartItems", {
+        const response = await axios.get(`${baseURL}/getCartItems`, {
           params: { userEmail: email },
         });
         commit("setCart", response.data.cart);
@@ -82,7 +104,7 @@ const cartModule = {
         sweetalert({
           icon: "error",
           title: "Oops...",
-          text: "Problem fetching cart items!"
+          text: "Problem fetching cart items!",
         });
       }
     },

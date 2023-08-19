@@ -10,6 +10,7 @@ import Account from "@/pages/UserPage.vue";
 import Course from "@/pages/course/Course.vue";
 import AddCourse from "@/pages/course/AddCourse.vue";
 import CartPage from "@/pages/CartPage.vue";
+import BuyTokens from "@/pages/BuyTokens.vue";
 
 const routes = [
   { path: "/", name: "Home", component: HomePage },
@@ -22,6 +23,7 @@ const routes = [
   { path: "/user/login", name: "Login", component: Login},
   { path: "/user/account", name: "Account", component: Account},
   { path: "/user/cart", name: "Cart", component: CartPage },
+  { path: "/user/buy-tokens", name: "BuyTokens", component: BuyTokens },
   { path: "/logout", name: "Logout", component: HomePage },
   { path: "/404", name: "NotFound", component: NotFound },
   { path: "/:catchAll(.*)", redirect: "/404" }

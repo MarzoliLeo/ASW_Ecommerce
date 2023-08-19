@@ -23,6 +23,9 @@ routerBackend.route('/admin/addCategory')
 routerBackend.route('/showCategories')
   .get(userController.list_all_categories);
 
+routerBackend.route('/deleteCategory')
+  .post(userController.delete_category);
+
 // Routes for courses
 routerBackend.route('/admin/addCourse')
   .post(userController.create_a_course);
@@ -33,12 +36,13 @@ routerBackend.route('/showCourses')
 routerBackend.route('/deleteCourse')
   .post(userController.delete_course);
 
-routerBackend.route('/deleteCategory')
-  .post(userController.delete_category);
-
 // Route for adding courses to cart
 routerBackend.route('/addCourseToCart')
   .post(cartController.add_course_to_cart);
+
+// Route for removing a course from the cart
+routerBackend.route('/removeCartItem')
+  .post(cartController.remove_course_from_cart);
 
 // Route for getting cart items
 routerBackend.route('/getCartItems')
@@ -47,5 +51,8 @@ routerBackend.route('/getCartItems')
 // Route for getting users' permissions
 routerBackend.route('/usersPermission')
   .get(userController.get_users_permission);
+
+routerBackend.route('/addTokens')
+  .post(userController.add_tokens);
 
 module.exports = routerBackend;

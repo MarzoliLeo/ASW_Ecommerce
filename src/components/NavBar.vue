@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from "vue"
 import NavButton from "@/components/NavButton.vue"
 </script>
 
@@ -17,7 +16,6 @@ import NavButton from "@/components/NavButton.vue"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <!--- -->
       <div v-if="this.$store.state.user.email" class="collapse navbar-collapse" id="navContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <NavButton route-name="Home" @counter-clicked="onChildClicked" />
@@ -25,6 +23,7 @@ import NavButton from "@/components/NavButton.vue"
           <NavButton route-name="Category" @counter-clicked="onChildClicked" />
           <NavButton route-name="Register" @counter-clicked="onChildClicked" />
           <NavButton route-name="Cart" @counter-clicked="onChildClicked" />
+          <NavButton route-name="BuyTokens" @counter-clicked="onChildClicked" />
         </ul>
       </div>
       <div v-else class="collapse navbar-collapse" id="navContent">

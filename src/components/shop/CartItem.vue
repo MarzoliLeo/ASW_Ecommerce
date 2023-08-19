@@ -1,13 +1,11 @@
 <template>
-  <div class="card p-3">
-    <div class="d-flex justify-content-between align-items-center">
-      <div class="d-flex flex-column">
-        <h3>{{ item.courseName }}</h3>
-        <p>Price: {{ item.price }} Token</p>
-        <button @click="removeFromCart(item)" class="btn btn-danger btn-sm">
-          Remove
-        </button>
-      </div>
+  <div class="card p-3 d-flex justify-content-center align-items-center">
+    <div class="d-flex flex-column align-items-center">
+      <h3>{{ item.courseName }}</h3>
+      <p>Price: {{ item.price }} Token</p>
+      <button @click="removeFromCart(item)" class="btn btn-danger btn-sm">
+        Remove
+      </button>
     </div>
   </div>
 </template>
@@ -24,9 +22,6 @@ export default {
   },
   methods: {
     ...mapActions("cart", ["removeFromCart"]),
-    removeFromCart(item) {
-      this.removeFromCart(item, 1);
-    },
   },
 };
 </script>
