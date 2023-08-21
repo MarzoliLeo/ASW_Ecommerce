@@ -15,6 +15,7 @@ import NavButton from "@/components/NavButton.vue"
           <NavButton route-name="Home" @counter-clicked="onChildClicked" />
           <NavButton route-name="About" @counter-clicked="onChildClicked" />
           <NavButton route-name="Category" @counter-clicked="onChildClicked" />
+          <NavButton route-name="Account" @counter-clicked="onChildClicked" />
           <NavButton route-name="Cart" @counter-clicked="onChildClicked" />
           <NavButton route-name="BuyTokens" @counter-clicked="onChildClicked" />
         </ul>
@@ -24,7 +25,6 @@ import NavButton from "@/components/NavButton.vue"
           <NavButton route-name="Home" @counter-clicked="onChildClicked" />
           <NavButton route-name="About" @counter-clicked="onChildClicked" />
           <NavButton route-name="Category" @counter-clicked="onChildClicked" />
-          <NavButton route-name="Account" @counter-clicked="onChildClicked" />
           <NavButton route-name="Login" @counter-clicked="onChildClicked" />
           <NavButton route-name="Register" @counter-clicked="onChildClicked" />
         </ul>

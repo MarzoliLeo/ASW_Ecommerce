@@ -21,7 +21,7 @@ const io = new Server(server, {
 const port = 3000;
 
 // Set the MongoDB connection URI
-const mongoURI = "mongodb://127.0.0.1:27017/EFit";
+const mongoURI = "mongodb://127.0.0.1:27017/UserDB";
 
 // Connect to the MongoDB database using Mongoose
 mongoose
