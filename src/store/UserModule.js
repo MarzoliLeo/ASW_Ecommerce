@@ -40,6 +40,10 @@ const userModule = {
       state.tokenBalance += amount;
       localStorage.setItem("tokenBalance", state.tokenBalance.toString());
     },
+    setTokens(state, amount) {
+      state.tokenBalance = amount;
+      localStorage.setItem("tokenBalance", state.tokenBalance.toString());
+    }
   },
   actions: {
     addTokens({ commit, getters }, amount) {
@@ -53,6 +57,30 @@ const userModule = {
         console.error("User is not logged in.");
       }
     },
+    getTokenBalance({ commit, getters }) {
+      if (getters.isLoggedIn) {
+        axios.get(`${baseURL}/getTokenBalance`, {
+          params: {
+            email: getters.email,
+          },
+        }).then((response) => {
+          commit("setTokens", response.data.token_balance);
+        });
+      } else {
+        console.error("User is not logged in.");
+      }
+    },
+    removeTokens({ commit, getters }, amount) {
+      if (getters.isLoggedIn) {
+        axios.post(`${baseURL}/removeTokens`, {
+          email: getters.email,
+          amount: amount,
+        });
+        commit("setTokens", getters.tokenBalance - amount);
+      } else {
+        console.error("User is not logged in.");
+      }
+    }
   },
 };
 

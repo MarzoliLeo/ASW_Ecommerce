@@ -55,4 +55,10 @@ routerBackend.route('/usersPermission')
 routerBackend.route('/addTokens')
   .post(userController.add_tokens);
 
+routerBackend.route('/removeTokens')
+  .post(userController.remove_tokens);
+
+routerBackend.route('/getTokenBalance')
+  .get(userController.get_token_balance);
+
 module.exports = routerBackend;

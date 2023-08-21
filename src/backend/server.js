@@ -1,11 +1,9 @@
-// Import required modules
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const http = require("http");
 const { Server } = require("socket.io");
 const route = require("../backend/routerBackend/routerBackend.js");
-// Create an Express app instance
 const app = express();
 
 

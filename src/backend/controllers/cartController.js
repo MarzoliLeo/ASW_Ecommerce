@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const Cart = require("../models/cartModel.js");
 const User = require("../models/userListModels.js");
 const Course = require("../models/coursesModel.js");

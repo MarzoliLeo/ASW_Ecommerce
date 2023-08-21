@@ -7,10 +7,12 @@ const cartModule = {
   namespaced: true,
   state: {
     cart: [],
+    cartTotal: 0,
   },
   mutations: {
     addToCart(state, cartEntry) {
       state.cart.push(cartEntry);
+      state.cartTotal += cartEntry.price;
     },
     removeFromCart(state, cartEntry) {
       const index = state.cart.findIndex(
@@ -18,27 +20,22 @@ const cartModule = {
       );
       if (index !== -1) {
         state.cart.splice(index, 1);
-        sweetalert({
-          icon: "success",
-          title: "Success!",
-          text: "Item removed from cart.",
-        });
+        state.cartTotal -= cartEntry.price;
       }
     },
     setCart(state, cart) {
       state.cart = cart;
-    },
-    clearCart(state) {
-      state.cart = [];
-    },
-  },
-  getters: {
-    cartTotal(state) {
-      return state.cart.reduce(
-        (total, product) => total + product.price * product.quantity,
+      state.cartTotal = cart.reduce(
+        (total, product) => total + product.price,
         0
       );
     },
+    clearCart(state) {
+      state.cart = [];
+      state.cartTotal = 0;
+    },
+  },
+  getters: {
     userCart(state) {
       return (email) => state.cart.filter((item) => item.email === email);
     },

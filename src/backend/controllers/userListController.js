@@ -137,3 +137,42 @@ exports.add_tokens = async function (req, res) {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+exports.remove_tokens = async (req, res) => {
+  const email = req.body.email;
+  const amount = req.body.amount;
+
+  console.log("Data received: email " + email + " " + amount + " tokens")
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    if (user.token_balance < amount) {
+      return res.status(400).json({ error: "Insufficient tokens" });
+    }
+
+    user.token_balance -= amount;
+    await user.save();
+
+    return res.status(200).json({ message: "Tokens removed successfully" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Server error" });
+  }
+};;
+
+exports.get_token_balance = async function (req, res) {
+  try {
+    const user = await User.findOne({ email: req.query["email"] });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    return res.status(200).json({ token_balance: user.token_balance });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
