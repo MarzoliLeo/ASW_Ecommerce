@@ -18,6 +18,7 @@ import NavButton from "@/components/NavButton.vue"
           <NavButton route-name="Account" @counter-clicked="onChildClicked" />
           <NavButton route-name="Cart" @counter-clicked="onChildClicked" />
           <NavButton route-name="BuyTokens" @counter-clicked="onChildClicked" />
+          <NavButton route-name="Logout" @click="this.$store.commit('user/logout')" @counter-clicked="onChildClicked" />
         </ul>
       </div>
       <div v-else class="collapse navbar-collapse" id="navContent">
