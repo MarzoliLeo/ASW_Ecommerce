@@ -21,9 +21,8 @@ exports.add_course_to_cart = async (req, res) => {
 
     // Check if the course is already in the user's cart
     const cartItem = await Cart.findOne({
-      courseName: course,
-      userEmail: userEmail,
-      coursePrice: course.price,
+      courseName: course.coursesName,
+      userEmail: userEmail
     });
     if (cartItem) {
       return res.status(400).json({ error: "Course already in cart" });
