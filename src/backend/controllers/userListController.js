@@ -58,7 +58,7 @@ exports.list_all_categories = async (req, res) => {
 };
 
 exports.checkIfUserExists = async (req, res) => {
-  console.log(req.body["email"])
+  // console.log(req.body["email"])
   try {
     const email = req.body["email"];
 

@@ -11,11 +11,11 @@
         <form>
           <div class="form-group">
             <label>User First Name</label>
-            <input type="text" class="form-control" v-model="user.firstName">
+            <input type="text" class="form-control" v-model="user.first_name">
           </div>
           <div class="form-group">
             <label>User Last Name</label>
-            <input type="text" class="form-control" v-model="user.lastName">
+            <input type="text" class="form-control" v-model="user.last_name">
           </div>
           <br>
           <div>Would you like to be a:</div>
@@ -55,8 +55,8 @@ export default {
   data() {
     return {
       user: {
-        firstName: "",
-        lastName: "",
+        first_name: "",
+        last_name: "",
         permission: "",
         email: "",
         password: "",
