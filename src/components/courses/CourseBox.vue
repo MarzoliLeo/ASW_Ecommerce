@@ -1,16 +1,20 @@
 <template>
-  <div class="card w-100 h-100" style="margin-top: 10px;">
-    <div class="embed-responsive embed-responsive-16by9">
-    </div>
-    <div class="card-body text-center">
-      <h5 class="card-title">{{ course.coursesName }}</h5>
-      <p class="card-text">{{ course.description }}</p>
-      <p class="card-text">{{ course.price }} Tokens</p>
-      <p class="card-text">Creator is: {{ course.courseCreator }}</p>
-      <button v-if="ownerLogged" @click="removeCourse(course.coursesName)">Remove</button>
-      <button @click="addToCart(course)">Add to Cart</button>
-    </div>
-  </div>
+  <RouterLink class="nav-link" :to="{ name: 'CoursePage' }">
+    <a :href="href" @click="submitSelectedCourse">
+      <div class="card w-100 h-100" style="margin-top: 10px;">
+        <div class="embed-responsive embed-responsive-16by9">
+        </div>
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ course.coursesName }}</h5>
+          <p class="card-text">{{ course.description }}</p>
+          <p class="card-text">{{ course.price }} Tokens</p>
+          <p class="card-text">Creator is: {{ course.courseCreator }}</p>
+          <button v-if="ownerLogged" @click="removeCourse(course.coursesName)">Remove</button>
+          <button @click="addToCart(course)">Add to Cart</button>
+        </div>
+      </div>
+    </a>
+  </RouterLink>
 </template>
 
 <script>
@@ -43,6 +47,9 @@ export default {
   },
   methods: {
     ...mapActions('cart', ["addToCart"]),
+    submitSelectedCourse() {
+      this.$store.commit("user/commitCourse", this.course.coursesName);
+    },
     async removeCourse(courseName) {
       const courseToDelete = {
         courseName: courseName,

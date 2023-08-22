@@ -33,6 +33,9 @@ routerBackend.route('/admin/addCourse')
 routerBackend.route('/showCourses')
   .get(userController.list_all_courses);
 
+routerBackend.route('/showCourseByName')
+  .get(userController.list_course_by_name);
+
 routerBackend.route('/deleteCourse')
   .post(userController.delete_course);
 

@@ -52,7 +52,7 @@ export default{
   mounted() {
     this.getCategories();
     this.isAdminLogged(this.$store.state.category.email);
-
+    
     socket.on("refreshCategories", () => {
       console.log("Refreshing categories")
       this.getCategories();

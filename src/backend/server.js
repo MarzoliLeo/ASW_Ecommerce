@@ -52,6 +52,17 @@ io.on("connection", (socket) => {
     console.log("Request for refreshing courses");
     io.emit("refreshCourses", "");
   });
+
+  socket.on("requestJoinRoom", (roomName) => {
+    socket.join(roomName)
+    io.to(roomName).emit("transmitRoomMembers", io.sockets.adapter.rooms.get(roomName).size);
+  });
+
+  socket.on("leaveRoom", (roomName) => {
+    socket.leave(roomName)
+    var numMembers = io.sockets.adapter.rooms.get(roomName) === undefined ? 0 : io.sockets.adapter.rooms.get(roomName).size
+    io.to(roomName).emit("transmitRoomMembers", numMembers);
+  });
 });
 
 // Start the server and listen for incoming requests

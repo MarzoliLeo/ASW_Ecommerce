@@ -7,11 +7,13 @@ const userModule = {
   state: {
     email: "",
     lastVisitedCategory: "",
+    lastVisitedCourse: "",
     tokenBalance: 0,
   },
   getters: {
     email: (state) => state.email,
     lastVisitedCategory: (state) => state.lastVisitedCategory,
+    lastVisitedCourse: (state) => state.lastVisitedCourse,
     isLoggedIn: (state) => !!state.email,
     tokenBalance: (state) => state.tokenBalance,
   },
@@ -35,6 +37,10 @@ const userModule = {
     commitCategory(state, selectedCategory) {
       state.lastVisitedCategory = selectedCategory;
       localStorage.setItem("lastVisitedCategory", selectedCategory);
+    },
+    commitCourse(state, selectedCourse) {
+      state.lastVisitedCourse = selectedCourse;
+      localStorage.setItem("lastVisitedCourse", selectedCourse);
     },
     addTokens(state, amount) {
       state.tokenBalance += amount;

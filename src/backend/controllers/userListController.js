@@ -92,6 +92,15 @@ exports.list_all_courses = async (req, res) => {
   }
 };
 
+exports.list_course_by_name = async (req, res) => {
+  const courseName = req.query["course"];
+  try {
+    res.json(await courses.find({ coursesName: courseName }));
+  } catch (err) {
+    res.json(err);
+  }
+};
+
 exports.get_users_permission = async (req, res) => {
   const email = req.query["email"];
   try {

@@ -8,6 +8,7 @@ import Login from "@/pages/login&register/Login.vue";
 import NotFound from "@/pages/NotFound.vue";
 import Account from "@/pages/UserPage.vue";
 import Course from "@/pages/course/Course.vue";
+import CoursePage from "@/pages/course/CoursePage.vue";
 import AddCourse from "@/pages/course/AddCourse.vue";
 import CartPage from "@/pages/CartPage.vue";
 import BuyTokens from "@/pages/BuyTokens.vue";
@@ -15,16 +16,21 @@ import BuyTokens from "@/pages/BuyTokens.vue";
 const routes = [
   { path: "/", name: "Home", component: HomePage },
   { path: "/about", name: "About", component: AboutPage },
+  //Categories Routes
   { path: "/admin/category", name: "Category", component: Category},
   { path: "/admin/category/add", name: "CategoryAdd", component: AddCategory},
+  //Courses Routes
   { path: "/admin/courses", name: "Courses", component: Course},
+  { path: "/admin/coursePage", name: "CoursePage", component: CoursePage},
   { path: "/admin/courses/add", name: "CourseAdd", component: AddCourse},
+  //User Routes
   { path: "/user/register", name: "Register", component: Register},
   { path: "/user/login", name: "Login", component: Login},
   { path: "/user/account", name: "Account", component: Account},
   { path: "/user/cart", name: "Cart", component: CartPage },
   { path: "/user/buy-tokens", name: "BuyTokens", component: BuyTokens },
   { path: "/logout", name: "Logout", component: HomePage },
+  //Remaining Routes
   { path: "/404", name: "NotFound", component: NotFound },
   { path: "/:catchAll(.*)", redirect: "/404" }
 ]
