@@ -19,6 +19,7 @@ export default {
   data() {
     return {
       numPageViewers: 0,
+      courseId: "",
       courseName: "",
       description: "",
       price: 0,
@@ -36,6 +37,7 @@ export default {
         await axios.get("http://localhost:3000/showCourseByName", {
           params: { course: this.lastVisitedCourse },
         }).then(res => {
+          this.courseId = res.data[0]._id
           this.courseName = res.data[0].coursesName;
           this.description = res.data[0].description;
           this.price = res.data[0].price;
@@ -48,10 +50,10 @@ export default {
     handleVisibilityChange() {
       if (document.hidden) {
           // User switched tabs or left the page
-          socket.emit("leaveRoom", this.courseName + " - Bought")
+          socket.emit("leaveRoom", this.courseId + "-Bought")
       } else {
           // User came back to the page
-          socket.emit("requestJoinRoom", this.courseName + " - Bought")
+          socket.emit("requestJoinRoom", this.courseId + "-Bought")
       }
     },
   },
@@ -62,16 +64,12 @@ export default {
     socket.on("transmitRoomMembersCourseBought", (data) => {
       this.numPageViewers = data
     });
-
-    // window.onbeforeunload = function(e) {
-    //   socket.emit("leaveRoom", this.courseName)
-    // };
-
     await this.getCourse();
-    socket.emit("requestJoinRoom", this.courseName + " - Bought")
+    socket.emit("requestJoinRoom", this.courseId + "-Bought")
   },
   beforeRouteLeave(to, from, next) {
-    socket.emit("leaveRoom", this.courseName + " - Bought")
+    socket.emit("leaveRoom", this.courseId + "-Bought")
+    window.removeEventListener('visibilitychange', this.handleVisibilityChange);
     next()
   },
   beforeDestroy() {

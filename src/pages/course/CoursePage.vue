@@ -6,6 +6,7 @@
       </div>
       <p>{{ description }}</p>
       <p>People watching this page: {{ numPageViewers }}</p>
+      <p>People watching the Video-Course: {{ numCourseViewers }}</p>
     </div>
   </div>
 </template>
@@ -19,6 +20,8 @@ export default {
   data() {
     return {
       numPageViewers: 0,
+      numCourseViewers: 0,
+      courseId: "",
       courseName: "",
       description: "",
       price: 0,
@@ -36,6 +39,7 @@ export default {
         await axios.get("http://localhost:3000/showCourseByName", {
           params: { course: this.lastVisitedCourse },
         }).then(res => {
+          this.courseId = res.data[0]._id
           this.courseName = res.data[0].coursesName;
           this.description = res.data[0].description;
           this.price = res.data[0].price;
@@ -48,10 +52,12 @@ export default {
     handleVisibilityChange() {
       if (document.hidden) {
           // User switched tabs or left the page
-          socket.emit("leaveRoom", this.courseName)
+          if(this.courseId != null && this.courseId != undefined){
+            socket.emit("leaveRoom", this.courseId)
+          }
       } else {
           // User came back to the page
-          socket.emit("requestJoinRoom", this.courseName)
+          socket.emit("requestJoinRoom", this.courseId)
       }
     },
   },
@@ -62,15 +68,18 @@ export default {
       this.numPageViewers = data
     });
 
-    window.onbeforeunload = function(e) {
-      socket.emit("leaveRoom", this.courseName)
-    };
+    socket.on("transmitRoomMembersCourseBought", (data) => {
+      this.numCourseViewers = data
+    });
 
     await this.getCourse();
-    socket.emit("requestJoinRoom", this.courseName)
+    socket.emit("requestJoinRoom", this.courseId)
   },
   beforeRouteLeave(to, from, next) {
-    socket.emit("leaveRoom", this.courseName)
+    if(this.courseId != null && this.courseId != undefined){
+      socket.emit("leaveRoom", this.courseId)
+    }
+    window.removeEventListener('visibilitychange', this.handleVisibilityChange);
     next()
   },
   beforeDestroy() {

@@ -54,23 +54,36 @@ io.on("connection", (socket) => {
   });
 
   socket.on("requestJoinRoom", (roomName) => {
-    socket.join(roomName)
-    var numMembers = io.sockets.adapter.rooms.get(roomName) === undefined ? 0 : io.sockets.adapter.rooms.get(roomName).size
+    console.log("Joining " + roomName)
 
+    socket.join(roomName)
+    var numMembers = 
+    io.sockets.adapter.rooms.get(roomName) === undefined 
+    || io.sockets.adapter.rooms.get(roomName).size < 1
+    ? 0 : io.sockets.adapter.rooms.get(roomName).size
+
+    // Here indexOf is used because JS method "include" for strings doesn't
+    // work on older browsers
     if(roomName.indexOf("Bought") !== -1) {
       io.to(roomName).emit("transmitRoomMembersCourseBought", numMembers);
+      io.to(roomName.split("-")[0]).emit("transmitRoomMembersCourseBought", numMembers);
     } else {
       io.to(roomName).emit("transmitRoomMembersCourse", numMembers);
     }
-  
   });
 
   socket.on("leaveRoom", (roomName) => {
+    console.log("Leaving " + roomName)
+
     socket.leave(roomName)
-    var numMembers = io.sockets.adapter.rooms.get(roomName) === undefined ? 0 : io.sockets.adapter.rooms.get(roomName).size
+    var numMembers = 
+    io.sockets.adapter.rooms.get(roomName) === undefined
+    || io.sockets.adapter.rooms.get(roomName).size < 1
+    ? 0 : io.sockets.adapter.rooms.get(roomName).size
     
     if(roomName.indexOf("Bought") !== -1) {
       io.to(roomName).emit("transmitRoomMembersCourseBought", numMembers);
+      io.to(roomName.split("-")[0]).emit("transmitRoomMembersCourseBought", numMembers);
     } else {
       io.to(roomName).emit("transmitRoomMembersCourse", numMembers);      
     }
