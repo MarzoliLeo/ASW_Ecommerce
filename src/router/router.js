@@ -13,6 +13,7 @@ import AddCourse from "@/pages/course/AddCourse.vue";
 import CartPage from "@/pages/CartPage.vue";
 import BuyTokens from "@/pages/BuyTokens.vue";
 import BoughtCourses from "@/pages/course/BoughtCourses.vue";
+import BoughtCoursePage from "@/pages/course/BoughtCoursePage.vue";
 
 const routes = [
   { path: "/", name: "Home", component: HomePage },
@@ -29,6 +30,7 @@ const routes = [
   { path: "/user/login", name: "Login", component: Login},
   { path: "/user/account", name: "Account", component: Account},
   { path: "/user/account/boughtCourses", name: "BoughtCourses", component: BoughtCourses},
+  { path: "/user/account/boughtCoursePage", name: "BoughtCoursePage", component: BoughtCoursePage},
   { path: "/user/cart", name: "Cart", component: CartPage },
   { path: "/user/buy-tokens", name: "BuyTokens", component: BuyTokens },
   { path: "/logout", name: "Logout", component: HomePage },

@@ -55,13 +55,25 @@ io.on("connection", (socket) => {
 
   socket.on("requestJoinRoom", (roomName) => {
     socket.join(roomName)
-    io.to(roomName).emit("transmitRoomMembers", io.sockets.adapter.rooms.get(roomName).size);
+    var numMembers = io.sockets.adapter.rooms.get(roomName) === undefined ? 0 : io.sockets.adapter.rooms.get(roomName).size
+
+    if(roomName.indexOf("Bought") !== -1) {
+      io.to(roomName).emit("transmitRoomMembersCourseBought", numMembers);
+    } else {
+      io.to(roomName).emit("transmitRoomMembersCourse", numMembers);
+    }
+  
   });
 
   socket.on("leaveRoom", (roomName) => {
     socket.leave(roomName)
     var numMembers = io.sockets.adapter.rooms.get(roomName) === undefined ? 0 : io.sockets.adapter.rooms.get(roomName).size
-    io.to(roomName).emit("transmitRoomMembers", numMembers);
+    
+    if(roomName.indexOf("Bought") !== -1) {
+      io.to(roomName).emit("transmitRoomMembersCourseBought", numMembers);
+    } else {
+      io.to(roomName).emit("transmitRoomMembersCourse", numMembers);      
+    }
   });
 });
 

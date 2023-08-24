@@ -58,7 +58,7 @@ export default {
   async mounted() {
     window.addEventListener('visibilitychange', this.handleVisibilityChange);
 
-    socket.on("transmitRoomMembers", (data) => {
+    socket.on("transmitRoomMembersCourse", (data) => {
       this.numPageViewers = data
     });
 
@@ -68,8 +68,6 @@ export default {
 
     await this.getCourse();
     socket.emit("requestJoinRoom", this.courseName)
-    // this.numPageViewers =+ 1
-    // document.addEventListener('visibilitychange', this.handleVisibilityChange);
   },
   beforeRouteLeave(to, from, next) {
     socket.emit("leaveRoom", this.courseName)

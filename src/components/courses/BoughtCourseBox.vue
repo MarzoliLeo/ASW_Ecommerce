@@ -1,5 +1,5 @@
 <template>
-  <RouterLink class="nav-link" :to="{ name: 'CoursePage' }">
+  <RouterLink class="nav-link" :to="{ name: 'BoughtCoursePage' }">
     <a :href="href" @click="submitSelectedCourse">
       <div class="card w-100 h-100" style="margin-top: 10px;">
         <div class="embed-responsive embed-responsive-16by9">
@@ -18,10 +18,10 @@
 <script>
 import { ref } from "vue";
 
-const CourseBox = ref({});
+const BoughtCourseBox = ref({});
 
 export default {
-  name: CourseBox,
+  name: BoughtCourseBox,
   props: ["course"],
   methods: {
     submitSelectedCourse() {

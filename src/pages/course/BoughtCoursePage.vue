@@ -15,7 +15,7 @@ import axios from "axios";
 import { socket } from "@/socket/socket"
 
 export default {
-  name: "CoursePage",
+  name: "BoughtCoursePage",
   data() {
     return {
       numPageViewers: 0,
@@ -26,9 +26,6 @@ export default {
     }
   },
   computed: {
-    getVisitors() {
-      return socket.client.conn.server.clientsCount
-    },
     lastVisitedCourse() {
       return this.$store.state.user.lastVisitedCourse;
     },
@@ -51,31 +48,30 @@ export default {
     handleVisibilityChange() {
       if (document.hidden) {
           // User switched tabs or left the page
-          socket.emit("leaveRoom", this.courseName)
+          socket.emit("leaveRoom", this.courseName + " - Bought")
       } else {
           // User came back to the page
-          socket.emit("requestJoinRoom", this.courseName)
+          socket.emit("requestJoinRoom", this.courseName + " - Bought")
       }
     },
   },
   async mounted() {
+    console.log(this.$route.params.course)
     window.addEventListener('visibilitychange', this.handleVisibilityChange);
 
-    socket.on("transmitRoomMembers", (data) => {
+    socket.on("transmitRoomMembersCourseBought", (data) => {
       this.numPageViewers = data
     });
 
-    window.onbeforeunload = function(e) {
-      socket.emit("leaveRoom", this.courseName)
-    };
+    // window.onbeforeunload = function(e) {
+    //   socket.emit("leaveRoom", this.courseName)
+    // };
 
     await this.getCourse();
-    socket.emit("requestJoinRoom", this.courseName)
-    // this.numPageViewers =+ 1
-    // document.addEventListener('visibilitychange', this.handleVisibilityChange);
+    socket.emit("requestJoinRoom", this.courseName + " - Bought")
   },
   beforeRouteLeave(to, from, next) {
-    socket.emit("leaveRoom", this.courseName)
+    socket.emit("leaveRoom", this.courseName + " - Bought")
     next()
   },
   beforeDestroy() {
