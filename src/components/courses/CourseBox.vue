@@ -9,8 +9,8 @@
           <p class="card-text">{{ course.description }}</p>
           <p class="card-text">{{ course.price }} Tokens</p>
           <p class="card-text">Creator is: {{ course.courseCreator }}</p>
-          <button v-if="ownerLogged" @click="removeCourse(course.coursesName)">Remove</button>
-          <button @click="addToCart(course)">Add to Cart</button>
+          <button v-if="ownerLogged" @click.stop.prevent="removeCourse(course.coursesName)">Remove</button>
+          <button @click.stop.prevent="addToCart(course)">Add to Cart</button>
         </div>
       </div>
     </a>
@@ -74,11 +74,9 @@ export default {
         })
         .then(res => {
           this.ownerLogged =
-          (res.data[0].email === this.course.courseCreator && res.data[0].permission === "Staff") || res.data[0].permission === "Admin";
-
-          console.log(this.ownerLogged)
-          console.log((res.data[0].email === this.course.courseCreator && res.data[0].permission === "Staff") || res.data[0].permission === "Admin")
-          
+          (res.data[0].email === this.course.courseCreator 
+          && res.data[0].permission === "Staff") 
+          || res.data[0].permission === "Admin";
       });
       } catch (err) {
         console.log(err);

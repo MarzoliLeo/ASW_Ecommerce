@@ -64,4 +64,8 @@ routerBackend.route('/removeTokens')
 routerBackend.route('/getTokenBalance')
   .get(userController.get_token_balance);
 
+routerBackend.route('/addBoughtCourse')
+  .post(userController.add_bought_course);
+
+
 module.exports = routerBackend;

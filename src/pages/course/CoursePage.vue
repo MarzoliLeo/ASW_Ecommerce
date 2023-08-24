@@ -25,15 +25,6 @@ export default {
       courseCreator: "",
     }
   },
-  mutation: { 
-    '$route.fullPath': {
-      handler: function() {
-        console.log(this.$route)
-      },
-      deep: true,
-      immediate: true
-    }
-  },
   computed: {
     getVisitors() {
       return socket.client.conn.server.clientsCount
@@ -48,7 +39,6 @@ export default {
         await axios.get("http://localhost:3000/showCourseByName", {
           params: { course: this.lastVisitedCourse },
         }).then(res => {
-          console.log(res.data[0])
           this.courseName = res.data[0].coursesName;
           this.description = res.data[0].description;
           this.price = res.data[0].price;
@@ -70,8 +60,6 @@ export default {
   },
   async mounted() {
     window.addEventListener('visibilitychange', this.handleVisibilityChange);
-    window.addEventListener("popstate", (event) => {console.log("Lol")});
-
 
     socket.on("transmitRoomMembers", (data) => {
       this.numPageViewers = data
@@ -86,14 +74,12 @@ export default {
     // this.numPageViewers =+ 1
     // document.addEventListener('visibilitychange', this.handleVisibilityChange);
   },
-  beforeRouteLeave (to, from , next) {
+  beforeRouteLeave(to, from, next) {
     socket.emit("leaveRoom", this.courseName)
     next()
   },
   beforeDestroy() {
     window.removeEventListener('visibilitychange', this.handleVisibilityChange);
-    // socket.emit("leaveRoom", this.courseName)
-    console.log("lol")
   },
 };
 </script>

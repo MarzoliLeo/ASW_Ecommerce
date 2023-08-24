@@ -185,3 +185,22 @@ exports.get_token_balance = async function (req, res) {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+exports.add_bought_course = async function (req, res) {
+
+  const { userEmail, coursesName } = req.body
+  console.log(userEmail)
+  console.log(coursesName)
+  try {
+    res.json(
+      await user.findOneAndUpdate({ email: userEmail },
+        {$push: 
+          {course_bought: coursesName}
+        }
+      )
+    );
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};

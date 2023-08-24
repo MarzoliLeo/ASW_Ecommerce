@@ -73,6 +73,7 @@
 <script>
 import CartItem from "@/components/shop/CartItem.vue";
 import { mapState, mapGetters, mapActions } from "vuex";
+import axios from "axios";
 
 export default {
   components: {
@@ -85,6 +86,10 @@ export default {
       cardNumber: "",
       expirationDate: "",
       cvv: "",
+      buying_info: {
+        userEmail: this.$store.state.user.email,
+        coursesName: this.cart == undefined ? undefined : JSON.parse(JSON.stringify(this.cart))
+      }
     };
   },
   computed: {
@@ -105,6 +110,11 @@ export default {
     checkout() {
       if (this.$store.state.user.tokenBalance >= this.totalPrice) {
         // Handle checkout process
+        this.cart.forEach((item) => {
+          this.buying_info.coursesName = item.courseName
+          axios.post( "http://127.0.0.1:3000/addBoughtCourse", this.buying_info)
+        });
+        
         sweetAlert("Success", "Your purchase is complete!", "success");
         setTimeout(() => {
           this.$router.push("/");
@@ -117,6 +127,8 @@ export default {
         setTimeout(() => {
           this.$store.dispatch("user/removeTokens", this.totalPrice);
         });
+
+        
       } else {
         sweetAlert("Attention", "You do not have enough tokens to complete the purchase", "error");
       }
