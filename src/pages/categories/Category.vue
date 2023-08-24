@@ -51,7 +51,7 @@ export default{
   //Questo metodo viene invocato non appena la classe viene istanziata.
   mounted() {
     this.getCategories();
-    this.isAdminLogged(this.$store.state.category.email);
+    this.isAdminLogged(this.$store.state.user.email);
     
     socket.on("refreshCategories", () => {
       console.log("Refreshing categories")

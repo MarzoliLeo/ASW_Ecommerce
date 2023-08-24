@@ -35,14 +35,9 @@ const api = axios.create({
 export default {
   name: CourseBox,
   props: ["course"],
-  computed: {
-    ownerLogged() {
-      return (
-        (this.$store.state.email &&
-          this.course.courseCreator === this.$store.state.email &&
-          this.$store.state.permission === "Staff") ||
-        this.$store.state.permission === "Admin"
-      );
+  data() {
+    return {
+      ownerLogged: false,
     }
   },
   methods: {
@@ -71,22 +66,27 @@ export default {
     },
     async isOwnerLogged(email) {
       try {
-        const { data } = await api.get("/usersPermission", {
+        console.log(email)
+        await api.get("/usersPermission", {
           params: {
             email: email,
           },
-        });
-        this.ownerLogged =
-          (data[0].email === this.course.courseCreator &&
-            data[0].permission === "Staff") ||
-          data[0].permission === "Admin";
+        })
+        .then(res => {
+          this.ownerLogged =
+          (res.data[0].email === this.course.courseCreator && res.data[0].permission === "Staff") || res.data[0].permission === "Admin";
+
+          console.log(this.ownerLogged)
+          console.log((res.data[0].email === this.course.courseCreator && res.data[0].permission === "Staff") || res.data[0].permission === "Admin")
+          
+      });
       } catch (err) {
         console.log(err);
       }
     },
   },
   mounted() {
-    this.isOwnerLogged(this.$store.state.email);
+    this.isOwnerLogged(this.$store.state.user.email);
   },
 };
 </script>
