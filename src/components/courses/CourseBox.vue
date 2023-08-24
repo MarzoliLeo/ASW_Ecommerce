@@ -90,7 +90,6 @@ export default {
           },
         })
         .then(res => {
-          console.log(!res.data[0].course_bought.includes(this.course.coursesName))
           this.alreadyBought = !res.data[0].course_bought.includes(this.course.coursesName)
         });
       } catch (err) {

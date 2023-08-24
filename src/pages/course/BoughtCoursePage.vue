@@ -26,6 +26,9 @@ export default {
     }
   },
   computed: {
+    getVisitors() {
+      return socket.client.conn.server.clientsCount
+    },
     lastVisitedCourse() {
       return this.$store.state.user.lastVisitedCourse;
     },
