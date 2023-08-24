@@ -101,7 +101,7 @@ exports.list_course_by_name = async (req, res) => {
   }
 };
 
-exports.get_users_permission = async (req, res) => {
+exports.get_user_by_email = async (req, res) => {
   const email = req.query["email"];
   try {
     res.json(await user.find({ email: email }));
@@ -187,10 +187,7 @@ exports.get_token_balance = async function (req, res) {
 };
 
 exports.add_bought_course = async function (req, res) {
-
   const { userEmail, coursesName } = req.body
-  console.log(userEmail)
-  console.log(coursesName)
   try {
     res.json(
       await user.findOneAndUpdate({ email: userEmail },

@@ -10,7 +10,7 @@
           <p class="card-text">{{ course.price }} Tokens</p>
           <p class="card-text">Creator is: {{ course.courseCreator }}</p>
           <button v-if="ownerLogged" @click.stop.prevent="removeCourse(course.coursesName)">Remove</button>
-          <button @click.stop.prevent="addToCart(course)">Add to Cart</button>
+          <button v-if="alreadyBought" @click.stop.prevent="addToCart(course)">Add to Cart</button>
         </div>
       </div>
     </a>
@@ -38,6 +38,7 @@ export default {
   data() {
     return {
       ownerLogged: false,
+      alreadyBought: false,
     }
   },
   methods: {
@@ -66,7 +67,6 @@ export default {
     },
     async isOwnerLogged(email) {
       try {
-        console.log(email)
         await api.get("/usersPermission", {
           params: {
             email: email,
@@ -82,9 +82,25 @@ export default {
         console.log(err);
       }
     },
+    async isAlreadyBought(email) {
+      try {
+        await api.get("/usersBoughtCourses", {
+          params: {
+            email: email,
+          },
+        })
+        .then(res => {
+          console.log(!res.data[0].course_bought.includes(this.course.coursesName))
+          this.alreadyBought = !res.data[0].course_bought.includes(this.course.coursesName)
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
   mounted() {
     this.isOwnerLogged(this.$store.state.user.email);
+    this.isAlreadyBought(this.$store.state.user.email);
   },
 };
 </script>

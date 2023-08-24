@@ -53,7 +53,7 @@ routerBackend.route('/getCartItems')
 
 // Route for getting users' permissions
 routerBackend.route('/usersPermission')
-  .get(userController.get_users_permission);
+  .get(userController.get_user_by_email);
 
 routerBackend.route('/addTokens')
   .post(userController.add_tokens);
@@ -66,6 +66,10 @@ routerBackend.route('/getTokenBalance')
 
 routerBackend.route('/addBoughtCourse')
   .post(userController.add_bought_course);
+
+routerBackend.route('/usersBoughtCourses')
+  .get(userController.get_user_by_email);
+
 
 
 module.exports = routerBackend;
