@@ -1,30 +1,36 @@
 [{
   "_id": {
-    "$oid": "64e3c329ff4c0b2045251046"
+    "$oid": "64e7439d3b68be3e6cb4919a"
   },
   "first_name": "Federico",
   "last_name": "Pirazzoli",
   "permission": "Staff",
   "email": "test@test.it",
   "password": "123",
-  "token_balance": 0,
+  "token_balance": 4175,
+  "course_bought": [
+    "Course1 - Test"
+  ],
   "created_date": {
-    "$date": "2023-08-21T20:03:53.535Z"
+    "$date": "2023-08-24T11:48:45.231Z"
   },
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "64e3c36e9bba4d45a3067ae8"
+    "$oid": "64e743d0a12cde1b55b1fa7d"
   },
   "first_name": "Admin",
   "last_name": "Admin",
   "permission": "Admin",
   "email": "root@self.com",
   "password": "root",
-  "token_balance": 0,
+  "token_balance": 4985,
+  "course_bought": [
+    "Course1 - Test"
+  ],
   "created_date": {
-    "$date": "2023-08-21T20:03:53.535Z"
+    "$date": "2023-08-24T11:48:45.231Z"
   },
   "__v": 0
 }]

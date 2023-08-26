@@ -10,12 +10,12 @@
     </div>
     <div class="row">
       <div>
-        <i v-if="!liked" @click="like()" class="bi bi-hand-thumbs-up"></i>
-        <i v-else @click="like()" class="bi bi-hand-thumbs-up-fill"></i>
+        <i v-if="!liked" @click="like()" class="bi bi-hand-thumbs-up">{{ numLikes }}</i>
+        <i v-else @click="like()" class="bi bi-hand-thumbs-up-fill">{{ numLikes }}</i>
       </div>
       <div>
-        <i v-if="!disliked" @click="dislike()" class="bi bi-hand-thumbs-down"></i>
-        <i v-else @click="dislike()" class="bi bi-hand-thumbs-down-fill"></i>
+        <i v-if="!disliked" @click="dislike()" class="bi bi-hand-thumbs-down">{{ numDislikes }}</i>
+        <i v-else @click="dislike()" class="bi bi-hand-thumbs-down-fill">{{ numDislikes }}</i>
       </div>
     </div>
     <div v-if="this.$store.state.user.email" class="row">
@@ -122,13 +122,13 @@ export default {
         this.liked = true;
         axios.post('http://127.0.0.1:3000/addLike', this.like_dislike)
         .then((res) => {
-          // socket.emit("requestRefreshComments", "")
+          socket.emit("requestRefreshLikesDislikes", "")
         });
       } else {
         this.liked = false
         axios.post('http://127.0.0.1:3000/removeLike', this.like_dislike)
         .then((res) => {
-          // socket.emit("requestRefreshComments", "")
+          socket.emit("requestRefreshLikesDislikes", "")
         });
       }
     },
@@ -137,15 +137,31 @@ export default {
         this.disliked = true;
         axios.post('http://127.0.0.1:3000/addDislike', this.like_dislike)
         .then((res) => {
-          // socket.emit("requestRefreshComments", "")
+          socket.emit("requestRefreshLikesDislikes", "")
         });
       } else {
         this.disliked = false;
         axios.post('http://127.0.0.1:3000/removeDislike', this.like_dislike)
         .then((res) => {
-          // socket.emit("requestRefreshComments", "")
+          socket.emit("requestRefreshLikesDislikes", "")
         });
       }
+    },
+    async getLikes() {
+      await axios.get("http://localhost:3000/showCourseByName", {
+          params: { course: this.lastVisitedCourse },
+        }).then(res => {
+          this.numLikes = res.data[0].likes.length
+          this.liked = res.data[0].likes.includes(this.$store.state.user.email)
+        });
+    },
+    async getDislikes() {
+      await axios.get("http://localhost:3000/showCourseByName", {
+          params: { course: this.lastVisitedCourse },
+        }).then(res => {
+          this.numDislikes = res.data[0].dislikes.length
+          this.disliked = res.data[0].dislikes.includes(this.$store.state.user.email)
+        });
     },
     handleVisibilityChange() {
       if (document.hidden) {
@@ -174,8 +190,15 @@ export default {
       this.getComments();
     });
 
+    socket.on("refreshLikesDislikes", () => {
+      this.getLikes();
+      this.getDislikes();
+    });
+
     await this.getCourse();
     await this.getComments();
+    await this.getLikes();
+    await this.getDislikes();
 
     this.like_dislike.courseName = this.courseName
 

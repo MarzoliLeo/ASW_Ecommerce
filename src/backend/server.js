@@ -58,6 +58,14 @@ io.on("connection", (socket) => {
     io.emit("refreshComments", "");
   });
 
+  socket.on("requestRefreshLikesDislikes", () => {
+    console.log("Request for refreshing likes/dislikes");
+    io.emit("refreshLikesDislikes", "");
+  });
+
+  
+
+
   socket.on("requestJoinRoom", (roomName) => {
     console.log("Joining " + roomName)
 

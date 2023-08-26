@@ -1,42 +1,51 @@
 [{
   "_id": {
-    "$oid": "64d2429b9e8e694d23b9e1b7"
+    "$oid": "64ea2d1ef916f44b00b4800a"
   },
   "coursesName": "Course1 - Test",
   "description": "Course1 - Test - Desc",
-  "price": 15,
+  "price": 98,
   "courseCategory": "Test",
   "courseCreator": "test@test.it",
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
   "created_date": {
-    "$date": "2023-08-08T13:26:51.511Z"
+    "$date": "2023-08-26T16:49:34.067Z"
   },
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "64d242a29e8e694d23b9e1ba"
+    "$oid": "64ea2d25f916f44b00b48013"
   },
   "coursesName": "Course2 - Test",
   "description": "Course2 - Test - Desc",
-  "price": 45,
+  "price": 50,
   "courseCategory": "Test",
   "courseCreator": "test@test.it",
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
   "created_date": {
-    "$date": "2023-08-08T13:26:58.171Z"
+    "$date": "2023-08-26T16:49:41.316Z"
   },
   "__v": 0
 },
 {
   "_id": {
-    "$oid": "64d242c29e8e694d23b9e1cc"
+    "$oid": "64ea2d47f916f44b00b48033"
   },
   "coursesName": "Course3 - Test",
   "description": "Course3 - Test - Desc",
-  "price": 98,
+  "price": 15,
   "courseCategory": "Test",
   "courseCreator": "root@self.com",
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
   "created_date": {
-    "$date": "2023-08-08T13:27:30.910Z"
+    "$date": "2023-08-26T16:50:15.138Z"
   },
   "__v": 0
 }]
