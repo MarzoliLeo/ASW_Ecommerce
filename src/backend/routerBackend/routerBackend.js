@@ -31,12 +31,12 @@ routerBackend.route('/admin/addCourse')
   .post(userController.create_a_course);
 
 routerBackend.route('/addCourseComment')
-  .post(userController.add_course_comment);
+  .post(userController.create_a_course);
 
 routerBackend.route('/showCoursesByCategory')
   .get(userController.list_all_courses_by_category);
 
-  routerBackend.route('/showCoursesByCategoryAndTrainer')
+routerBackend.route('/showCoursesByCategoryAndTrainer')
   .get(userController.list_all_courses_by_category_and_trainer);
 
 routerBackend.route('/showCoursesTrainers')

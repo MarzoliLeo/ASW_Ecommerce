@@ -20,16 +20,25 @@
         </div>
       </form>
     </div>
+    <div class="row">
+      <div class="row pt-5" v-if="retrievedComments && retrievedComments.length">
+        <div v-for="comment in retrievedComments" :key="comment.id" class="col-xl-4 col-md-6 pt-3 d-flex">
+          <CourseComments :comment="comment" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import { socket } from "@/socket/socket"
+import CourseComments from "@/components/courses/CourseComments.vue";
 import sweetalert from "sweetalert"
 
 export default {
   name: "CoursePage",
+  components: { CourseComments },
   data() {
     return {
       numPageViewers: 0,
@@ -45,7 +54,8 @@ export default {
           userComment: this.$store.state.user.email,
           commentDescription: "",
         }
-      }
+      },
+      retrievedComments: [],
     }
   },
   computed: {
@@ -74,7 +84,7 @@ export default {
         this.delivered_comment.courseName = this.courseName
         axios.post('http://127.0.0.1:3000/addCourseComment', this.delivered_comment)
         .then((res) => {
-          
+
         });
       } else {
         sweetalert({
@@ -82,6 +92,12 @@ export default {
           icon: "error"
         });
       }
+    },
+    async getComments() {
+      const res = await axios.get("http://localhost:3000/showCourseByName", {
+        params: { course: this.courseName },
+      });
+      this.retrievedComments = res.data[0].comments
     },
     handleVisibilityChange() {
       if (document.hidden) {
@@ -107,6 +123,7 @@ export default {
     });
 
     await this.getCourse();
+    await this.getComments();
     socket.emit("requestJoinRoom", this.courseId)
   },
   beforeRouteLeave(to, from, next) {
