@@ -23,7 +23,7 @@
     <div class="row">
       <div class="row pt-5" v-if="retrievedComments && retrievedComments.length">
         <div v-for="comment in retrievedComments" :key="comment.id" class="col-xl-4 col-md-6 pt-3 d-flex">
-          <CourseComments :comment="comment" />
+          <CourseCommentsBox :comment="comment" />
         </div>
       </div>
     </div>
@@ -33,12 +33,12 @@
 <script>
 import axios from "axios";
 import { socket } from "@/socket/socket"
-import CourseComments from "@/components/courses/CourseComments.vue";
+import CourseCommentsBox from "@/components/courses/CourseCommentsBox.vue";
 import sweetalert from "sweetalert"
 
 export default {
   name: "CoursePage",
-  components: { CourseComments },
+  components: { CourseCommentsBox },
   data() {
     return {
       numPageViewers: 0,
@@ -84,7 +84,7 @@ export default {
         this.delivered_comment.courseName = this.courseName
         axios.post('http://127.0.0.1:3000/addCourseComment', this.delivered_comment)
         .then((res) => {
-
+          socket.emit("requestRefreshComments", "")
         });
       } else {
         sweetalert({
@@ -120,6 +120,10 @@ export default {
 
     socket.on("transmitRoomMembersCourseBought", (data) => {
       this.numCourseViewers = data
+    });
+
+    socket.on("refreshComments", () => {
+      this.getComments();
     });
 
     await this.getCourse();

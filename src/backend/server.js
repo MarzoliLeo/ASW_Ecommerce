@@ -53,6 +53,11 @@ io.on("connection", (socket) => {
     io.emit("refreshCourses", "");
   });
 
+  socket.on("requestRefreshComments", () => {
+    console.log("Request for refreshing comments");
+    io.emit("refreshComments", "");
+  });
+
   socket.on("requestJoinRoom", (roomName) => {
     console.log("Joining " + roomName)
 

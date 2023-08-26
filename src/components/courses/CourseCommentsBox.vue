@@ -14,11 +14,12 @@
 <script>
 import axios from "axios";
 import { ref } from "vue";
+import { socket } from "@/socket/socket"
 
-const CourseComments = ref({});
+const CourseCommentsBox = ref({});
 
 export default {
-  name: CourseComments,
+  name: CourseCommentsBox,
   props: ["comment"],
   data() {
     return {
@@ -51,7 +52,10 @@ export default {
     },
     async removeCourseComment() {
       try {
-        await axios.post("http://localhost:3000/removeCourseComment", this.deleteInfo);
+        await axios.post("http://localhost:3000/removeCourseComment", this.deleteInfo)
+        .then((res) => {
+          socket.emit("requestRefreshComments", "")
+        });
       } catch (err) {
         console.log("Errore di tipo: " + err);
       }

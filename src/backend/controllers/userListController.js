@@ -135,13 +135,13 @@ exports.get_user_by_email = async (req, res) => {
 
 exports.remove_course_comment = async (req, res) => {
   const { courseName, userComment, commentDescription, posting_date } = req.body;
+  console.log(req.body)
   try {
     res.json(await courses.updateOne({ coursesName: courseName }, {
         $pull: {
           comments: {
           userComment: userComment,
           commentDescription: commentDescription,
-          posting_date: posting_date
         }}
       }));
   } catch (err) {
