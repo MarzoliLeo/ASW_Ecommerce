@@ -31,7 +31,10 @@ routerBackend.route('/admin/addCourse')
   .post(userController.create_a_course);
 
 routerBackend.route('/addCourseComment')
-  .post(userController.create_a_course);
+  .post(userController.add_course_comment);
+
+routerBackend.route('/removeCourseComment')
+  .post(userController.remove_course_comment);
 
 routerBackend.route('/showCoursesByCategory')
   .get(userController.list_all_courses_by_category);

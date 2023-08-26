@@ -8,7 +8,7 @@
       <p>People watching this page: {{ numPageViewers }}</p>
       <p>People watching the Video-Course: {{ numCourseViewers }}</p>
     </div>
-    <div class="row">
+    <div v-if="this.$store.state.user.email" class="row">
       <form class=" col-12 text-center pt-5">
         <div class="form-group">
           <label>Comment Description:</label>

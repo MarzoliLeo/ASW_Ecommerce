@@ -6,6 +6,7 @@
       <h5 class="card-title">Posted by: {{ comment.userComment }} </h5>
       <p class="card-text">{{ comment.commentDescription }}</p>
       <p class="card-text">Date posted in: {{ comment.posting_date }}</p>
+      <button v-if="ownerLogged" @click.stop.prevent="removeCourseComment()">Remove</button>
     </div>
   </div>
 </template>
@@ -19,9 +20,46 @@ const CourseComments = ref({});
 export default {
   name: CourseComments,
   props: ["comment"],
+  data() {
+    return {
+      ownerLogged: false,
+      deleteInfo: {
+          courseName: this.$store.state.user.lastVisitedCourse,
+          userComment: this.comment.userComment,
+          commentDescription: this.comment.commentDescription,
+          posting_date: this.comment.posting_date
+      }
+    }
+  },
+  methods: {
+    async isOwnerLogged(email) {
+      try {
+        await axios.get("http://localhost:3000/usersPermission", {
+          params: {
+            email: email,
+          },
+        })
+        .then(res => {
+          this.ownerLogged =
+          (res.data[0].email === this.comment.userComment
+          && res.data[0].permission === "Staff") 
+          || res.data[0].permission === "Admin";
+      });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async removeCourseComment() {
+      try {
+        await axios.post("http://localhost:3000/removeCourseComment", this.deleteInfo);
+      } catch (err) {
+        console.log("Errore di tipo: " + err);
+      }
+    },
+  },
   mounted() {
-    console.log(comment)
-  }
+    this.isOwnerLogged(this.$store.state.user.email);
+  },
 };
 </script>
 
