@@ -8,6 +8,10 @@ const coursesSchema = new mongoose.Schema({
 	price: Number,
     courseCategory: String,
     courseCreator: String,
+    comments: {
+        type: Array,
+        required: true,
+      },
     created_date:{
         type: Date,
         default: Date.now

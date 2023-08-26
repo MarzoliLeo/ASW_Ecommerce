@@ -8,12 +8,25 @@
       <p>People watching this page: {{ numPageViewers }}</p>
       <p>People watching the Video-Course: {{ numCourseViewers }}</p>
     </div>
+    <div class="row">
+      <form class=" col-12 text-center pt-5">
+        <div class="form-group">
+          <label>Comment Description:</label>
+          <textarea type="text" class="form-control" v-model="userComment"></textarea>
+        </div>
+        <br>
+        <div class="text-center">
+          <button type="button" class="btn btn-primary" @click="addComment">Submit comment</button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import { socket } from "@/socket/socket"
+import sweetalert from "sweetalert"
 
 export default {
   name: "CoursePage",
@@ -26,6 +39,7 @@ export default {
       description: "",
       price: 0,
       courseCreator: "",
+      userComment: "",
     }
   },
   computed: {
@@ -47,6 +61,16 @@ export default {
         });
       } catch (err) {
         console.log(err);
+      }
+    },
+    async addComment() {
+      if(this.userComment){
+        console.log(this.userComment)
+      } else {
+        sweetalert({
+          text: "Error, fill out the comment field before submitting one",
+          icon: "error"
+        });
       }
     },
     handleVisibilityChange() {
