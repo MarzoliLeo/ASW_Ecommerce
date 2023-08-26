@@ -83,10 +83,33 @@ exports.create_a_course = async (req, res) => {
   }
 };
 
-exports.list_all_courses = async (req, res) => {
+exports.list_all_courses_by_category = async (req, res) => {
   const category = req.query["category"];
   try {
     res.json(await courses.find({ courseCategory: category }));
+  } catch (err) {
+    res.json(err);
+  }
+};
+
+exports.list_all_courses_by_category_and_trainer = async (req, res) => {
+  const category = req.query["category"];
+  const trainers = req.query["trainers"];
+
+  try {
+    res.json(await courses
+      .find({ 
+        courseCategory: category,
+        courseCreator: {$in:trainers}
+      }));
+  } catch (err) {
+    res.json(err);
+  }
+};
+
+exports.list_all_courses = async (req, res) => {
+  try {
+    res.json(await courses.find().distinct('courseCreator'));
   } catch (err) {
     res.json(err);
   }

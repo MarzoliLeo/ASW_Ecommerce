@@ -30,7 +30,13 @@ routerBackend.route('/deleteCategory')
 routerBackend.route('/admin/addCourse')
   .post(userController.create_a_course);
 
-routerBackend.route('/showCourses')
+routerBackend.route('/showCoursesByCategory')
+  .get(userController.list_all_courses_by_category);
+
+  routerBackend.route('/showCoursesByCategoryAndTrainer')
+  .get(userController.list_all_courses_by_category_and_trainer);
+
+routerBackend.route('/showCoursesTrainers')
   .get(userController.list_all_courses);
 
 routerBackend.route('/showCourseByName')
