@@ -224,3 +224,25 @@ exports.add_bought_course = async function (req, res) {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+exports.add_course_comment = async function (req, res) {
+  const { courseName, comment } = req.body
+  const userComment = comment.userComment
+  const commentDescription = comment.commentDescription
+  try {
+    res.json(
+      await courses.findOneAndUpdate({ coursesName: courseName },
+        {$push: 
+          {comments: {
+            userComment,
+            commentDescription,
+            posting_date: new Date()
+          }}
+        }
+      )
+    );
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};

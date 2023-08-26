@@ -10,8 +10,8 @@ export default{
         coursesName: "", 
         description: "", 
         price: 0.0,
-        courseCategory: this.$store.state.lastVisitedCategory,
-        courseCreator: this.$store.state.email,
+        courseCategory: this.$store.state.user.lastVisitedCategory,
+        courseCreator: this.$store.state.user.email,
       }
     }
   },

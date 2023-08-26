@@ -12,7 +12,7 @@
       <form class=" col-12 text-center pt-5">
         <div class="form-group">
           <label>Comment Description:</label>
-          <textarea type="text" class="form-control" v-model="userComment"></textarea>
+          <textarea type="text" class="form-control" v-model="delivered_comment.comment.commentDescription"></textarea>
         </div>
         <br>
         <div class="text-center">
@@ -39,7 +39,13 @@ export default {
       description: "",
       price: 0,
       courseCreator: "",
-      userComment: "",
+      delivered_comment: {
+        courseName: "",
+        comment: {
+          userComment: this.$store.state.user.email,
+          commentDescription: "",
+        }
+      }
     }
   },
   computed: {
@@ -64,8 +70,12 @@ export default {
       }
     },
     async addComment() {
-      if(this.userComment){
-        console.log(this.userComment)
+      if(this.delivered_comment.comment.commentDescription) {
+        this.delivered_comment.courseName = this.courseName
+        axios.post('http://127.0.0.1:3000/addCourseComment', this.delivered_comment)
+        .then((res) => {
+          
+        });
       } else {
         sweetalert({
           text: "Error, fill out the comment field before submitting one",
