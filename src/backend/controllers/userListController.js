@@ -262,3 +262,67 @@ exports.add_course_comment = async function (req, res) {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+exports.add_course_like = async function (req, res) {
+  const { courseName, userEmail } = req.body
+  try {
+    res.json(
+      await courses.findOneAndUpdate({ coursesName: courseName },
+        {$push: 
+          {likes: userEmail}
+        }
+      )
+    );
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+exports.remove_course_like = async function (req, res) {
+  const { courseName, userEmail } = req.body
+  try {
+    res.json(
+      await courses.findOneAndUpdate({ coursesName: courseName },
+        {$pull: 
+          {likes: userEmail}
+        }
+      )
+    );
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+exports.add_course_dislike = async function (req, res) {
+  const { courseName, userEmail } = req.body
+  try {
+    res.json(
+      await courses.findOneAndUpdate({ coursesName: courseName },
+        {$push: 
+          {dislikes: userEmail}
+        }
+      )
+    );
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+exports.remove_course_dislike = async function (req, res) {
+  const { courseName, userEmail } = req.body
+  try {
+    res.json(
+      await courses.findOneAndUpdate({ coursesName: courseName },
+        {$pull: 
+          {dislikes: userEmail}
+        }
+      )
+    );
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};

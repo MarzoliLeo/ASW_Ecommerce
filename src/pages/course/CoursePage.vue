@@ -8,6 +8,16 @@
       <p>People watching this page: {{ numPageViewers }}</p>
       <p>People watching the Video-Course: {{ numCourseViewers }}</p>
     </div>
+    <div class="row">
+      <div>
+        <i v-if="!liked" @click="like()" class="bi bi-hand-thumbs-up"></i>
+        <i v-else @click="like()" class="bi bi-hand-thumbs-up-fill"></i>
+      </div>
+      <div>
+        <i v-if="!disliked" @click="dislike()" class="bi bi-hand-thumbs-down"></i>
+        <i v-else @click="dislike()" class="bi bi-hand-thumbs-down-fill"></i>
+      </div>
+    </div>
     <div v-if="this.$store.state.user.email" class="row">
       <form class=" col-12 text-center pt-5">
         <div class="form-group">
@@ -56,6 +66,14 @@ export default {
         }
       },
       retrievedComments: [],
+      liked: false,
+      disliked: false,
+      like_dislike: {
+        courseName: "",
+        userEmail: this.$store.state.user.email
+      },
+      numLikes: 0,
+      numDislikes: 0
     }
   },
   computed: {
@@ -99,6 +117,36 @@ export default {
       });
       this.retrievedComments = res.data[0].comments
     },
+    async like() {
+      if(!this.liked) {
+        this.liked = true;
+        axios.post('http://127.0.0.1:3000/addLike', this.like_dislike)
+        .then((res) => {
+          // socket.emit("requestRefreshComments", "")
+        });
+      } else {
+        this.liked = false
+        axios.post('http://127.0.0.1:3000/removeLike', this.like_dislike)
+        .then((res) => {
+          // socket.emit("requestRefreshComments", "")
+        });
+      }
+    },
+    async dislike() {
+      if(!this.disliked) {
+        this.disliked = true;
+        axios.post('http://127.0.0.1:3000/addDislike', this.like_dislike)
+        .then((res) => {
+          // socket.emit("requestRefreshComments", "")
+        });
+      } else {
+        this.disliked = false;
+        axios.post('http://127.0.0.1:3000/removeDislike', this.like_dislike)
+        .then((res) => {
+          // socket.emit("requestRefreshComments", "")
+        });
+      }
+    },
     handleVisibilityChange() {
       if (document.hidden) {
           // User switched tabs or left the page
@@ -128,6 +176,9 @@ export default {
 
     await this.getCourse();
     await this.getComments();
+
+    this.like_dislike.courseName = this.courseName
+
     socket.emit("requestJoinRoom", this.courseId)
   },
   beforeRouteLeave(to, from, next) {

@@ -51,6 +51,18 @@ routerBackend.route('/showCourseByName')
 routerBackend.route('/deleteCourse')
   .post(userController.delete_course);
 
+routerBackend.route('/addLike')
+  .post(userController.add_course_like);
+
+routerBackend.route('/removeLike')
+  .post(userController.remove_course_like);
+
+routerBackend.route('/addDislike')
+  .post(userController.add_course_dislike);
+
+routerBackend.route('/removeDislike')
+  .post(userController.remove_course_dislike);
+
 // Route for adding courses to cart
 routerBackend.route('/addCourseToCart')
   .post(cartController.add_course_to_cart);
