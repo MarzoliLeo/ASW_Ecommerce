@@ -118,33 +118,37 @@ export default {
       this.retrievedComments = res.data[0].comments
     },
     async like() {
-      if(!this.liked) {
-        this.liked = true;
-        axios.post('http://127.0.0.1:3000/addLike', this.like_dislike)
-        .then((res) => {
-          socket.emit("requestRefreshLikesDislikes", "")
-        });
-      } else {
-        this.liked = false
-        axios.post('http://127.0.0.1:3000/removeLike', this.like_dislike)
-        .then((res) => {
-          socket.emit("requestRefreshLikesDislikes", "")
-        });
+      if(this.$store.state.user.email) {
+        if(!this.liked) {
+          this.liked = true;
+          axios.post('http://127.0.0.1:3000/addLike', this.like_dislike)
+          .then((res) => {
+            socket.emit("requestRefreshLikesDislikes", "")
+          });
+        } else {
+          this.liked = false
+          axios.post('http://127.0.0.1:3000/removeLike', this.like_dislike)
+          .then((res) => {
+            socket.emit("requestRefreshLikesDislikes", "")
+          });
+        }
       }
     },
     async dislike() {
-      if(!this.disliked) {
-        this.disliked = true;
-        axios.post('http://127.0.0.1:3000/addDislike', this.like_dislike)
-        .then((res) => {
-          socket.emit("requestRefreshLikesDislikes", "")
-        });
-      } else {
-        this.disliked = false;
-        axios.post('http://127.0.0.1:3000/removeDislike', this.like_dislike)
-        .then((res) => {
-          socket.emit("requestRefreshLikesDislikes", "")
-        });
+      if(this.$store.state.user.email) {
+        if(!this.disliked) {
+          this.disliked = true;
+          axios.post('http://127.0.0.1:3000/addDislike', this.like_dislike)
+          .then((res) => {
+            socket.emit("requestRefreshLikesDislikes", "")
+          });
+        } else {
+          this.disliked = false;
+          axios.post('http://127.0.0.1:3000/removeDislike', this.like_dislike)
+          .then((res) => {
+            socket.emit("requestRefreshLikesDislikes", "")
+          });
+        }
       }
     },
     async getLikes() {
