@@ -5,6 +5,7 @@
         <h3 class="pt-3">{{ courseName }}</h3>
       </div>
       <p>{{ description }}</p>
+      <div class="youtubeVideo"><iframe v-if="this.ytLink" width="1920" height="1080" :src="ytLink"></iframe></div>
       <p>People watching this page: {{ numPageViewers }}</p>
     </div>
   </div>
@@ -24,6 +25,7 @@ export default {
       description: "",
       price: 0,
       courseCreator: "",
+      ytLink: "",
     }
   },
   computed: {
@@ -42,6 +44,7 @@ export default {
           this.description = res.data[0].description;
           this.price = res.data[0].price;
           this.courseCreator = res.data[0].courseCreator;
+          this.ytLink = res.data[0].courseYTLink;
         });
       } catch (err) {
         console.log(err);
@@ -77,3 +80,20 @@ export default {
   },
 };
 </script>
+
+<style>
+.youtubeVideo {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+}
+
+.youtubeVideo iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+</style>

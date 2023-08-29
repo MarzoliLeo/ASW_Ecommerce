@@ -8,6 +8,7 @@ const coursesSchema = new mongoose.Schema({
 	price: Number,
     courseCategory: String,
     courseCreator: String,
+    courseYTLink: String,
     comments: {
         type: Array,
         required: true,
