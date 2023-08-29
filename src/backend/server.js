@@ -81,7 +81,13 @@ io.on("connection", (socket) => {
       io.to(roomName).emit("transmitRoomMembersCourseBought", numMembers);
       io.to(roomName.split("-")[0]).emit("transmitRoomMembersCourseBought", numMembers);
     } else {
+      var numMembersBought = 
+      io.sockets.adapter.rooms.get(roomName+"-Bought") === undefined 
+      || io.sockets.adapter.rooms.get(roomName+"-Bought").size < 1
+      ? 0 : io.sockets.adapter.rooms.get(roomName+"-Bought").size
+
       io.to(roomName).emit("transmitRoomMembersCourse", numMembers);
+      io.to(roomName).emit("transmitRoomMembersCourseBought", numMembersBought);
     }
   });
 
