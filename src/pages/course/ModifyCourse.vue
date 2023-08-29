@@ -52,7 +52,7 @@ export default{
         price: parseFloat(this.Course.price),
         courseCategory: this.Course.courseCategory,
         courseCreator: this.Course.courseCreator,
-        courseYTLink: this.Course.courseYTLink == undefined ? "" : "https://www.youtube.com/embed/" + this.Course.courseYTLink
+        courseYTLink: this.Course.courseYTLink == undefined ? "" : this.Course.courseYTLink
       };
       axios.post('http://127.0.0.1:3000/modifyCourse', modifyCourse)
       .then((res) => {

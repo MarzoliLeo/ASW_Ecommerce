@@ -5,7 +5,7 @@
         <h3 class="pt-3">{{ courseName }}</h3>
       </div>
       <p>{{ description }}</p>
-      <RouterLink class="nav-link" :to="{ name: 'CourseModify' }">    
+      <RouterLink v-if:="ownerLogged" class="nav-link" :to="{ name: 'CourseModify' }">    
         <button>Modify Course</button>
       </RouterLink>
       <p>People watching this page: {{ numPageViewers }}</p>
@@ -76,7 +76,8 @@ export default {
         userEmail: this.$store.state.user.email
       },
       numLikes: 0,
-      numDislikes: 0
+      numDislikes: 0,
+      ownerLogged: false,
     }
   },
   computed: {
@@ -170,6 +171,23 @@ export default {
           this.disliked = res.data[0].dislikes.includes(this.$store.state.user.email)
         });
     },
+    async isOwnerLogged(email) {
+      try {
+        await axios.get("http://localhost:3000/usersPermission", {
+          params: {
+            email: email,
+          },
+        })
+        .then(res => {
+          this.ownerLogged =
+          (res.data[0].email === this.courseCreator 
+          && res.data[0].permission === "Staff") 
+          || res.data[0].permission === "Admin";
+      });
+      } catch (err) {
+        console.log(err);
+      }
+    },
     handleVisibilityChange() {
       if (document.hidden) {
           // User switched tabs or left the page
@@ -184,6 +202,7 @@ export default {
   },
   async mounted() {
     window.addEventListener('visibilitychange', this.handleVisibilityChange);
+    this.isOwnerLogged(this.$store.state.user.email);
 
     socket.on("transmitRoomMembersCourse", (data) => {
       this.numPageViewers = data
