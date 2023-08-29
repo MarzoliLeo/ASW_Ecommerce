@@ -12,6 +12,7 @@ export default{
         price: 0.0,
         courseCategory: this.$store.state.user.lastVisitedCategory,
         courseCreator: this.$store.state.user.email,
+        courseYTLink: "",
       }
     }
   },
@@ -22,14 +23,16 @@ export default{
         this.Course.description, 
         parseFloat(this.Course.price),
         this.Course.courseCategory,
-        this.Course.courseCreator
+        this.Course.courseCreator,
+        this.Course.courseYTLink
       );
       const newCourse = {
         coursesName: this.Course.coursesName,
         description: this.Course.description,
         price: parseFloat(this.Course.price),
         courseCategory: this.Course.courseCategory,
-        courseCreator: this.Course.courseCreator
+        courseCreator: this.Course.courseCreator,
+        courseYTLink: this.Course.courseYTLink == undefined ? "" : "https://www.youtube.com/embed/" + this.Course.courseYTLink
       };
       axios.post('http://127.0.0.1:3000/admin/addCourse', newCourse)
       .then((res) => {
@@ -75,6 +78,10 @@ export default{
           <div class="form-group">
             <label>Course Price</label>
             <input type="text" class="form-control" v-model="Course.price">
+          </div>
+          <div class="form-group">
+            <label>Course Youtube Video ID</label>
+            <input type="text" class="form-control" v-model="Course.courseYTLink">
           </div>
           <br>
           <div class="text-center">
