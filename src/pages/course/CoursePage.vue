@@ -5,6 +5,9 @@
         <h3 class="pt-3">{{ courseName }}</h3>
       </div>
       <p>{{ description }}</p>
+      <RouterLink class="nav-link" :to="{ name: 'CourseModify' }">    
+        <button>Modify Course</button>
+      </RouterLink>
       <p>People watching this page: {{ numPageViewers }}</p>
       <p>People watching the Video-Course: {{ numCourseViewers }}</p>
     </div>

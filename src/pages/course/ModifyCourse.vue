@@ -7,6 +7,7 @@ export default{
   data() {
     return {
       Course:{
+        _id: "",
         coursesName: "", 
         description: "", 
         price: 0.0,
@@ -17,8 +18,26 @@ export default{
     }
   },
   methods: {
+    async getCourse() {
+      try {
+        await axios.get("http://localhost:3000/showCourseByName", {
+          params: { course: this.$store.state.user.lastVisitedCourse },
+        }).then(res => {
+          this.Course._id = res.data[0]._id
+          this.Course.coursesName = res.data[0].coursesName;
+          this.Course.description = res.data[0].description;
+          this.Course.price = res.data[0].price;
+          this.Course.courseCreator = res.data[0].courseCreator;
+          this.Course.courseCategory = res.data[0].courseCategory;
+          this.Course.courseYTLink = res.data[0].courseYTLink
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
     addCourse() {
       // console.log(
+      //   this.Course._id,
       //   this.Course.coursesName, 
       //   this.Course.description, 
       //   parseFloat(this.Course.price),
@@ -26,22 +45,23 @@ export default{
       //   this.Course.courseCreator,
       //   this.Course.courseYTLink
       // );
-      const newCourse = {
+      const modifyCourse = {
+        _id: this.Course._id,
         coursesName: this.Course.coursesName,
         description: this.Course.description,
         price: parseFloat(this.Course.price),
         courseCategory: this.Course.courseCategory,
         courseCreator: this.Course.courseCreator,
-        courseYTLink: this.Course.courseYTLink == undefined ? "" : this.Course.courseYTLink
+        courseYTLink: this.Course.courseYTLink == undefined ? "" : "https://www.youtube.com/embed/" + this.Course.courseYTLink
       };
-      axios.post('http://127.0.0.1:3000/admin/addCourse', newCourse)
+      axios.post('http://127.0.0.1:3000/modifyCourse', modifyCourse)
       .then((res) => {
         socket.emit("requestRefreshCourses", "")
         sweetalert({
             text: "Course added successfully",
             icon: "success"
           })   
-          console.log(newCourse)
+          console.log(modifyCourse)
       })
       .catch((err) => {
         sweetalert({
@@ -51,6 +71,9 @@ export default{
         console.log("Errore di tipo: "+ err)
       });
     }
+  },
+  async mounted() {
+    await this.getCourse();
   }
 }
 </script>
@@ -59,7 +82,7 @@ export default{
   <div class="container">
     <div class="row">
         <div class="col-12 text-center">
-          <h3 class="pt-3">Add Course</h3>
+          <h3 class="pt-3">Modify Course</h3>
         </div>
     </div>
     <div class ="row">

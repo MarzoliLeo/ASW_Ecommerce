@@ -83,6 +83,22 @@ exports.create_a_course = async (req, res) => {
   }
 };
 
+exports.modify_course = async (req, res) => {
+  const modifyCourse = req.body;
+  try {
+    res.json(await courses.findOneAndUpdate({_id: modifyCourse._id}, {
+      coursesName: modifyCourse.coursesName,
+      description: modifyCourse.description,
+      price: modifyCourse.price,
+      courseCategory: modifyCourse.courseCategory,
+      courseCreator: modifyCourse.courseCreator,
+      courseYTLink: modifyCourse.courseYTLink
+    }));
+  } catch (e) {
+    res.json(e);
+  }
+};
+
 exports.list_all_courses_by_category = async (req, res) => {
   const category = req.query["category"];
   try {

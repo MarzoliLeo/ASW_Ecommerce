@@ -42,6 +42,9 @@ routerBackend.route('/showCoursesByCategory')
 routerBackend.route('/showCoursesByCategoryAndTrainer')
   .get(userController.list_all_courses_by_category_and_trainer);
 
+routerBackend.route('/modifyCourse')
+  .post(userController.modify_course);
+
 routerBackend.route('/showCoursesTrainers')
   .get(userController.list_all_courses);
 
