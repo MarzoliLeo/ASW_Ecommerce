@@ -1,5 +1,7 @@
-<script></script>
+<script setup>
+import AboutContainer from "@/components/AboutContainer.vue";
+</script>
 
 <template>
-  <div>About Page.</div>
+  <AboutContainer />
 </template>
