@@ -1,6 +1,7 @@
 <script>
 import axios from "axios"
 import sweetalert from "sweetalert"
+import { socket } from "@/socket/socket"
 
 export default{
   data() {
@@ -18,6 +19,7 @@ export default{
         };
       axios.post('http://127.0.0.1:3000/admin/addCategory', newCategory)
       .then((res) => {
+        socket.emit("requestRefreshCategories", "")
         sweetalert({
             text: "Category added successfully",
             icon: "success"

@@ -1,49 +1,115 @@
-var express = require('express');
-app = express();
-port = process.env.PORT || 3000;
-mongoose = require('mongoose');
-socketio = require('socket.io');
-user = require('../backend/models/userListModels');
-cors = require('cors')
-
-mongoose.Promise = global.Promise;
-
-// Middleware per il parsing dei dati JSON
-app.use(express.json());
-
-// "UserDB" è il nome del database in MongoDB.
-mongoose.connect('mongodb://127.0.0.1:27017/UserDB').then(()=> console.log("Connected to localhost MongoDB.")).catch((e)=>console.log(e));
-
-// è essenziale per impostare correttamente l'header fra scambio di messaggi in axios.
-app.use(cors());
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const http = require("http");
+const { Server } = require("socket.io");
+const route = require("../backend/routerBackend/routerBackend.js");
+const app = express();
 
 
-var route = require('../backend/routerBackend/routerBackend.js')
-app.use('/',route);
-app.use('/login',route);
-app.use('/admin/addCategory',route);
-app.use('/showCategories',route);
+// Create an HTTP server instance using the Express app
+const server = http.createServer(app);
 
-// Faccio partire il server...
-const server = app.listen(port);
-console.log('User connected to port: '+ port);
-
-//... ogni volta che un utente si connette lato client verrà chiamato la funzione io().
-const io = socketio(server);
-
-// Gestione della connessione e disconnessione di un client.
-io.on('connection', (socket)=>{
-    console.log('a user connected');
-
-    //Intercetto l'evento del client e lo propago agli altri client.
-    socket.on('chat message', (msg)=>{
-        io.emit('chat message', msg);
-        });
-
-    socket.on('disconnect', ()=>{
-      console.log('user disconnected');
-    });
+// Create a new instance of the socket.io server and attach it to the HTTP server
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+  },
 });
 
+// Set the port number for the server
+const port = 3000;
+
+// Set the MongoDB connection URI
+const mongoURI = "mongodb://127.0.0.1:27017/UserDB";
+
+// Connect to the MongoDB database using Mongoose
+mongoose
+  .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error(err));
+
+// Set up middleware for parsing JSON data and enabling CORS
+app.use(express.json());
+app.use(cors());
+
+// Set up routes for the Express app
+app.use("/", route);
+app.use("/login", route);
+app.use("/admin/addCategory", route);
+app.use("/showCategories", route);
+app.use("/addCourseToCart", route);
+app.use("/getCartItems", route);
+
+// Set up socket.io event listeners
+io.on("connection", (socket) => {
+  socket.on("requestRefreshCategories", () => {
+    console.log("Request for refreshing categories");
+    io.emit("refreshCategories", "");
+  });
+
+  socket.on("requestRefreshCourses", () => {
+    console.log("Request for refreshing courses");
+    io.emit("refreshCourses", "");
+  });
+
+  socket.on("requestRefreshComments", () => {
+    console.log("Request for refreshing comments");
+    io.emit("refreshComments", "");
+  });
+
+  socket.on("requestRefreshLikesDislikes", () => {
+    console.log("Request for refreshing likes/dislikes");
+    io.emit("refreshLikesDislikes", "");
+  });
+
+  
 
 
+  socket.on("requestJoinRoom", (roomName) => {
+    console.log("Joining " + roomName)
+
+    socket.join(roomName)
+    var numMembers = 
+    io.sockets.adapter.rooms.get(roomName) === undefined 
+    || io.sockets.adapter.rooms.get(roomName).size < 1
+    ? 0 : io.sockets.adapter.rooms.get(roomName).size
+
+    // Here indexOf is used because JS method "include" for strings doesn't
+    // work on older browsers
+    if(roomName.indexOf("Bought") !== -1) {
+      io.to(roomName).emit("transmitRoomMembersCourseBought", numMembers);
+      io.to(roomName.split("-")[0]).emit("transmitRoomMembersCourseBought", numMembers);
+    } else {
+      var numMembersBought = 
+      io.sockets.adapter.rooms.get(roomName+"-Bought") === undefined 
+      || io.sockets.adapter.rooms.get(roomName+"-Bought").size < 1
+      ? 0 : io.sockets.adapter.rooms.get(roomName+"-Bought").size
+
+      io.to(roomName).emit("transmitRoomMembersCourse", numMembers);
+      io.to(roomName).emit("transmitRoomMembersCourseBought", numMembersBought);
+    }
+  });
+
+  socket.on("leaveRoom", (roomName) => {
+    console.log("Leaving " + roomName)
+
+    socket.leave(roomName)
+    var numMembers = 
+    io.sockets.adapter.rooms.get(roomName) === undefined
+    || io.sockets.adapter.rooms.get(roomName).size < 1
+    ? 0 : io.sockets.adapter.rooms.get(roomName).size
+    
+    if(roomName.indexOf("Bought") !== -1) {
+      io.to(roomName).emit("transmitRoomMembersCourseBought", numMembers);
+      io.to(roomName.split("-")[0]).emit("transmitRoomMembersCourseBought", numMembers);
+    } else {
+      io.to(roomName).emit("transmitRoomMembersCourse", numMembers);      
+    }
+  });
+});
+
+// Start the server and listen for incoming requests
+server.listen(port, () => {
+  console.log(`Server listening on port ${port}`);
+});

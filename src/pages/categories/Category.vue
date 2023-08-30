@@ -1,41 +1,66 @@
 <script>
 import axios from "axios"
-import sweetalert from "sweetalert"
-import io from "socket.io-client";
+import CategoryBox from "@/components/categories/CategoryBox.vue"
+import categoryModule from "@/store/CategoryModule"
+import { socket } from "@/socket/socket"
 
-import CategoryBox from "../../components/categories/CategoryBox.vue"
 
-const socket = io(); // Initialize socket.io-client with the server URL.
 
 //Queste variabili verranno utilizzate nel backend tramite Axios.
 export default{
   name:"Category",
   components: {CategoryBox},
   data() {
-    return {
-      categories: []
-    };
+    return{
+      categories: [],
+      adminLogged: false,
+    }
   },
   methods: {
     async getCategories() {
+      console.log("Getting categories")
       await axios.get("http://localhost:3000/showCategories") 
-      .then(res => 
+      .then(res => {
+          console.log(this.categories)
           this.categories = res.data
-      )
+          console.log(this.categories)
+      })
       .catch(err => 
         console.log(err)
       )
     },
-    sendMessage() {
-      socket.emit("chat message", "sto facendo l'emit");
-      console.log("Ho premuto sul bottone e comunico con il server.");
-    },
+    isAdminLogged(email) {
+      if(this.$store.state.user.email != '') {
+        axios.get("http://localhost:3000/usersPermission", {
+          params: {
+            email: email,
+          }
+        })
+        .then(res => {
+          this.adminLogged = res.data[0].permission == "Admin" ? true : false
+        })
+        .catch(err => 
+          console.log(err)
+        )
+      }
+    }
+  },
+  computed: {
+    
   },
   //Questo metodo viene invocato non appena la classe viene istanziata.
   mounted() {
     this.getCategories();
+    this.isAdminLogged(this.$store.state.user.email);
+    
+    socket.on("refreshCategories", () => {
+      console.log("Refreshing categories")
+      this.getCategories();
+    });
   }
 };
+
+
 
 </script>
 
@@ -45,13 +70,13 @@ export default{
     <div class="row">
         <div class="col-12 text-center">
           <h3 class="pt-3">Our Categories</h3>
-          <router-link :to="{name : 'CategoryAdd'}">
+          <router-link v-if="adminLogged" :to="{name : 'CategoryAdd'}">
             <button class="btn" style="float:right">Add Category</button>
           </router-link>
         </div>
     </div>
     <div class ="row">
-      <div v-for="category of categories" :key="category.id" class="col-xl-4 col-md-6 pt-3 d-flex" >
+      <div v-for="(category, index) in categories" :key="index" class="col-xl-4 col-md-6 pt-3 d-flex" >
         <CategoryBox :category="category"></CategoryBox>
       </div>
     </div>

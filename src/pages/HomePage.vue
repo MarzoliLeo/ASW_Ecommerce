@@ -1,5 +1,5 @@
 <script setup>
-import HomeContainer from "@/components/HomeContainer.vue"
+import HomeContainer from "@/components/HomeContainer.vue";
 </script>
 
 <template>

@@ -1,9 +1,8 @@
 <script>
 import axios from "axios"
 import sweetalert from "sweetalert"
-import userStore from "../../store/SessionStore";
 
-export default{
+export default {
   data() {
     return {
       email: '',
@@ -11,28 +10,29 @@ export default{
     }
   },
   methods: {
-    checkIfRegistered(){
+    checkIfRegistered() {
       const user = {
         email: this.email,
         password: this.password,
       };
 
-      axios.post('http://127.0.0.1:3000/login', user)
-      .then((res) => {
-        sweetalert({
+      axios
+        .post('http://127.0.0.1:3000/login', user)
+        .then((res) => {
+          sweetalert({
             text: "User logged in succesfully",
             icon: "success"
           })
-        userStore.commit("login", this.email)
-        console.log(userStore.state.email)
-      })
-      .catch((err) => {
-        sweetalert({
+          this.$store.commit("user/login", this.email)
+          console.log(this.$store.state.user.email)
+        })
+        .catch((err) => {
+          sweetalert({
             text: "Login failed. User not registered.",
             icon: "error"
           });
-        console.log("Errore di tipo: "+ err)
-      });
+          console.log("Errore di tipo: " + err)
+        });
     }
   }
 }
@@ -41,11 +41,11 @@ export default{
 <template>
   <div class="container">
     <div class="row">
-        <div class="col-12 text-center">
-          <h3 class="pt-3">Login Form</h3>
-        </div>
+      <div class="col-12 text-center">
+        <h3 class="pt-3">Login Form</h3>
+      </div>
     </div>
-    <div class ="row">
+    <div class="row">
       <!--Utilizzo bootstrap per creare il form-->
       <div class="col-3"></div>
       <div class="col-6">
