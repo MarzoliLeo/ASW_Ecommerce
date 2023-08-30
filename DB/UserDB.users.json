@@ -25,9 +25,10 @@
   "permission": "Admin",
   "email": "root@self.com",
   "password": "root",
-  "token_balance": 4985,
+  "token_balance": 4929,
   "course_bought": [
-    "Course1 - Test"
+    "Course1 - Test",
+    "g"
   ],
   "created_date": {
     "$date": "2023-08-24T11:48:45.231Z"

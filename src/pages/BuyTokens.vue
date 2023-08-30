@@ -45,14 +45,23 @@
 </template>
 
 <script>
+import sweetalert from "sweetalert"
 export default {
     methods: {
         buyTokens(amount) {
             this.$store
                 .dispatch('user/addTokens', amount)
                 .catch((err) => {
+                    sweetalert({
+                        text: "Something went wrong.",
+                        icon: "error"
+                    })
                     console.error(err);
                 });
+            sweetalert({
+            text: "Congrats, new tokens for you!",
+            icon: "success"
+          })
         },
     },
 };
