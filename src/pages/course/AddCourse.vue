@@ -81,7 +81,7 @@ export default{
           </div>
           <div class="form-group">
             <label>Course Youtube Video ID</label>
-            <input type="text" class="form-control" v-model="Course.courseYTLink">
+            <input type="text" class="form-control" placeholder="https://...J0NuOlA2xDc" v-model="Course.courseYTLink">
           </div>
           <br>
           <div class="text-center">
