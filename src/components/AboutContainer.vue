@@ -3,11 +3,11 @@
 <template>
 <div class="about-section">
   <h1>About Us Page</h1>
-  <p>Some text about who we are and what we do.</p>
-  <p>Resize the browser window to see that this page is responsive by the way.</p>
+  <p>Lo staff di E-Fit che ha reso possibile questa cosa.</p>
+  <p>Perché noi ci teniamo alla vostra salute!</p>
 </div>
 
-<h2 style="text-align:center">Our Team</h2>
+<h2 style="text-align:center">Lo Staff</h2>
 <div class="row">
   <div class="column">
     <div class="card">
