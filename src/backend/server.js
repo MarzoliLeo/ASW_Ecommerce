@@ -34,6 +34,12 @@ const io = socketio(server);
 // Gestione della connessione e disconnessione di un client.
 io.on('connection', (socket)=>{
     console.log('a user connected');
+
+    //Intercetto l'evento del client e lo propago agli altri client.
+    socket.on('chat message', (msg)=>{
+        io.emit('chat message', msg);
+        });
+
     socket.on('disconnect', ()=>{
       console.log('user disconnected');
     });

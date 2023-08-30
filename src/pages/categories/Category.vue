@@ -25,7 +25,11 @@ export default{
       .catch(err => 
         console.log(err)
       )
-    }
+    },
+    sendMessage() {
+      socket.emit("chat message", "sto facendo l'emit");
+      console.log("Ho premuto sul bottone e comunico con il server.");
+    },
   },
   //Questo metodo viene invocato non appena la classe viene istanziata.
   mounted() {
