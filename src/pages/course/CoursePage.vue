@@ -127,7 +127,7 @@ export default {
       this.retrievedComments = res.data[0].comments
     },
     async like() {
-      if(this.$store.state.user.email) {
+      if(this.$store.state.user.email && !this.disliked) {
         if(!this.liked) {
           this.liked = true;
           axios.post('http://127.0.0.1:3000/addLike', this.like_dislike)
@@ -144,7 +144,7 @@ export default {
       }
     },
     async dislike() {
-      if(this.$store.state.user.email) {
+      if(this.$store.state.user.email && !this.liked) {
         if(!this.disliked) {
           this.disliked = true;
           axios.post('http://127.0.0.1:3000/addDislike', this.like_dislike)
