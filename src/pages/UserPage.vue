@@ -3,16 +3,16 @@ import userModule from '@/store/UserModule';
 </script>
 
 <template>
-    <h2 style="text-align:center">Benvenuto sulla tua User Page</h2>
+    <h2 class="d-flex align-items-center justify-content-center mt-2 mb-5">Benvenuto sulla tua User Page</h2>
     <div class="card">
-    <h1>{{ userModule.state.email }}</h1>
-    <p class="title">Premi il pulsante qui sotto per visualizzare i corsi!</p>
-    <p>Qui troverai i dati a te associati:</p>
-    <p>Tokens disponibili: {{ $store.state.user.tokenBalance }} tokens</p>
-    <p><RouterLink class="nav-link" :to="{ name: 'BoughtCourses' }">    
-            <button>Visita i tuoi corsi!</button>
-        </RouterLink>
-    </p>
+      <h1 class="mt-1 mb-4">{{ userModule.state.email }}</h1>
+      <p class="title">Premi il pulsante qui sotto per visualizzare i corsi!</p>
+      <p>Qui troverai i dati a te associati:</p>
+      <p>Tokens disponibili: {{ $store.state.user.tokenBalance }} tokens</p>
+      <p><RouterLink class="nav-link" :to="{ name: 'BoughtCourses' }">    
+              <button>Visita i tuoi corsi!</button>
+          </RouterLink>
+      </p>
     </div>
 </template>
 
