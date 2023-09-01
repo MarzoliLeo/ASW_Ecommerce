@@ -8,6 +8,9 @@
       <RouterLink v-if:="ownerLogged" class="nav-link" :to="{ name: 'CourseModify' }">    
         <button>Modify Course</button>
       </RouterLink>
+      <div v-if="courseYTLink" class="embed-responsive embed-responsive-16by9">
+        <img class="card-img-top" :src="'https://img.youtube.com/vi/' + courseYTLink + '/maxresdefault.jpg'" alt="Card image here">
+      </div>
       <p>People watching this page: {{ numPageViewers }}</p>
       <p>People watching the Video-Course: {{ numCourseViewers }}</p>
     </div>
@@ -61,6 +64,7 @@ export default {
       description: "",
       price: 0,
       courseCreator: "",
+      courseYTLink: "",
       delivered_comment: {
         courseName: "",
         comment: {
@@ -96,6 +100,7 @@ export default {
           this.description = res.data[0].description;
           this.price = res.data[0].price;
           this.courseCreator = res.data[0].courseCreator;
+          this.courseYTLink = res.data[0].courseYTLink
         });
       } catch (err) {
         console.log(err);
