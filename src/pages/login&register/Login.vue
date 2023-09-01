@@ -25,6 +25,8 @@ export default {
           })
           this.$store.commit("user/login", this.email)
           console.log(this.$store.state.user.email)
+          this.$router.push("/")
+
         })
         .catch((err) => {
           sweetalert({
