@@ -3,23 +3,25 @@
     <div class="row">
       <div class="col-12 text-center">
         <h3 class="pt-3">Our Courses - {{ lastVisitedCategory }}</h3>
-        <router-link v-if="userPermission" :to="{ name: 'CourseAdd' }">
-          <button class="btn" style="float:right">Add Course</button>
-        </router-link>
+        <div class="w-100 mb-4 d-flex align-items-center justify-content-center">
+          <router-link v-if="userPermission" :to="{ name: 'CourseAdd' }">
+            <button class="btn btn-info" style="float:right">Add Course</button>
+          </router-link>
+        </div>
       </div>
       <div>
         <div class="dropdown">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                   Filter by Trainer
                 </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <ul class="dropdown-menu w-100 p-3" aria-labelledby="dropdownMenuButton1">
             <li>
               <div v-for="trainer in trainers" :key="trainer.id">
                 <label>{{trainer}}</label>
-                <input type="checkbox" v-model="selectedTrainers" :value="trainer"/>
+                <input type="checkbox" class="mb-3" v-model="selectedTrainers" :value="trainer"/>
               </div>
             </li>
-            <button @click="filterCourses()">Filter</button>
+            <button class="mt-3" @click="filterCourses()">Filter</button>
           </ul>
         </div>
       </div>

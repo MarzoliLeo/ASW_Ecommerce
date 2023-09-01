@@ -9,7 +9,6 @@
           <p class="card-text">{{ course.description }}</p>
           <p class="card-text">{{ course.price }} Tokens</p>
           <p class="card-text">Creator is: {{ course.courseCreator }}</p>
-          <button v-if="ownerLogged" @click.stop.prevent="removeCourse(course.coursesName)">Remove</button>
           <button v-if="alreadyBought" @click.stop.prevent="addToCart(course)">Add to Cart</button>
         </div>
       </div>

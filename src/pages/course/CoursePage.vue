@@ -5,38 +5,45 @@
         <h3 class="pt-3">{{ courseName }}</h3>
       </div>
       <p>{{ description }}</p>
-      <RouterLink v-if:="ownerLogged" class="nav-link" :to="{ name: 'CourseModify' }">    
-        <button>Modify Course</button>
-      </RouterLink>
       <div v-if="courseYTLink" class="embed-responsive embed-responsive-16by9">
         <img class="card-img-top" :src="'https://img.youtube.com/vi/' + courseYTLink + '/maxresdefault.jpg'" alt="Card image here">
       </div>
-      <p>People watching this page: {{ numPageViewers }}</p>
-      <p>People watching the Video-Course: {{ numCourseViewers }}</p>
     </div>
     <div class="row">
-      <div>
-        <i v-if="!liked" @click="like()" class="bi bi-hand-thumbs-up">{{ numLikes }}</i>
-        <i v-else @click="like()" class="bi bi-hand-thumbs-up-fill">{{ numLikes }}</i>
+      <div class="col-2 mb-4 mt-4 d-flex align-items-left">
+        <RouterLink v-if:="ownerLogged" class="nav-link" :to="{ name: 'CourseModify' }">    
+          <button class="btn btn-secondary me-4">Modify Course</button>
+        </RouterLink>
+        <button v-if="ownerLogged" class="col-6 ms-3 btn btn-secondary" @click.stop.prevent="removeCourse()">Remove Course</button>
       </div>
-      <div>
-        <i v-if="!disliked" @click="dislike()" class="bi bi-hand-thumbs-down">{{ numDislikes }}</i>
-        <i v-else @click="dislike()" class="bi bi-hand-thumbs-down-fill">{{ numDislikes }}</i>
+    </div>
+    <div class="row mt-4">
+      <p class="h-25">People watching this page: {{ numPageViewers }}</p>
+      <p class="h-25">People watching the Video-Course: {{ numCourseViewers }}</p>
+    </div>
+    <div class="row d-flex align-items-left w-25 user-select-none">
+      <div class="col-2 h-25">
+        <i v-if="!liked" @click="like()" role="button" class="bi bi-hand-thumbs-up">{{ numLikes }}</i>
+        <i v-else @click="like()" role="button" class="bi bi-hand-thumbs-up-fill">{{ numLikes }}</i>
+      </div>
+      <div class="col-2 h-25 pe-auto">
+        <i v-if="!disliked" @click="dislike()" role="button" class="bi bi-hand-thumbs-down">{{ numDislikes }}</i>
+        <i v-else @click="dislike()" role="button" class="bi bi-hand-thumbs-down-fill">{{ numDislikes }}</i>
       </div>
     </div>
     <div v-if="this.$store.state.user.email" class="row">
-      <form class=" col-12 text-center pt-5">
+      <form class="col-12 text-center pt-5">
         <div class="form-group">
           <label>Comment Description:</label>
           <textarea type="text" class="form-control" v-model="delivered_comment.comment.commentDescription"></textarea>
         </div>
         <br>
-        <div class="text-center">
+        <div class="text-center mb-4">
           <button type="button" class="btn btn-primary" @click="addComment">Submit comment</button>
         </div>
       </form>
     </div>
-    <div class="row">
+    <div class="row mb-3">
       <div class="row pt-5" v-if="retrievedComments && retrievedComments.length">
         <div v-for="comment in retrievedComments" :key="comment.id" class="col-xl-4 col-md-6 pt-3 d-flex">
           <CourseCommentsBox :comment="comment" />
@@ -176,6 +183,26 @@ export default {
           this.disliked = res.data[0].dislikes.includes(this.$store.state.user.email)
         });
     },
+    async removeCourse(courseName) {
+      const courseToDelete = {
+        courseName: this.courseName,
+      };
+      try {
+        await axios.post("http://localhost:3000/deleteCourse", courseToDelete);
+        socket.emit("requestRefreshCourses", "");
+        sweetalert({
+          text: "Course deleted succesfully",
+          icon: "success",
+        });
+        this.$router.push("/")
+      } catch (err) {
+        sweetalert({
+          text: "Deletion failed. Course not deleted.",
+          icon: "error",
+        });
+        console.log("Errore di tipo: " + err);
+      }
+    },
     async isOwnerLogged(email) {
       try {
         await axios.get("http://localhost:3000/usersPermission", {
@@ -207,6 +234,7 @@ export default {
   },
   async mounted() {
     window.addEventListener('visibilitychange', this.handleVisibilityChange);
+    await this.getCourse();
     this.isOwnerLogged(this.$store.state.user.email);
 
     socket.on("transmitRoomMembersCourse", (data) => {
@@ -226,7 +254,6 @@ export default {
       this.getDislikes();
     });
 
-    await this.getCourse();
     await this.getComments();
     await this.getLikes();
     await this.getDislikes();

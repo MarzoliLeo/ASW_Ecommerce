@@ -70,9 +70,11 @@ export default{
     <div class="row">
         <div class="col-12 text-center">
           <h3 class="pt-3">Our Categories</h3>
-          <router-link v-if="adminLogged" :to="{name : 'CategoryAdd'}">
-            <button class="btn" style="float:right">Add Category</button>
-          </router-link>
+          <div class="w-100 d-flex align-items-center justify-content-center">
+            <router-link v-if="adminLogged" :to="{name : 'CategoryAdd'}">
+              <button class="btn btn-info" style="float:right">Add Category</button>
+            </router-link>
+          </div>
         </div>
     </div>
     <div class ="row">
