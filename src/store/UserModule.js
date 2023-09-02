@@ -5,16 +5,16 @@ const baseURL = "http://127.0.0.1:3000";
 const userModule = {
   namespaced: true,
   state: {
-    email: "",
-    lastVisitedCategory: "",
-    lastVisitedCourse: "",
-    tokenBalance: 0,
+    email: localStorage.getItem("email") ? localStorage.getItem("email") : "",
+    lastVisitedCategory: localStorage.getItem("lastVisitedCategory") ? localStorage.getItem("lastVisitedCategory") : "",
+    lastVisitedCourse: localStorage.getItem("lastVisitedCourse") ? localStorage.getItem("lastVisitedCourse") : "",
+    tokenBalance: localStorage.getItem("tokenBalance") ? localStorage.getItem("tokenBalance") : 0,
   },
   getters: {
-    email: (state) => localStorage.getItem("email") ? localStorage.getItem("email") : state.email,
+    email: (state) => state.email,
     lastVisitedCategory: (state) => state.lastVisitedCategory,
     lastVisitedCourse: (state) => state.lastVisitedCourse,
-    isLoggedIn: (state) => localStorage.getItem("email") ? localStorage.getItem("email") : state.email,
+    isLoggedIn: (state) => !!state.email,
     tokenBalance: (state) => state.tokenBalance,
   },
   mutations: {
@@ -25,14 +25,6 @@ const userModule = {
     logout(state) {
       state.email = "";
       localStorage.removeItem("email");
-    },
-    initialiseStore(state) {
-      if (localStorage.getItem("email")) {
-        state.email = localStorage.getItem("email");
-      }
-      if (localStorage.getItem("tokenBalance")) {
-        state.tokenBalance = parseInt(localStorage.getItem("tokenBalance"));
-      }
     },
     commitCategory(state, selectedCategory) {
       state.lastVisitedCategory = selectedCategory;
