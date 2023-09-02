@@ -1,6 +1,8 @@
 const express = require('express');
 const userController = require('../controllers/userListController');
 const cartController = require('../controllers/cartController');
+const courseController = require('../controllers/courseController');
+const categoryController = require('../controllers/categoryController');
 const routerBackend = express.Router();
 
 // --- Route for Users operations ---
@@ -41,56 +43,59 @@ routerBackend.route('/usersBoughtCourses')
   
 // --- Routes for categories operations ---
 routerBackend.route('/admin/addCategory')
-  .post(userController.create_a_category);
+  .post(categoryController.create_a_category);
 
 routerBackend.route('/showCategories')
-  .get(userController.list_all_categories);
+  .get(categoryController.list_all_categories);
 
 routerBackend.route('/deleteCategory')
-  .post(userController.delete_category);
+  .post(categoryController.delete_category);
 
 
 
 // --- Routes for courses operations ---
 routerBackend.route('/addCourse')
-  .post(userController.create_a_course);
+  .post(courseController.create_a_course);
 
 routerBackend.route('/modifyCourse')
-  .post(userController.modify_course);
+  .post(courseController.modify_course);
 
 routerBackend.route('/deleteCourse')
-  .post(userController.delete_course);
+  .post(courseController.delete_course);
 
 routerBackend.route('/addCourseComment')
-  .post(userController.add_course_comment);
+  .post(courseController.add_course_comment);
 
 routerBackend.route('/removeCourseComment')
-  .post(userController.remove_course_comment);
+  .post(courseController.remove_course_comment);
 
 routerBackend.route('/showCourseByName')
-  .get(userController.list_course_by_name);
+  .get(courseController.list_course_by_name);
 
 routerBackend.route('/showCoursesByCategory')
-  .get(userController.list_all_courses_by_category);
+  .get(courseController.list_all_courses_by_category);
 
 routerBackend.route('/showCoursesTrainers')
-  .get(userController.list_all_courses);
+  .get(courseController.list_all_courses);
 
 routerBackend.route('/showCoursesByCategoryAndTrainer')
-  .get(userController.list_all_courses_by_category_and_trainer);
-
+  .get(courseController.list_all_courses_by_category_and_trainer);
 
 routerBackend.route('/addLike')
-  .post(userController.add_course_like);
+  .post(courseController.add_course_like);
 
 routerBackend.route('/removeLike')
-  .post(userController.remove_course_like);
+  .post(courseController.remove_course_like);
 
 routerBackend.route('/addDislike')
-  .post(userController.add_course_dislike);
+  .post(courseController.add_course_dislike);
 
 routerBackend.route('/removeDislike')
-  .post(userController.remove_course_dislike);
+  .post(courseController.remove_course_dislike);
+
+
+
+// --- Routes for cart operations ---
 
 // Route for adding courses to cart
 routerBackend.route('/addCourseToCart')
