@@ -3,6 +3,8 @@ const userController = require('../controllers/userListController');
 const cartController = require('../controllers/cartController');
 const routerBackend = express.Router();
 
+// --- Route for Users operations ---
+
 // Route for showing and creating users (default)
 routerBackend.route('/register/createUser')
   .get(userController.list_all_users)
@@ -12,11 +14,32 @@ routerBackend.route('/register/createUser')
 routerBackend.route('/register/checkExistingUser')
   .post(userController.checkIfUserExists);
 
+// Route for getting users' permissions
+routerBackend.route('/usersPermission')
+  .get(userController.get_user_by_email);
+
 // Route for user login
 routerBackend.route('/login')
   .post(userController.checkIfRegisterForLogin);
 
-// Routes for categories
+routerBackend.route('/addTokens')
+  .post(userController.add_tokens);
+
+routerBackend.route('/removeTokens')
+  .post(userController.remove_tokens);
+
+routerBackend.route('/getTokenBalance')
+  .get(userController.get_token_balance);
+
+routerBackend.route('/addBoughtCourse')
+  .post(userController.add_bought_course);
+
+routerBackend.route('/usersBoughtCourses')
+  .get(userController.get_user_by_email);
+
+
+  
+// --- Routes for categories operations ---
 routerBackend.route('/admin/addCategory')
   .post(userController.create_a_category);
 
@@ -26,9 +49,17 @@ routerBackend.route('/showCategories')
 routerBackend.route('/deleteCategory')
   .post(userController.delete_category);
 
-// Routes for courses
-routerBackend.route('/admin/addCourse')
+
+
+// --- Routes for courses operations ---
+routerBackend.route('/addCourse')
   .post(userController.create_a_course);
+
+routerBackend.route('/modifyCourse')
+  .post(userController.modify_course);
+
+routerBackend.route('/deleteCourse')
+  .post(userController.delete_course);
 
 routerBackend.route('/addCourseComment')
   .post(userController.add_course_comment);
@@ -36,23 +67,18 @@ routerBackend.route('/addCourseComment')
 routerBackend.route('/removeCourseComment')
   .post(userController.remove_course_comment);
 
+routerBackend.route('/showCourseByName')
+  .get(userController.list_course_by_name);
+
 routerBackend.route('/showCoursesByCategory')
   .get(userController.list_all_courses_by_category);
-
-routerBackend.route('/showCoursesByCategoryAndTrainer')
-  .get(userController.list_all_courses_by_category_and_trainer);
-
-routerBackend.route('/modifyCourse')
-  .post(userController.modify_course);
 
 routerBackend.route('/showCoursesTrainers')
   .get(userController.list_all_courses);
 
-routerBackend.route('/showCourseByName')
-  .get(userController.list_course_by_name);
+routerBackend.route('/showCoursesByCategoryAndTrainer')
+  .get(userController.list_all_courses_by_category_and_trainer);
 
-routerBackend.route('/deleteCourse')
-  .post(userController.delete_course);
 
 routerBackend.route('/addLike')
   .post(userController.add_course_like);
@@ -77,26 +103,5 @@ routerBackend.route('/removeCartItem')
 // Route for getting cart items
 routerBackend.route('/getCartItems')
   .get(cartController.get_cart_items);
-
-// Route for getting users' permissions
-routerBackend.route('/usersPermission')
-  .get(userController.get_user_by_email);
-
-routerBackend.route('/addTokens')
-  .post(userController.add_tokens);
-
-routerBackend.route('/removeTokens')
-  .post(userController.remove_tokens);
-
-routerBackend.route('/getTokenBalance')
-  .get(userController.get_token_balance);
-
-routerBackend.route('/addBoughtCourse')
-  .post(userController.add_bought_course);
-
-routerBackend.route('/usersBoughtCourses')
-  .get(userController.get_user_by_email);
-
-
 
 module.exports = routerBackend;

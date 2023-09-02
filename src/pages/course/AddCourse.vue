@@ -30,7 +30,7 @@ export default{
         courseCreator: this.Course.courseCreator,
         courseYTLink: this.Course.courseYTLink == undefined ? "" : this.Course.courseYTLink
       };
-      axios.post('http://127.0.0.1:3000/admin/addCourse', newCourse)
+      axios.post('http://127.0.0.1:3000/addCourse', newCourse)
       .then((res) => {
         socket.emit("requestRefreshCourses", "")
         sweetalert({
