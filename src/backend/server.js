@@ -63,9 +63,6 @@ io.on("connection", (socket) => {
     io.emit("refreshLikesDislikes", "");
   });
 
-  
-
-
   socket.on("requestJoinRoom", (roomName) => {
     console.log("Joining " + roomName)
 
@@ -78,9 +75,13 @@ io.on("connection", (socket) => {
     // Here indexOf is used because JS method "include" for strings doesn't
     // work on older browsers
     if(roomName.indexOf("Bought") !== -1) {
+      //This 'if' is to calculate the number of people actually watching a video course
+      //(and send it to BoughtCoursePage)
       io.to(roomName).emit("transmitRoomMembersCourseBought", numMembers);
       io.to(roomName.split("-")[0]).emit("transmitRoomMembersCourseBought", numMembers);
     } else {
+      //This 'else' is to calculate the number of people actually watching a video course
+      //and the corresponding course on the category page (and send it to the coursePage)
       var numMembersBought = 
       io.sockets.adapter.rooms.get(roomName+"-Bought") === undefined 
       || io.sockets.adapter.rooms.get(roomName+"-Bought").size < 1
