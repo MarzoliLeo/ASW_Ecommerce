@@ -87,7 +87,7 @@ export default {
       expirationDate: "",
       cvv: "",
       buying_info: {
-        userEmail: this.$store.state.user.email,
+        userEmail: this.email,
         coursesName: this.cart == undefined ? undefined : JSON.parse(JSON.stringify(this.cart))
       }
     };

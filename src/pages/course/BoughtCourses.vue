@@ -16,6 +16,7 @@
 <script>
 import axios from "axios";
 import CourseBox from "@/components/courses/BoughtCourseBox.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "BoughtCourses",
@@ -24,6 +25,9 @@ export default {
     return {
       courses: [],
     };
+  },
+  computed: {
+    ...mapGetters("user", ["email"]),
   },
   methods: {
     async getCourses(email) {
@@ -50,7 +54,7 @@ export default {
     },
   },
   async mounted() {
-    await this.getCourses(this.$store.state.user.email);
+    await this.getCourses(this.email);
   },
 };
 </script>

@@ -22,6 +22,7 @@ import { ref } from "vue";
 import sweetalert from "sweetalert";
 import { socket } from "@/socket/socket";
 import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 const CourseBox = ref({});
 const api = axios.create({
@@ -39,6 +40,9 @@ export default {
       ownerLogged: false,
       alreadyBought: false,
     }
+  },
+  computed: {
+    ...mapGetters("user", ["email"]),
   },
   methods: {
     ...mapActions('cart', ["addToCart"]),
@@ -97,8 +101,8 @@ export default {
     },
   },
   mounted() {
-    this.isOwnerLogged(this.$store.state.user.email);
-    this.isAlreadyBought(this.$store.state.user.email);
+    this.isOwnerLogged(this.email);
+    this.isAlreadyBought(this.email);
   },
 };
 </script>

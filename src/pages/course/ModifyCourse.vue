@@ -2,6 +2,7 @@
 import axios from "axios"
 import sweetalert from "sweetalert"
 import { socket } from "@/socket/socket"
+import { mapGetters } from "vuex";
 
 export default{
   data() {
@@ -11,17 +12,20 @@ export default{
         coursesName: "", 
         description: "", 
         price: 0.0,
-        courseCategory: this.$store.state.user.lastVisitedCategory,
-        courseCreator: this.$store.state.user.email,
+        courseCategory: this.lastVisitedCategory,
+        courseCreator: this.email,
         courseYTLink: "",
       }
     }
+  },
+  computed: {
+    ...mapGetters("user", ["lastVisitedCategory", "lastVisitedCourse", "email"]),
   },
   methods: {
     async getCourse() {
       try {
         await axios.get("http://localhost:3000/showCourseByName", {
-          params: { course: this.$store.state.user.lastVisitedCourse },
+          params: { course: this.lastVisitedCourse },
         }).then(res => {
           this.Course._id = res.data[0]._id
           this.Course.coursesName = res.data[0].coursesName;

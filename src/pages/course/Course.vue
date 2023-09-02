@@ -38,6 +38,7 @@
 import axios from "axios";
 import CourseBox from "@/components/courses/CourseBox.vue";
 import { socket } from "@/socket/socket";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Course",
@@ -51,9 +52,7 @@ export default {
     };
   },
   computed: {
-    lastVisitedCategory() {
-      return this.$store.state.user.lastVisitedCategory;
-    },
+    ...mapGetters("user", ["lastVisitedCategory", "email"]),
   },
   methods: {
     async getCourses() {
@@ -92,7 +91,7 @@ export default {
       this.getCourses();
     },
     async isNotUserLogged(email) {
-      if (this.$store.state.user.email) {
+      if (this.email) {
         try {
           const res = await axios.get("http://localhost:3000/usersPermission", {
             params: { email },
@@ -107,7 +106,7 @@ export default {
   async mounted() {
     await this.getCourses();
     await this.getTrainers();
-    await this.isNotUserLogged(this.$store.state.user.email);
+    await this.isNotUserLogged(this.email);
 
     socket.on("refreshCourses", () => {
       console.log("Refreshing courses");

@@ -14,6 +14,7 @@
 <script>
 import axios from "axios";
 import { ref } from "vue";
+import { mapGetters } from "vuex";
 import { socket } from "@/socket/socket"
 
 const CourseCommentsBox = ref({});
@@ -25,12 +26,15 @@ export default {
     return {
       ownerLogged: false,
       deleteInfo: {
-          courseName: this.$store.state.user.lastVisitedCourse,
+          courseName: this.lastVisitedCourse,
           userComment: this.comment.userComment,
           commentDescription: this.comment.commentDescription,
           posting_date: this.comment.posting_date
       }
     }
+  },
+  computed: {
+    ...mapGetters("user", ["lastVisitedCourse", "email"]),
   },
   methods: {
     async isOwnerLogged(email) {
@@ -62,7 +66,7 @@ export default {
     },
   },
   mounted() {
-    this.isOwnerLogged(this.$store.state.user.email);
+    this.isOwnerLogged(this.email);
   },
 };
 </script>

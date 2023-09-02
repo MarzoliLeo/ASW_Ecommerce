@@ -13,6 +13,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 import { socket } from "@/socket/socket"
 
 export default {
@@ -29,9 +30,7 @@ export default {
     }
   },
   computed: {
-    lastVisitedCourse() {
-      return this.$store.state.user.lastVisitedCourse;
-    },
+    ...mapGetters("user", ["lastVisitedCourse", "email"]),
   },
   methods: {
     async getCourse() {

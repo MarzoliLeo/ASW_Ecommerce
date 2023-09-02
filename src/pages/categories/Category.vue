@@ -1,10 +1,8 @@
 <script>
 import axios from "axios"
 import CategoryBox from "@/components/categories/CategoryBox.vue"
-import categoryModule from "@/store/CategoryModule"
 import { socket } from "@/socket/socket"
-
-
+import { mapGetters } from "vuex";
 
 //Queste variabili verranno utilizzate nel backend tramite Axios.
 export default{
@@ -15,6 +13,9 @@ export default{
       categories: [],
       adminLogged: false,
     }
+  },
+  computed: {
+    ...mapGetters("user", ["email"]),
   },
   methods: {
     async getCategories() {
@@ -30,7 +31,7 @@ export default{
       )
     },
     isAdminLogged(email) {
-      if(this.$store.state.user.email != '') {
+      if(this.email != '') {
         axios.get("http://localhost:3000/usersPermission", {
           params: {
             email: email,
@@ -51,7 +52,7 @@ export default{
   //Questo metodo viene invocato non appena la classe viene istanziata.
   mounted() {
     this.getCategories();
-    this.isAdminLogged(this.$store.state.user.email);
+    this.isAdminLogged(this.email);
     
     socket.on("refreshCategories", () => {
       console.log("Refreshing categories")

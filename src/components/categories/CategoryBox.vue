@@ -20,6 +20,7 @@ import { ref } from "vue"
 import sweetalert from "sweetalert"
 import { socket } from "@/socket/socket"
 import axios from "axios"
+import { mapGetters } from "vuex";
 
 const CategoryBox = ref({})
 export default {
@@ -29,6 +30,9 @@ export default {
     return {
       adminLogged: false,
     }
+  },
+  computed: {
+    ...mapGetters("user", ["email"]),
   },
   methods: {
     submitSelectedCategory() {
@@ -56,7 +60,7 @@ export default {
         });
     },
     isAdminLogged(email) {
-      if (this.$store.state.user.email != '') {
+      if (this.email != '') {
         axios.get("http://localhost:3000/usersPermission", {
           params: {
             email: email,
@@ -72,7 +76,7 @@ export default {
     }
   },
   mounted() {
-    this.isAdminLogged(this.$store.state.user.email);
+    this.isAdminLogged(this.email);
   }
 };
 

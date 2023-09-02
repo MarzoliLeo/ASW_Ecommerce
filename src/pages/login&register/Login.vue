@@ -1,6 +1,7 @@
 <script>
 import axios from "axios"
 import sweetalert from "sweetalert"
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -8,6 +9,9 @@ export default {
       email: '',
       password: '',
     }
+  },
+  computed: {
+    ...mapGetters("user", ["email"]),
   },
   methods: {
     checkIfRegistered() {
@@ -24,7 +28,7 @@ export default {
             icon: "success"
           })
           this.$store.commit("user/login", this.email)
-          console.log(this.$store.state.user.email)
+          console.log(this.email)
           this.$router.push("/")
 
         })

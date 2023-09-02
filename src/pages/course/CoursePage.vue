@@ -2,36 +2,36 @@
   <div class="container">
     <div class="row">
       <div class="col-12 text-center">
-        <h3 class="pt-3">{{ courseName }}</h3>
+        <h3 class="pt-3">{{ CourseInfo.courseName }}</h3>
       </div>
-      <p>{{ description }}</p>
-      <div v-if="courseYTLink" class="embed-responsive embed-responsive-16by9">
-        <img class="card-img-top" :src="'https://img.youtube.com/vi/' + courseYTLink + '/maxresdefault.jpg'" alt="Card image here">
+      <p>{{ CourseInfo.description }}</p>
+      <div v-if="CourseInfo.courseYTLink" class="embed-responsive embed-responsive-16by9">
+        <img class="card-img-top" :src="'https://img.youtube.com/vi/' + CourseInfo.courseYTLink + '/maxresdefault.jpg'" alt="Card image here">
       </div>
     </div>
     <div class="row">
       <div class="col-2 mb-4 mt-4 d-flex align-items-left">
-        <RouterLink v-if:="ownerLogged" class="nav-link" :to="{ name: 'CourseModify' }">    
+        <RouterLink v-if:="CourseInfo.ownerLogged" class="nav-link" :to="{ name: 'CourseModify' }">    
           <button class="btn btn-secondary me-4">Modify Course</button>
         </RouterLink>
-        <button v-if="ownerLogged" class="col-6 ms-3 btn btn-secondary" @click.stop.prevent="removeCourse()">Remove Course</button>
+        <button v-if="CourseInfo.ownerLogged" class="col-6 ms-3 btn btn-secondary" @click.stop.prevent="removeCourse()">Remove Course</button>
       </div>
     </div>
     <div class="row mt-4">
-      <p class="h-25">People watching this page: {{ numPageViewers }}</p>
-      <p class="h-25">People watching the Video-Course: {{ numCourseViewers }}</p>
+      <p class="h-25">People watching this page: {{ CourseInfo.numPageViewers }}</p>
+      <p class="h-25">People watching the Video-Course: {{ CourseInfo.numCourseViewers }}</p>
     </div>
     <div class="row d-flex align-items-left w-25 user-select-none">
       <div class="col-2 h-25">
-        <i v-if="!liked" @click="like()" role="button" class="bi bi-hand-thumbs-up">{{ numLikes }}</i>
-        <i v-else @click="like()" role="button" class="bi bi-hand-thumbs-up-fill">{{ numLikes }}</i>
+        <i v-if="!CourseInfo.liked" @click="like()" role="button" class="bi bi-hand-thumbs-up">{{ CourseInfo.numLikes }}</i>
+        <i v-else @click="like()" role="button" class="bi bi-hand-thumbs-up-fill">{{ CourseInfo.numLikes }}</i>
       </div>
       <div class="col-2 h-25 pe-auto">
-        <i v-if="!disliked" @click="dislike()" role="button" class="bi bi-hand-thumbs-down">{{ numDislikes }}</i>
-        <i v-else @click="dislike()" role="button" class="bi bi-hand-thumbs-down-fill">{{ numDislikes }}</i>
+        <i v-if="!CourseInfo.disliked" @click="dislike()" role="button" class="bi bi-hand-thumbs-down">{{ CourseInfo.numDislikes }}</i>
+        <i v-else @click="dislike()" role="button" class="bi bi-hand-thumbs-down-fill">{{ CourseInfo.numDislikes }}</i>
       </div>
     </div>
-    <div v-if="this.$store.state.user.email" class="row">
+    <div v-if="this.email" class="row">
       <form class="col-12 text-center pt-5">
         <div class="form-group">
           <label>Comment Description:</label>
@@ -44,8 +44,8 @@
       </form>
     </div>
     <div class="row mb-3">
-      <div class="row pt-5" v-if="retrievedComments && retrievedComments.length">
-        <div v-for="comment in retrievedComments" :key="comment.id" class="col-xl-4 col-md-6 pt-3 d-flex">
+      <div class="row pt-5" v-if="CourseInfo.retrievedComments && CourseInfo.retrievedComments.length">
+        <div v-for="comment in CourseInfo.retrievedComments" :key="comment.id" class="col-xl-4 col-md-6 pt-3 d-flex">
           <CourseCommentsBox :comment="comment" />
         </div>
       </div>
@@ -58,43 +58,44 @@ import axios from "axios";
 import { socket } from "@/socket/socket"
 import CourseCommentsBox from "@/components/courses/CourseCommentsBox.vue";
 import sweetalert from "sweetalert"
+import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
   name: "CoursePage",
   components: { CourseCommentsBox },
   data() {
     return {
-      numPageViewers: 0,
-      numCourseViewers: 0,
-      courseId: "",
-      courseName: "",
-      description: "",
-      price: 0,
-      courseCreator: "",
-      courseYTLink: "",
+      CourseInfo: {
+        numPageViewers: 0,
+        numCourseViewers: 0,
+        courseId: "",
+        courseName: "",
+        description: "",
+        price: 0,
+        courseCreator: "",
+        courseYTLink: "",
+        liked: false,
+        disliked: false,
+        numLikes: 0,
+        numDislikes: 0,
+        retrievedComments: [],
+      },
+      ownerLogged: false,
       delivered_comment: {
         courseName: "",
         comment: {
-          userComment: this.$store.state.user.email,
+          userComment: this.email,
           commentDescription: "",
         }
       },
-      retrievedComments: [],
-      liked: false,
-      disliked: false,
       like_dislike: {
         courseName: "",
-        userEmail: this.$store.state.user.email
+        userEmail: this.email
       },
-      numLikes: 0,
-      numDislikes: 0,
-      ownerLogged: false,
     }
   },
   computed: {
-    lastVisitedCourse() {
-      return this.$store.state.user.lastVisitedCourse;
-    },
+    ...mapGetters("user", ["email", "lastVisitedCourse"]),
   },
   methods: {
     async getCourse() {
@@ -102,12 +103,13 @@ export default {
         await axios.get("http://localhost:3000/showCourseByName", {
           params: { course: this.lastVisitedCourse },
         }).then(res => {
-          this.courseId = res.data[0]._id
-          this.courseName = res.data[0].coursesName;
-          this.description = res.data[0].description;
-          this.price = res.data[0].price;
-          this.courseCreator = res.data[0].courseCreator;
-          this.courseYTLink = res.data[0].courseYTLink
+          console.log(res.data[0])
+          this.CourseInfo.courseId = res.data[0]._id
+          this.CourseInfo.courseName = res.data[0].coursesName;
+          this.CourseInfo.description = res.data[0].description;
+          this.CourseInfo.price = res.data[0].price;
+          this.CourseInfo.courseCreator = res.data[0].courseCreator;
+          this.CourseInfo.courseYTLink = res.data[0].courseYTLink
         });
       } catch (err) {
         console.log(err);
@@ -129,20 +131,20 @@ export default {
     },
     async getComments() {
       const res = await axios.get("http://localhost:3000/showCourseByName", {
-        params: { course: this.courseName },
+        params: { course: this.CourseInfo.courseName },
       });
-      this.retrievedComments = res.data[0].comments
+      this.CourseInfo.retrievedComments = res.data[0].comments
     },
     async like() {
-      if(this.$store.state.user.email && !this.disliked) {
-        if(!this.liked) {
-          this.liked = true;
+      if(this.email && !this.CourseInfo.disliked) {
+        if(!this.CourseInfo.liked) {
+          this.CourseInfo.liked = true;
           axios.post('http://127.0.0.1:3000/addLike', this.like_dislike)
           .then((res) => {
             socket.emit("requestRefreshLikesDislikes", "")
           });
         } else {
-          this.liked = false
+          this.CourseInfo.liked = false
           axios.post('http://127.0.0.1:3000/removeLike', this.like_dislike)
           .then((res) => {
             socket.emit("requestRefreshLikesDislikes", "")
@@ -151,15 +153,15 @@ export default {
       }
     },
     async dislike() {
-      if(this.$store.state.user.email && !this.liked) {
-        if(!this.disliked) {
-          this.disliked = true;
+      if(this.email && !this.CourseInfo.liked) {
+        if(!this.CourseInfo.disliked) {
+          this.CourseInfo.disliked = true;
           axios.post('http://127.0.0.1:3000/addDislike', this.like_dislike)
           .then((res) => {
             socket.emit("requestRefreshLikesDislikes", "")
           });
         } else {
-          this.disliked = false;
+          this.CourseInfo.disliked = false;
           axios.post('http://127.0.0.1:3000/removeDislike', this.like_dislike)
           .then((res) => {
             socket.emit("requestRefreshLikesDislikes", "")
@@ -172,7 +174,7 @@ export default {
           params: { course: this.lastVisitedCourse },
         }).then(res => {
           this.numLikes = res.data[0].likes.length
-          this.liked = res.data[0].likes.includes(this.$store.state.user.email)
+          this.liked = res.data[0].likes.includes(this.email)
         });
     },
     async getDislikes() {
@@ -180,7 +182,7 @@ export default {
           params: { course: this.lastVisitedCourse },
         }).then(res => {
           this.numDislikes = res.data[0].dislikes.length
-          this.disliked = res.data[0].dislikes.includes(this.$store.state.user.email)
+          this.disliked = res.data[0].dislikes.includes(this.email)
         });
     },
     async removeCourse(courseName) {
@@ -211,8 +213,8 @@ export default {
           },
         })
         .then(res => {
-          this.ownerLogged =
-          (res.data[0].email === this.courseCreator 
+          this.CourseInfo.ownerLogged =
+          (res.data[0].email === this.CourseInfo.courseCreator 
           && res.data[0].permission === "Staff") 
           || res.data[0].permission === "Admin";
       });
@@ -223,19 +225,20 @@ export default {
     handleVisibilityChange() {
       if (document.hidden) {
           // User switched tabs or left the page
-          if(this.courseId != null && this.courseId != undefined){
-            socket.emit("leaveRoom", this.courseId)
+          if(this.CourseInfo.courseId != null && this.CourseInfo.courseId != undefined){
+            socket.emit("leaveRoom", this.CourseInfo.courseId)
           }
       } else {
           // User came back to the page
-          socket.emit("requestJoinRoom", this.courseId)
+          socket.emit("requestJoinRoom", this.CourseInfo.courseId)
       }
     },
   },
   async mounted() {
     window.addEventListener('visibilitychange', this.handleVisibilityChange);
     await this.getCourse();
-    this.isOwnerLogged(this.$store.state.user.email);
+
+    this.isOwnerLogged(this.email);
 
     socket.on("transmitRoomMembersCourse", (data) => {
       this.numPageViewers = data
@@ -258,13 +261,13 @@ export default {
     await this.getLikes();
     await this.getDislikes();
 
-    this.like_dislike.courseName = this.courseName
+    this.like_dislike.courseName = this.CourseInfo.courseName
 
-    socket.emit("requestJoinRoom", this.courseId)
+    socket.emit("requestJoinRoom", this.CourseInfo.courseId)
   },
   beforeRouteLeave(to, from, next) {
-    if(this.courseId != null && this.courseId != undefined){
-      socket.emit("leaveRoom", this.courseId)
+    if(this.CourseInfo.courseId != null && this.CourseInfo.courseId != undefined){
+      socket.emit("leaveRoom", this.CourseInfo.courseId)
     }
     window.removeEventListener('visibilitychange', this.handleVisibilityChange);
     next()

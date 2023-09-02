@@ -11,10 +11,10 @@ const userModule = {
     tokenBalance: 0,
   },
   getters: {
-    email: (state) => state.email,
+    email: (state) => localStorage.getItem("email") ? localStorage.getItem("email") : state.email,
     lastVisitedCategory: (state) => state.lastVisitedCategory,
     lastVisitedCourse: (state) => state.lastVisitedCourse,
-    isLoggedIn: (state) => !!state.email,
+    isLoggedIn: (state) => localStorage.getItem("email") ? localStorage.getItem("email") : state.email,
     tokenBalance: (state) => state.tokenBalance,
   },
   mutations: {
