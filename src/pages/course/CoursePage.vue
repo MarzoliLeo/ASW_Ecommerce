@@ -58,7 +58,7 @@ import axios from "axios";
 import { socket } from "@/socket/socket"
 import CourseCommentsBox from "@/components/courses/CourseCommentsBox.vue";
 import sweetalert from "sweetalert"
-import { mapState, mapGetters, mapActions } from "vuex";
+import { mapGetters, } from "vuex";
 
 export default {
   name: "CoursePage",
@@ -103,7 +103,6 @@ export default {
         await axios.get("http://localhost:3000/showCourseByName", {
           params: { course: this.lastVisitedCourse },
         }).then(res => {
-          console.log(res.data[0])
           this.CourseInfo.courseId = res.data[0]._id
           this.CourseInfo.courseName = res.data[0].coursesName;
           this.CourseInfo.description = res.data[0].description;
@@ -117,7 +116,9 @@ export default {
     },
     async addComment() {
       if(this.delivered_comment.comment.commentDescription) {
-        this.delivered_comment.courseName = this.courseName
+        this.delivered_comment.courseName = this.CourseInfo.courseName
+        this.delivered_comment.comment.userComment = this.email
+        console.log(this.delivered_comment)
         axios.post('http://127.0.0.1:3000/addCourseComment', this.delivered_comment)
         .then((res) => {
           socket.emit("requestRefreshComments", "")
@@ -173,16 +174,16 @@ export default {
       await axios.get("http://localhost:3000/showCourseByName", {
           params: { course: this.lastVisitedCourse },
         }).then(res => {
-          this.numLikes = res.data[0].likes.length
-          this.liked = res.data[0].likes.includes(this.email)
+          this.CourseInfo.numLikes = res.data[0].likes.length
+          this.CourseInfo.liked = res.data[0].likes.includes(this.email)
         });
     },
     async getDislikes() {
       await axios.get("http://localhost:3000/showCourseByName", {
           params: { course: this.lastVisitedCourse },
         }).then(res => {
-          this.numDislikes = res.data[0].dislikes.length
-          this.disliked = res.data[0].dislikes.includes(this.email)
+          this.CourseInfo.numDislikes = res.data[0].dislikes.length
+          this.CourseInfo.disliked = res.data[0].dislikes.includes(this.email)
         });
     },
     async removeCourse(courseName) {
@@ -262,6 +263,7 @@ export default {
     await this.getDislikes();
 
     this.like_dislike.courseName = this.CourseInfo.courseName
+    this.like_dislike.userEmail = this.email
 
     socket.emit("requestJoinRoom", this.CourseInfo.courseId)
   },

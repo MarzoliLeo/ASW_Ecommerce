@@ -91,9 +91,12 @@ exports.list_all_courses_by_category_and_trainer = async (req, res) => {
 //Methods to create and manipulate courses comments
 
 exports.add_course_comment = async function (req, res) {
+  console.log(req.body)
   const { courseName, comment } = req.body
   const userComment = comment.userComment
   const commentDescription = comment.commentDescription
+
+  
   try {
     res.json(
       await courses.findOneAndUpdate({ coursesName: courseName },
@@ -134,6 +137,7 @@ exports.remove_course_comment = async (req, res) => {
 
 exports.add_course_like = async function (req, res) {
   const { courseName, userEmail } = req.body
+
   try {
     res.json(
       await courses.findOneAndUpdate({ coursesName: courseName },
