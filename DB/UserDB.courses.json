@@ -2,12 +2,12 @@
   "_id": {
     "$oid": "64ea2d1ef916f44b00b4800a"
   },
-  "coursesName": "Course1 - Test",
-  "description": "Course1 - Test - Desc",
-  "price": 98,
-  "courseCategory": "Test",
-  "courseCreator": "test@test.it",
-  "courseYTLink": "UItWltVZZmE?si=V4HGhLZjJyq31u-E",
+  "coursesName": "At Home Core Bodybuilding Workout",
+  "description": "You can (and should) scale the workouts to fit your level, but you should never scale so much that you don't feel challenged. Every workout should feel difficult. Your heart should be racing and you should be sweating. Push yourself as much as you can. Rest when you must, but don't take more than a minute or two to catch your breath.\n\nThe Clutch Life Trainer doesn't end with these workouts. You need to carry the same willingness to work with you into your kitchen and everyday life. No, you don't have a super-specific diet to follow, but if you follow the flexible game plan I've laid out for you, you'll see fantastic results in your physique, performance, and overall health.\n\nThe Clutch Life is all about putting your best foot forward every single day.",
+  "price": 90,
+  "courseCategory": "Bodybuilding",
+  "courseCreator": "ashCon@gmail.com",
+  "courseYTLink": "dJlFmxiL11s",
   "comments": [],
   "likes": [],
   "dislikes": [],
@@ -20,12 +20,12 @@
   "_id": {
     "$oid": "64ea2d25f916f44b00b48013"
   },
-  "coursesName": "Course2 - Test",
-  "description": "Course2 - Test - Desc",
+  "coursesName": "20 Minute at Home Flexibility Workout",
+  "description": "Because today's workout is short and less intense, you may be tempted to skip it. Skipping workouts is not part of the Clutch Life plan. Besides, training your flexibility is just great for your muscles and your joints. If your muscles can move well through an entire range of motion, you'll be less prone to injury. Stretching your muscles can also help them recover from tough workouts and help you prepare for tomorrow!\n\nDuring the stretch series, do each exercise twice before moving on to the next one. After each 30-second set, spend 10-15 seconds shaking out your muscles before moving on.",
   "price": 50,
-  "courseCategory": "Test",
-  "courseCreator": "test@test.it",
-  "courseYTLink": "",
+  "courseCategory": "Bodybuilding",
+  "courseCreator": "ashCon@gmail.com",
+  "courseYTLink": "03JKamVnbfs",
   "comments": [],
   "likes": [],
   "dislikes": [],
@@ -38,12 +38,30 @@
   "_id": {
     "$oid": "64ea2d47f916f44b00b48033"
   },
-  "coursesName": "Course3 - Test",
-  "description": "Course3 - Test - Desc",
-  "price": 15,
-  "courseCategory": "Test",
-  "courseCreator": "root@self.com",
-  "courseYTLink": "",
+  "coursesName": "20min Barbell Workout Follow Along",
+  "description": "This 20min Barbell Workout can also be done with Dumbbells as a follow along at home or in the gym giving you a great full body barbell workout.\n\nThe 20 minute workout includes a timer, as well as video prompts and technique tips throughout making it an easy to follow, safe and effective workout. The workout consists of barbell exercises for the Legs, Back, and Shoulders using compound movements (large muscle group combinations).",
+  "price": 45,
+  "courseCategory": "Bodybuilding",
+  "courseCreator": "tomPeto@gmail.com",
+  "courseYTLink": "AhTgMsL4GVk",
+  "comments": [],
+  "likes": [],
+  "dislikes": [],
+  "created_date": {
+    "$date": "2023-08-26T16:50:15.138Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64f5f2c01dd94273e2f0f7b3"
+  },
+  "coursesName": "10 Best Exercises To Start Calisthenics",
+  "description": "\nIn this video we share the 10 most effective exercises to start with calisthenics. These exercises are perfect to get stronger in the basics of calisthenics. Despite building a strong calisthenics foundation, these exercises help every beginner to get used to most of the calisthencis movements. They are great for building muscle, increasing strength and improving mobility. All aspects are essential within calisthenics training.  Next to the exercises, we also share a complete beginner calisthenics workout plan.",
+  "price": 60,
+  "courseCategory": "Calisthenics",
+  "courseCreator": "yannWoerd@gmail.com",
+  "courseYTLink": "RoxKbyst0To",
   "comments": [],
   "likes": [],
   "dislikes": [],

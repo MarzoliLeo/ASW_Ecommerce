@@ -2,14 +2,14 @@
   "_id": {
     "$oid": "64e7439d3b68be3e6cb4919a"
   },
-  "first_name": "Federico",
-  "last_name": "Pirazzoli",
+  "first_name": "Ashley",
+  "last_name": "Conrad",
   "permission": "Staff",
-  "email": "test@test.it",
-  "password": "123",
-  "token_balance": 4175,
+  "email": "ashCon@gmail.com",
+  "password": "ashley_311",
+  "token_balance": 100,
   "course_bought": [
-    "Course1 - Test"
+    "At Home Core Bodybuilding Workout"
   ],
   "created_date": {
     "$date": "2023-08-24T11:48:45.231Z"
@@ -25,11 +25,46 @@
   "permission": "Admin",
   "email": "root@self.com",
   "password": "root",
-  "token_balance": 4929,
+  "token_balance": 9679,
   "course_bought": [
-    "Course1 - Test",
-    "g"
+    "At Home Core Bodybuilding Workout",
+    "10 Best Exercises To Start Calisthenics",
+    "20 Minute at Home Flexibility Workout"
   ],
+  "created_date": {
+    "$date": "2023-08-24T11:48:45.231Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64f5f0fd1dd94273e2f0f7aa"
+  },
+  "first_name": "Tom",
+  "last_name": "Peto",
+  "permission": "Staff",
+  "email": "tomPeto@gmail.com",
+  "password": "petTom_399",
+  "token_balance": 50,
+  "course_bought": [
+    "At Home Core Bodybuilding Workout"
+  ],
+  "created_date": {
+    "$date": "2023-08-24T11:48:45.231Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64f5f2731dd94273e2f0f7b1"
+  },
+  "first_name": "Yannick",
+  "last_name": "Woerdman",
+  "permission": "Staff",
+  "email": "yannWoerd@gmail.com",
+  "password": "Woerd_4000",
+  "token_balance": 0,
+  "course_bought": [],
   "created_date": {
     "$date": "2023-08-24T11:48:45.231Z"
   },
