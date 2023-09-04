@@ -10,7 +10,7 @@
       </div>
       <div v-else class="row">
         
-        <div class="col-md-6">
+        <div class="col-md-12 d-flex flex-column align-items-center">
           <div class="card">
             <div class="card-header">
               <h5 class="card-title">Cart Items</h5>
@@ -24,9 +24,9 @@
               </div>
             </div>
           </div>
-          <div class="text-center">
-                            <button class="btn my-3 btn-primary" @click.prevent="validateCheckout">Checkout</button>
-                            </div>
+          <div class="text-center w-25">
+            <button class="btn my-3 btn-primary" @click.prevent="checkout()">Checkout</button>
+          </div>
         </div>
       </div>
     </div>
@@ -44,11 +44,7 @@ export default {
   },
   data() {
     return {
-      name: "",
-      surname: "",
-      cardNumber: "",
-      expirationDate: "",
-      cvv: "",
+
       buying_info: {
         userEmail: this.email,
         coursesName: this.cart == undefined ? undefined : JSON.parse(JSON.stringify(this.cart))
@@ -63,13 +59,6 @@ export default {
     ...mapActions("cart", ["removeFromCart"]),
     ...mapActions("cart", ["fetchCart"]),
 
-    validateCheckout() {
-      if (this.name && this.surname && this.cardNumber && this.expirationDate && this.cvv) {
-        this.checkout();
-      } else {
-        sweetAlert("Attention", "Please fill all the fields", "error");
-      }
-    },
     checkout() {
       if (this.$store.state.user.tokenBalance >= this.totalPrice) {
         // Handle checkout process
