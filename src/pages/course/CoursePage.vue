@@ -4,10 +4,10 @@
       <div class="col-12 text-center">
         <h3 class="pt-3">{{ CourseInfo.courseName }}</h3>
       </div>
-      <p>{{ CourseInfo.description }}</p>
       <div v-if="CourseInfo.courseYTLink" class="embed-responsive embed-responsive-16by9">
         <img class="card-img-top" :src="'https://img.youtube.com/vi/' + CourseInfo.courseYTLink + '/maxresdefault.jpg'" alt="Card image here">
       </div>
+      <p>{{ CourseInfo.description }}</p>
     </div>
     <div class="row">
       <div class="col-2 mb-4 mt-4 d-flex align-items-left">

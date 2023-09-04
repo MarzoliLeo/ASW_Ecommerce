@@ -7,7 +7,7 @@
         <div class="card-body text-center">
           <h5 class="card-title">{{ course.coursesName }}</h5>
           <p class="card-text">{{ course.price }} Tokens</p>
-          <p class="card-text">Creator is: {{ course.courseCreator }}</p>
+          <p class="card-text">Creator is: {{ creatorInfo.first_name }} {{ creatorInfo.last_name }}</p>
           <button v-if="alreadyBought" @click.stop.prevent="addToCart(course)">Add to Cart</button>
         </div>
       </div>
@@ -38,6 +38,7 @@ export default {
     return {
       ownerLogged: false,
       alreadyBought: false,
+      creatorInfo: [],
     }
   },
   computed: {
@@ -102,10 +103,25 @@ export default {
         }
       }
     },
+    async getOwnerInfo(email) {
+        try {
+          await api.get("/getUserByEmail", {
+            params: {
+              email: email,
+            },
+          })
+          .then(res => {
+            this.creatorInfo = res.data[0]
+        });
+        } catch (err) {
+          console.log(err);
+        }
+    },
   },
   mounted() {
     this.isOwnerLogged(this.email);
     this.isAlreadyBought(this.email);
+    this.getOwnerInfo(this.course.courseCreator);
   },
 };
 </script>

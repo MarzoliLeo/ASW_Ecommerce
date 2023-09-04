@@ -5,16 +5,62 @@ import userModule from '@/store/UserModule';
 <template>
     <h2 class="d-flex align-items-center justify-content-center mt-2 mb-5">Benvenuto sulla tua User Page</h2>
     <div class="card">
-      <h1 class="mt-1 mb-4">{{ userModule.state.email }}</h1>
+      <h1 class="mt-1 mb-1">{{ this.creatorInfo.first_name }}</h1>
+      <h1 class="mt-1 mb-3">{{ this.creatorInfo.last_name }}</h1>
+      <h2 class="mt-1 mb-4">{{ this.email }}</h2>
       <p class="title">Premi il pulsante qui sotto per visualizzare i corsi!</p>
       <p>Qui troverai i dati a te associati:</p>
-      <p>Tokens disponibili: {{ $store.state.user.tokenBalance }} tokens</p>
+      <p>Tokens disponibili: {{ this.tokenBalance }} tokens</p>
       <p><RouterLink class="nav-link" :to="{ name: 'BoughtCourses' }">    
               <button>Visita i tuoi corsi!</button>
           </RouterLink>
       </p>
     </div>
 </template>
+
+<script>
+import axios from "axios";
+import { ref } from "vue";
+import { mapGetters } from "vuex";
+
+const CourseBox = ref({});
+const api = axios.create({
+  baseURL: "http://localhost:3000",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+export default {
+  data() {
+    return {
+      creatorInfo: [],
+    }
+  },
+  computed: {
+    ...mapGetters("user", ["email", "tokenBalance"]),
+  },
+  methods: {
+    async getOwnerInfo(email) {
+        try {
+          await api.get("/getUserByEmail", {
+            params: {
+              email: email,
+            },
+          })
+          .then(res => {
+            this.creatorInfo = res.data[0]
+        });
+        } catch (err) {
+          console.log(err);
+        }
+    },
+  },
+  mounted() {
+    this.getOwnerInfo(this.email);
+  },
+};
+</script>
 
 <style>
 .card {

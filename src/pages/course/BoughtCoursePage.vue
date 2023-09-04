@@ -4,8 +4,8 @@
       <div class="col-12 text-center">
         <h3 class="pt-3">{{ courseName }}</h3>
       </div>
-      <p>{{ description }}</p>
       <div class="youtubeVideo"><iframe v-if="this.ytLink" width="1920" height="1080" :src="'https://www.youtube.com/embed/' + ytLink"></iframe></div>
+      <p>{{ description }}</p>
       <p>People watching this page: {{ numPageViewers }}</p>
     </div>
   </div>
