@@ -95,12 +95,11 @@ exports.list_all_courses_by_category_and_trainer = async (req, res) => {
 //Methods to create and manipulate courses comments
 
 exports.add_course_comment = async function (req, res) {
-  console.log(req.body)
+  // console.log(req.body)
   const { courseName, comment } = req.body
   const userComment = comment.userComment
   const commentDescription = comment.commentDescription
 
-  
   try {
     res.json(
       await courses.findOneAndUpdate({ coursesName: courseName },
@@ -121,7 +120,7 @@ exports.add_course_comment = async function (req, res) {
 
 exports.remove_course_comment = async (req, res) => {
   const { courseName, userComment, commentDescription, posting_date } = req.body;
-  console.log(req.body)
+  // console.log(req.body)
   try {
     res.json(await courses.updateOne({ coursesName: courseName }, {
         $pull: {

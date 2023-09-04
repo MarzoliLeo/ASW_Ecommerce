@@ -44,7 +44,7 @@ export default {
           });
         });
 
-        console.log(this.courses)
+        // console.log(this.courses)
 
 
         // this.courses = resNameCourse.data[0].course_bought;

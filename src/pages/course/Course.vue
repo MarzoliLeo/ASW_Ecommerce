@@ -116,8 +116,6 @@ export default {
     await this.getTrainers();
     await this.isNotUserLogged(this.email);
 
-    console.log(this.email)
-
     socket.on("refreshCourses", () => {
       console.log("Refreshing courses");
       this.getCourses();

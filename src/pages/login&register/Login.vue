@@ -28,7 +28,7 @@ export default {
             icon: "success"
           })
           this.$store.commit("user/login", this.email)
-          console.log(this.email)
+          // console.log(this.email)
           this.$router.push("/")
 
         })

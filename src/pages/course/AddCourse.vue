@@ -11,8 +11,6 @@ export default{
         coursesName: "", 
         description: "", 
         price: 0.0,
-        courseCategory: this.lastVisitedCategory,
-        courseCreator: this.email,
         courseYTLink: "",
       }
     }
@@ -26,8 +24,8 @@ export default{
         coursesName: this.Course.coursesName,
         description: this.Course.description,
         price: parseFloat(this.Course.price),
-        courseCategory: this.Course.courseCategory,
-        courseCreator: this.Course.courseCreator,
+        courseCategory: this.lastVisitedCategory,
+        courseCreator: this.email,
         courseYTLink: this.Course.courseYTLink == undefined ? "" : this.Course.courseYTLink
       };
       axios.post('http://127.0.0.1:3000/addCourse', newCourse)
@@ -37,7 +35,7 @@ export default{
             text: "Course added successfully",
             icon: "success"
           })   
-          console.log(newCourse)
+          // console.log(newCourse)
       })
       .catch((err) => {
         sweetalert({

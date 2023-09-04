@@ -60,7 +60,7 @@ export default {
     },
   },
   async mounted() {
-    console.log(this.$route.params.course)
+    // console.log(this.$route.params.course)
     window.addEventListener('visibilitychange', this.handleVisibilityChange);
 
     socket.on("transmitRoomMembersCourseBought", (data) => {

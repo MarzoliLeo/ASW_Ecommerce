@@ -42,7 +42,7 @@ export default {
       const categoryToDelete = {
         categoryName: categoryName
       }
-      console.log(categoryToDelete)
+      // console.log(categoryToDelete)
       axios.post('http://127.0.0.1:3000/deleteCategory', categoryToDelete)
         .then((res) => {
           socket.emit("requestRefreshCategories", "")

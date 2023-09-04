@@ -32,7 +32,7 @@ export default{
     },
     isAdminLogged(email) {
       if(email != '' && email != undefined) {
-        console.log(email)
+        // console.log(email)
         axios.get("http://localhost:3000/usersPermission", {
           params: {
             email: email,

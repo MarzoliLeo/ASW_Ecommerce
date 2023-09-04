@@ -58,6 +58,7 @@ export default{
         courseCreator: this.Course.courseCreator,
         courseYTLink: this.Course.courseYTLink == undefined ? "" : this.Course.courseYTLink
       };
+      this.$store.commit("user/commitCourse", modifyCourse.coursesName);
       axios.post('http://127.0.0.1:3000/modifyCourse', modifyCourse)
       .then((res) => {
         socket.emit("requestRefreshCourses", "")
@@ -65,7 +66,7 @@ export default{
             text: "Course added successfully",
             icon: "success"
           })   
-          console.log(modifyCourse)
+          // console.log(modifyCourse)
       })
       .catch((err) => {
         sweetalert({

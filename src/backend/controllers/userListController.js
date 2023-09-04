@@ -83,7 +83,7 @@ exports.add_tokens = async function (req, res) {
   try {
     const user = await User.findOne({ email: req.body.email });
     // print the email
-    console.log("This is the email: " + req.body.email);
+    // console.log("This is the email: " + req.body.email);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -100,7 +100,7 @@ exports.remove_tokens = async (req, res) => {
   const email = req.body.email;
   const amount = req.body.amount;
 
-  console.log("Data received: email " + email + " " + amount + " tokens")
+  // console.log("Data received: email " + email + " " + amount + " tokens")
   try {
     const user = await User.findOne({ email });
 

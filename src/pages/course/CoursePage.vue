@@ -103,6 +103,7 @@ export default {
         await axios.get("http://localhost:3000/showCourseByName", {
           params: { course: this.lastVisitedCourse },
         }).then(res => {
+          // console.log(this.lastVisitedCourse)
           this.CourseInfo.courseId = res.data[0]._id
           this.CourseInfo.courseName = res.data[0].coursesName;
           this.CourseInfo.description = res.data[0].description;
@@ -118,7 +119,7 @@ export default {
       if(this.delivered_comment.comment.commentDescription) {
         this.delivered_comment.courseName = this.CourseInfo.courseName
         this.delivered_comment.comment.userComment = this.email
-        console.log(this.delivered_comment)
+        // console.log(this.delivered_comment)
         axios.post('http://127.0.0.1:3000/addCourseComment', this.delivered_comment)
         .then((res) => {
           socket.emit("requestRefreshComments", "")
@@ -186,10 +187,11 @@ export default {
           this.CourseInfo.disliked = res.data[0].dislikes.includes(this.email)
         });
     },
-    async removeCourse(courseName) {
+    async removeCourse() {
       const courseToDelete = {
-        courseName: this.courseName,
+        courseName: this.CourseInfo.courseName,
       };
+      // console.log(courseToDelete)
       try {
         await axios.post("http://localhost:3000/deleteCourse", courseToDelete);
         socket.emit("requestRefreshCourses", "");

@@ -11,7 +11,7 @@ export default{
   },
   methods: {
     addCategory() {
-      console.log(this.Category.categoryName, this.Category.description, this.Category.imageUrl);
+      // console.log(this.Category.categoryName, this.Category.description, this.Category.imageUrl);
         const newCategory = {
           categoryName: this.Category.categoryName,
           description: this.Category.description,

@@ -137,7 +137,7 @@ export default {
   },
   watch: {
     cart: function (newValue) {
-      console.log("Cart changed", newValue);
+      // console.log("Cart changed", newValue);
       this.totalPrice = 0;
       newValue.forEach((item) => {
         this.totalPrice += item.price;
@@ -162,7 +162,7 @@ export default {
   },
   created() {
     if (this.$store.state.user.email !== "") {
-      console.log(this.email)
+      // console.log(this.email)
       this.fetchCart(this.email);
       // set the user.state.tokenBalance to the value of the tokenBalance in the database
       this.$store.dispatch("user/getTokenBalance", this.email); +
