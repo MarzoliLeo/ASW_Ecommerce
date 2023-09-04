@@ -9,7 +9,7 @@
 
 <h2 style="text-align:center">Lo Staff</h2>
 <div class="row">
-  <div class="column">
+  <div class="col">
     <div class="card">
       <img src="@\assets\img\lorenzomassone.jpg" alt="Leo" style="width:200px">
       <div class="container">
@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  <div class="column">
+  <div class="col">
     <div class="card">
       <img src="@\assets\img\lorenzomassone.jpg" alt="Federico" style="width:200px">
       <div class="container">
@@ -33,7 +33,7 @@
     </div>
   </div>
   
-  <div class="column">
+  <div class="col">
     <div class="card">
       <img src="@\assets\img\lorenzomassone.jpg" alt="Lorenzo" style="width:200px">
       <div class="container">
