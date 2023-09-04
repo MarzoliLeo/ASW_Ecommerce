@@ -31,7 +31,7 @@
         <i v-else @click="dislike()" role="button" class="bi bi-hand-thumbs-down-fill">{{ CourseInfo.numDislikes }}</i>
       </div>
     </div>
-    <div v-if="this.email && this.boughtCourse" class="row">
+    <div v-if="this.email && (this.boughtCourse || ownerLogged)" class="row">
       <form class="col-12 text-center pt-5">
         <div class="form-group">
           <label>Comment Description:</label>
@@ -139,7 +139,7 @@ export default {
       this.CourseInfo.retrievedComments = res.data[0].comments
     },
     async like() {
-      if(this.email && this.boughtCourse && !this.CourseInfo.disliked) {
+      if(this.email && !this.CourseInfo.disliked && (this.boughtCourse || this.ownerLogged)) {
         if(!this.CourseInfo.liked) {
           this.CourseInfo.liked = true;
           axios.post('http://127.0.0.1:3000/addLike', this.like_dislike)
@@ -156,7 +156,7 @@ export default {
       }
     },
     async dislike() {
-      if(this.email && this.boughtCourse && !this.CourseInfo.liked) {
+      if(this.email && !this.CourseInfo.liked && (this.boughtCourse || this.ownerLogged)) {
         if(!this.CourseInfo.disliked) {
           this.CourseInfo.disliked = true;
           axios.post('http://127.0.0.1:3000/addDislike', this.like_dislike)
