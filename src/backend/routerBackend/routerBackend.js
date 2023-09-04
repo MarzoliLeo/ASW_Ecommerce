@@ -30,6 +30,9 @@ routerBackend.route('/addTokens')
 routerBackend.route('/removeTokens')
   .post(userController.remove_tokens);
 
+routerBackend.route('/getUserByEmail')
+  .get(userController.get_user_by_email);
+
 routerBackend.route('/getTokenBalance')
   .get(userController.get_token_balance);
 

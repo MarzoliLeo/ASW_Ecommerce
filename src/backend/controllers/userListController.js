@@ -6,13 +6,8 @@ var mongoose = require('mongoose');
 const User = require('../models/userListModels.js');
 user = mongoose.model('users'); //Nome della collection in MongoDB per gli user.
 
-exports.list_all_users = async (req, res) => {
-  try {
-    res.json(await user.find({}));
-  } catch (err) {
-    res.json(err);
-  }
-};
+
+//Methods to create and manipulate users 
 
 exports.create_an_user = async (req, res) => {
   const newUser = new User(req.body);
@@ -22,6 +17,31 @@ exports.create_an_user = async (req, res) => {
     res.json(e);
   }
 };
+
+
+
+//Methods to list users in different ways
+
+exports.list_all_users = async (req, res) => {
+  try {
+    res.json(await user.find({}));
+  } catch (err) {
+    res.json(err);
+  }
+};
+
+exports.get_user_by_email = async (req, res) => {
+  const email = req.query["email"];
+  try {
+    res.json(await user.find({ email: email }));
+  } catch (err) {
+    res.json(err);
+  }
+};
+
+
+
+//Methods to check different users properties
 
 exports.checkIfRegisterForLogin = async (req, res) => {
   try {
@@ -37,10 +57,6 @@ exports.checkIfRegisterForLogin = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
-
-
-
-
 
 exports.checkIfUserExists = async (req, res) => {
   // console.log(req.body["email"])
@@ -59,16 +75,9 @@ exports.checkIfUserExists = async (req, res) => {
   }
 };
 
-exports.get_user_by_email = async (req, res) => {
-  const email = req.query["email"];
-  try {
-    res.json(await user.find({ email: email }));
-  } catch (err) {
-    res.json(err);
-  }
-};
 
 
+//Methods to perform operations on users tokens
 
 exports.add_tokens = async function (req, res) {
   try {
@@ -125,6 +134,10 @@ exports.get_token_balance = async function (req, res) {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
+
+//Method to add bought course to a users list of bought courses
 
 exports.add_bought_course = async function (req, res) {
   const { userEmail, coursesName } = req.body
