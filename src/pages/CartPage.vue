@@ -9,47 +9,7 @@
         Your cart is empty.
       </div>
       <div v-else class="row">
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-header">
-              <h5 class="card-title">Payment Details</h5>
-            </div>
-            <div class="card-body">
-              <form class="form-inline">
-                <div class="form-group">
-                  <label for="name">Name</label>
-                  <input type="text" class="form-control ml-2" id="name" placeholder="Name of the card holder"
-                    v-model="name">
-                </div>
-                <div class="form-group">
-                  <label for="surname">Surname</label>
-                  <input type="text" class="form-control ml-2" id="surname" placeholder="Surname of the card holder"
-                    v-model="surname">
-                </div>
-                <div class="form-group">
-                  <label for="card-number">Card Number</label>
-                  <input type="tel" class="form-control ml-2" id="card-number" maxlength="16"
-                    placeholder="Enter card number" v-model="cardNumber">
-                </div>
-                <div class="row">
-                  <div class="form-group col-md-8">
-                    <label for="expiration-date" class="mr-2">Expiration Date</label>
-                    <input type="text" class="form-control" id="expiration-date" placeholder="MM/YY"
-                      v-model="expirationDate" maxlength="5">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="cvv" class="mr-2">CVV</label>
-                    <input type="number" class="form-control" id="cvv" placeholder="Enter CVV" v-model="cvv"
-                      onkeypress="if (this.value.length > 2) return false;" min="100" max="999">
-                  </div>
-                </div>
-                <div class="text-center">
-                  <button class="btn my-3 btn-primary" @click.prevent="validateCheckout">Checkout</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+        
         <div class="col-md-6">
           <div class="card">
             <div class="card-header">
@@ -64,6 +24,9 @@
               </div>
             </div>
           </div>
+          <div class="text-center">
+                            <button class="btn my-3 btn-primary" @click.prevent="validateCheckout">Checkout</button>
+                            </div>
         </div>
       </div>
     </div>
