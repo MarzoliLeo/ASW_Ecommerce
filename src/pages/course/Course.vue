@@ -74,17 +74,27 @@ export default {
       }
     },
     async getTrainers() {
-      try {
-        const res = await axios.get("http://localhost:3000/showCoursesTrainers");
-        this.trainers = res.data;
+      if(this.courses.length > 0) {
+        try {
+          const coursesNames = []
+          this.courses.forEach((course) => {
+            coursesNames.push(course.coursesName)
+          })
 
-        this.trainers.sort(function(a, b) {
-          if(a < b) { return -1; }
-          if(a > b) { return 1; }
-          return 0;
-        })
-      } catch (err) {
-        console.log(err);
+          const res = await axios.get("http://localhost:3000/showCoursesTrainers", {
+            params: { courses: coursesNames },
+          });
+          this.trainers = res.data;
+          this.trainers.sort(function(a, b) {
+            if(a < b) { return -1; }
+            if(a > b) { return 1; }
+            return 0;
+          })
+          // console.log(this.courses)
+          console.log(this.trainers)
+        } catch (err) {
+          console.log(err);
+        }
       }
     },
     filterCourses() {

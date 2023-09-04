@@ -45,18 +45,22 @@ exports.modify_course = async (req, res) => {
 
 //Methods to list courses in different ways
 
-exports.list_all_courses = async (req, res) => {
+exports.list_course_by_name = async (req, res) => {
+  const courseName = req.query["course"];
   try {
-    res.json(await courses.find().distinct('courseCreator'));
+    res.json(await courses.find({ coursesName: courseName }));
   } catch (err) {
     res.json(err);
   }
 };
 
-exports.list_course_by_name = async (req, res) => {
-  const courseName = req.query["course"];
+exports.list_all_courses_by_trainer = async (req, res) => {
+  const coursesList = req.query["courses"];
   try {
-    res.json(await courses.find({ coursesName: courseName }));
+    res.json(await courses.find({
+      coursesName: {$in:coursesList}
+    })
+    .distinct('courseCreator'));
   } catch (err) {
     res.json(err);
   }

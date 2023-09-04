@@ -76,7 +76,7 @@ routerBackend.route('/showCoursesByCategory')
   .get(courseController.list_all_courses_by_category);
 
 routerBackend.route('/showCoursesTrainers')
-  .get(courseController.list_all_courses);
+  .get(courseController.list_all_courses_by_trainer);
 
 routerBackend.route('/showCoursesByCategoryAndTrainer')
   .get(courseController.list_all_courses_by_category_and_trainer);
