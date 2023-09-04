@@ -31,7 +31,8 @@ export default{
       )
     },
     isAdminLogged(email) {
-      if(this.email != '' && this.email != undefined) {
+      if(email != '' && email != undefined) {
+        console.log(email)
         axios.get("http://localhost:3000/usersPermission", {
           params: {
             email: email,
@@ -52,7 +53,7 @@ export default{
   //Questo metodo viene invocato non appena la classe viene istanziata.
   mounted() {
     this.getCategories();
-    this.isAdminLogged(this.email);
+    this.isAdminLogged(this.$store.state.user.email);
     
     socket.on("refreshCategories", () => {
       // console.log("Refreshing categories")

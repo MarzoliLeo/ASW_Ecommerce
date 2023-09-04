@@ -110,6 +110,7 @@ export default {
     checkout() {
       if (this.$store.state.user.tokenBalance >= this.totalPrice) {
         // Handle checkout process
+        this.buying_info.userEmail = this.email
         this.cart.forEach((item) => {
           this.buying_info.coursesName = item.courseName
           axios.post( "http://127.0.0.1:3000/addBoughtCourse", this.buying_info)
@@ -161,6 +162,7 @@ export default {
   },
   created() {
     if (this.$store.state.user.email !== "") {
+      console.log(this.email)
       this.fetchCart(this.email);
       // set the user.state.tokenBalance to the value of the tokenBalance in the database
       this.$store.dispatch("user/getTokenBalance", this.email); +

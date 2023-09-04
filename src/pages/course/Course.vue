@@ -90,8 +90,6 @@ export default {
             if(a > b) { return 1; }
             return 0;
           })
-          // console.log(this.courses)
-          console.log(this.trainers)
         } catch (err) {
           console.log(err);
         }
@@ -117,6 +115,8 @@ export default {
     await this.getCourses();
     await this.getTrainers();
     await this.isNotUserLogged(this.email);
+
+    console.log(this.email)
 
     socket.on("refreshCourses", () => {
       console.log("Refreshing courses");

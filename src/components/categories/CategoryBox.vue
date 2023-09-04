@@ -6,7 +6,7 @@
           <img class="card-img-top" :src="category.imageUrl" alt="Card image here">
         </div>
         <div class="card-body">
-          <h5 class="card-title">{{ category.categoryName }}</h5>
+          <h2 class="card-title pb-3">{{ category.categoryName }}</h2>
           <p class="card-text">{{ category.description }}</p>
           <button v-if="adminLogged" @click.stop.prevent="removeCategory(category.categoryName)">Remove</button>
         </div>
@@ -47,7 +47,7 @@ export default {
         .then((res) => {
           socket.emit("requestRefreshCategories", "")
           sweetalert({
-            text: "Course deleted succesfully",
+            text: "Category deleted succesfully",
             icon: "success"
           })
         })

@@ -5,7 +5,7 @@
         <h3 class="pt-3">{{ courseName }}</h3>
       </div>
       <div class="youtubeVideo"><iframe v-if="this.ytLink" width="1920" height="1080" :src="'https://www.youtube.com/embed/' + ytLink"></iframe></div>
-      <p>{{ description }}</p>
+      <p class="mt-3 mb-5">{{ description }}</p>
       <p>People watching this page: {{ numPageViewers }}</p>
     </div>
   </div>

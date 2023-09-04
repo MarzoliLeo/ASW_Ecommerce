@@ -6,9 +6,8 @@
         </div>
         <div class="card-body text-center">
           <h5 class="card-title">{{ course.coursesName }}</h5>
-          <p class="card-text">{{ course.description }}</p>
           <p class="card-text">{{ course.price }} Tokens</p>
-          <p class="card-text">Creator is: {{ creatorInfo.first_name }} {{ creatorInfo.last_name }}</p>
+          <p class="card-text">Creator is: {{ creatorInfo.first_name }} {{ creatorInfo.last_name }} ({{ creatorInfo.email }})</p>
         </div>
       </div>
     </a>
