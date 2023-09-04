@@ -27,7 +27,7 @@
   }
 
   #background-div {
-    background: url(../../dist/assets/fitness1.jpeg)
+    background: url(@/assets/img/fitness1.jpeg)
   }
 
   #heading {

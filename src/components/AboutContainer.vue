@@ -11,7 +11,7 @@
 <div class="row">
   <div class="column">
     <div class="card">
-      <img src="dist\assets\lorenzomassone.jpg" alt="Leo" style="width:200px">
+      <img src="@\assets\img\lorenzomassone.jpg" alt="Leo" style="width:200px">
       <div class="container">
         <h2>Leo Marzoli</h2>
         <p class="title">CEO & Founder</p>
@@ -23,7 +23,7 @@
 
   <div class="column">
     <div class="card">
-      <img src="dist\assets\lorenzomassone.jpg" alt="Federico" style="width:200px">
+      <img src="@\assets\img\lorenzomassone.jpg" alt="Federico" style="width:200px">
       <div class="container">
         <h2>Federico Pirazzoli</h2>
         <p class="title">Art Director</p>
@@ -35,7 +35,7 @@
   
   <div class="column">
     <div class="card">
-      <img src="dist\assets\lorenzomassone.jpg" alt="Lorenzo" style="width:200px">
+      <img src="@\assets\img\lorenzomassone.jpg" alt="Lorenzo" style="width:200px">
       <div class="container">
         <h2>Lorenzo Massone</h2>
         <p class="title">Designer</p>
