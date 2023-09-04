@@ -11,10 +11,10 @@
     </div>
     <div class="row">
       <div class="col-2 mb-4 mt-4 d-flex align-items-left">
-        <RouterLink v-if:="CourseInfo.ownerLogged" class="nav-link" :to="{ name: 'CourseModify' }">    
+        <RouterLink v-if:="ownerLogged" class="nav-link" :to="{ name: 'CourseModify' }">    
           <button class="btn btn-secondary me-4">Modify Course</button>
         </RouterLink>
-        <button v-if="CourseInfo.ownerLogged" class="col-6 ms-3 btn btn-secondary" @click.stop.prevent="removeCourse()">Remove Course</button>
+        <button v-if="ownerLogged" class="col-6 ms-3 btn btn-secondary" @click.stop.prevent="removeCourse()">Remove Course</button>
       </div>
     </div>
     <div class="row mt-4">
