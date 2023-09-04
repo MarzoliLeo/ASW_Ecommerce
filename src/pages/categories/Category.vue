@@ -19,19 +19,19 @@ export default{
   },
   methods: {
     async getCategories() {
-      console.log("Getting categories")
+      // console.log("Getting categories")
       await axios.get("http://localhost:3000/showCategories") 
       .then(res => {
-          console.log(this.categories)
+          // console.log(this.categories)
           this.categories = res.data
-          console.log(this.categories)
+          // console.log(this.categories)
       })
       .catch(err => 
         console.log(err)
       )
     },
     isAdminLogged(email) {
-      if(this.email != '') {
+      if(this.email != '' && this.email != undefined) {
         axios.get("http://localhost:3000/usersPermission", {
           params: {
             email: email,
@@ -55,7 +55,7 @@ export default{
     this.isAdminLogged(this.email);
     
     socket.on("refreshCategories", () => {
-      console.log("Refreshing categories")
+      // console.log("Refreshing categories")
       this.getCategories();
     });
   }

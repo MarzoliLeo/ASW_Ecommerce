@@ -207,20 +207,22 @@ export default {
       }
     },
     async isOwnerLogged(email) {
-      try {
-        await axios.get("http://localhost:3000/usersPermission", {
-          params: {
-            email: email,
-          },
-        })
-        .then(res => {
-          this.CourseInfo.ownerLogged =
-          (res.data[0].email === this.CourseInfo.courseCreator 
-          && res.data[0].permission === "Staff") 
-          || res.data[0].permission === "Admin";
-      });
-      } catch (err) {
-        console.log(err);
+      if(email != '' && email != undefined) {
+        try {
+          await axios.get("http://localhost:3000/usersPermission", {
+            params: {
+              email: email,
+            },
+          })
+          .then(res => {
+            this.CourseInfo.ownerLogged =
+            (res.data[0].email === this.CourseInfo.courseCreator 
+            && res.data[0].permission === "Staff") 
+            || res.data[0].permission === "Admin";
+        });
+        } catch (err) {
+          console.log(err);
+        }
       }
     },
     handleVisibilityChange() {
@@ -242,11 +244,11 @@ export default {
     this.isOwnerLogged(this.email);
 
     socket.on("transmitRoomMembersCourse", (data) => {
-      this.numPageViewers = data
+      this.CourseInfo.numPageViewers = data
     });
 
     socket.on("transmitRoomMembersCourseBought", (data) => {
-      this.numCourseViewers = data
+      this.CourseInfo.numCourseViewers = data
     });
 
     socket.on("refreshComments", () => {

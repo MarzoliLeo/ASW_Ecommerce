@@ -69,34 +69,38 @@ export default {
       }
     },
     async isOwnerLogged(email) {
-      try {
-        await api.get("/usersPermission", {
-          params: {
-            email: email,
-          },
-        })
-        .then(res => {
-          this.ownerLogged =
-          (res.data[0].email === this.course.courseCreator 
-          && res.data[0].permission === "Staff") 
-          || res.data[0].permission === "Admin";
-      });
-      } catch (err) {
-        console.log(err);
+      if(email != '' && email != undefined) {
+        try {
+          await api.get("/usersPermission", {
+            params: {
+              email: email,
+            },
+          })
+          .then(res => {
+            this.ownerLogged =
+            (res.data[0].email === this.course.courseCreator 
+            && res.data[0].permission === "Staff") 
+            || res.data[0].permission === "Admin";
+        });
+        } catch (err) {
+          console.log(err);
+        }
       }
     },
     async isAlreadyBought(email) {
-      try {
-        await api.get("/usersBoughtCourses", {
-          params: {
-            email: email,
-          },
-        })
-        .then(res => {
-          this.alreadyBought = !res.data[0].course_bought.includes(this.course.coursesName)
-        });
-      } catch (err) {
-        console.log(err);
+      if(email != '' && email != undefined) {
+        try {
+          await api.get("/usersBoughtCourses", {
+            params: {
+              email: email,
+            },
+          })
+          .then(res => {
+            this.alreadyBought = !res.data[0].course_bought.includes(this.course.coursesName)
+          });
+        } catch (err) {
+          console.log(err);
+        }
       }
     },
   },
