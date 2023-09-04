@@ -92,6 +92,26 @@ exports.list_all_courses_by_category_and_trainer = async (req, res) => {
 
 
 
+//Methods to check different courses properties
+
+exports.check_if_course_exists = async (req, res) => {
+  try {
+    const newCourse = req.body;
+    const courseGotten = await Course.findOne({ coursesName: newCourse.coursesName });
+    
+    if (courseGotten) {
+      return res.status(409).json({ error: 'Course already registered!' });
+    }
+
+    return res.status(200).json({ message: 'Acceptable course registration' });
+  } catch (err) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
+
+
 //Methods to create and manipulate courses comments
 
 exports.add_course_comment = async function (req, res) {

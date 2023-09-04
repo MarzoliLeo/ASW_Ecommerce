@@ -28,26 +28,54 @@ export default{
         courseCreator: this.email,
         courseYTLink: this.Course.courseYTLink == undefined ? "" : this.Course.courseYTLink
       };
-      axios.post('http://127.0.0.1:3000/addCourse', newCourse)
+
+      axios.post('http://127.0.0.1:3000/checkExistingCourse', newCourse)
       .then((res) => {
-        socket.emit("requestRefreshCourses", "")
-        sweetalert({
-            text: "Course added successfully",
-            icon: "success"
-          })   
-          // console.log(newCourse)
-      })
-      .catch((err) => {
-        sweetalert({
+        axios.post('http://127.0.0.1:3000/addCourse', newCourse)
+        .then((res) => {
+          socket.emit("requestRefreshCourses", "")
+          sweetalert({
+              text: "Course added successfully",
+              icon: "success"
+            })   
+            // console.log(newCourse)
+        })
+        .catch((err) => {
+          sweetalert({
             text: "Info error. Course not registered.",
             icon: "error"
           });
-        console.log("Errore di tipo: "+ err)
-      });
+          console.log("Errore di tipo: "+ err)
+        });
+      })
+      .catch((err) => {
+        if (err.response.status === 409) {
+            sweetalert({
+              text: "Course already exists.",
+              icon: "error",
+            });
+          } else {
+            sweetalert({
+              text: "Internal server error.",
+              icon: "error"
+            });
+          }
+          console.log("Errore di tipo: "+ err)
+        });
     }
   }
 }
 </script>
+
+
+
+if (err.response.status === 409) {
+  sweetalert({
+    text: "Course already exists.",
+    icon: "error",
+  });
+}
+
 
 <template>
   <div class="container">

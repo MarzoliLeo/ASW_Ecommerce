@@ -66,6 +66,9 @@ routerBackend.route('/modifyCourse')
 routerBackend.route('/deleteCourse')
   .post(courseController.delete_course);
 
+routerBackend.route('/checkExistingCourse')
+  .post(courseController.check_if_course_exists);
+
 routerBackend.route('/addCourseComment')
   .post(courseController.add_course_comment);
 
