@@ -26,7 +26,7 @@ export default {
     return {
       ownerLogged: false,
       deleteInfo: {
-          courseName: this.lastVisitedCourse,
+          courseName: "",
           userComment: this.comment.userComment,
           commentDescription: this.comment.commentDescription,
           posting_date: this.comment.posting_date
@@ -56,6 +56,7 @@ export default {
     },
     async removeCourseComment() {
       try {
+        this.deleteInfo.courseName = this.lastVisitedCourse
         await axios.post("http://localhost:3000/removeCourseComment", this.deleteInfo)
         .then((res) => {
           socket.emit("requestRefreshComments", "")

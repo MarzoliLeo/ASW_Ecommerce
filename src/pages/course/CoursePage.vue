@@ -31,7 +31,7 @@
         <i v-else @click="dislike()" role="button" class="bi bi-hand-thumbs-down-fill">{{ CourseInfo.numDislikes }}</i>
       </div>
     </div>
-    <div v-if="this.email" class="row">
+    <div v-if="this.email && this.boughtCourse" class="row">
       <form class="col-12 text-center pt-5">
         <div class="form-group">
           <label>Comment Description:</label>
@@ -81,6 +81,7 @@ export default {
         retrievedComments: [],
       },
       ownerLogged: false,
+      boughtCourse: false,
       delivered_comment: {
         courseName: "",
         comment: {
@@ -138,7 +139,7 @@ export default {
       this.CourseInfo.retrievedComments = res.data[0].comments
     },
     async like() {
-      if(this.email && !this.CourseInfo.disliked) {
+      if(this.email && this.boughtCourse && !this.CourseInfo.disliked) {
         if(!this.CourseInfo.liked) {
           this.CourseInfo.liked = true;
           axios.post('http://127.0.0.1:3000/addLike', this.like_dislike)
@@ -155,7 +156,7 @@ export default {
       }
     },
     async dislike() {
-      if(this.email && !this.CourseInfo.liked) {
+      if(this.email && this.boughtCourse && !this.CourseInfo.liked) {
         if(!this.CourseInfo.disliked) {
           this.CourseInfo.disliked = true;
           axios.post('http://127.0.0.1:3000/addDislike', this.like_dislike)
@@ -217,10 +218,12 @@ export default {
             },
           })
           .then(res => {
-            this.CourseInfo.ownerLogged =
+            this.ownerLogged =
             (res.data[0].email === this.CourseInfo.courseCreator 
             && res.data[0].permission === "Staff") 
             || res.data[0].permission === "Admin";
+
+            this.boughtCourse = res.data[0].course_bought.includes(this.CourseInfo.courseName)
         });
         } catch (err) {
           console.log(err);
@@ -241,9 +244,6 @@ export default {
   },
   async mounted() {
     window.addEventListener('visibilitychange', this.handleVisibilityChange);
-    await this.getCourse();
-
-    this.isOwnerLogged(this.email);
 
     socket.on("transmitRoomMembersCourse", (data) => {
       this.CourseInfo.numPageViewers = data
@@ -262,6 +262,8 @@ export default {
       this.getDislikes();
     });
 
+    await this.getCourse();
+    await this.isOwnerLogged(this.email);
     await this.getComments();
     await this.getLikes();
     await this.getDislikes();
